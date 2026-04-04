@@ -1,5 +1,5 @@
 export function createSearch() {
-  const mobile = window.matchMedia('(max-width: 500px)').matches;
+  const mobile = window.matchMedia('(max-width: 900px)').matches;
   const container = document.createElement('div');
   container.dataset.uiElement = 'true';
   container.style.position = 'absolute';
