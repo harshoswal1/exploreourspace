@@ -1,8 +1,7 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/master/active.txt',
-  'https://celestrak.org/NORAD/elements/active.txt'
+  'https://cdn.jsdelivr.net/gh/celestrak/NORAD-Elements/active.txt'
 ];
 
 export default async function handler(req, res) {
@@ -31,11 +30,7 @@ export default async function handler(req, res) {
   }
 
   if (!response) {
-    console.warn('All sources failed, returning minimal fallback');
-    const fallback = `ISS (ZARYA)
-1 25544U 98067A   24093.49198941  .00006481  00000+0  12652-3 0  9998
-2 25544  51.6427 210.7470 0004318  92.4975  24.0587 15.50350066358655`;
-    return res.status(200).send(fallback);
+    return res.status(500).json({ error: 'All sources failed (check logs)' });
   }
 
   // cache for 1 hour (important)
