@@ -1,5 +1,6 @@
 import * as THREE from 'https://esm.sh/three@0.152.2';
 import { OrbitControls } from 'https://esm.sh/three@0.152.2/examples/jsm/controls/OrbitControls.js';
+import { inject } from 'https://esm.sh/@vercel/analytics';
 
 import { createEarthRuntime } from './app/earthRuntime.js';
 import { createAsteroidSystem } from './app/asteroids.js';
@@ -23,6 +24,9 @@ import { createSearch } from './ui/search.js';
 import { createInstructions } from './ui/instructions.js';
 import { createAudioControl } from './ui/audioControl.js';
 import { getEarthClimateInfo } from './utils/earthClimate.js';
+
+// Initialize Vercel Analytics
+inject();
 
 const state = createAppState();
 const MOON_AVERAGE_DISTANCE_KM = 384400;
