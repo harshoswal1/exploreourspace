@@ -214,7 +214,8 @@ function parseTLEText(text, satelliteInstance) {
         const satrec = satelliteInstance.twoline2satrec(line1, line2);
         result.push({ name: nameLine, satrec });
       } catch (error) {
-        console.warn('Skipping invalid TLE entry:', nameLine, error);
+        console.warn('TLE invalid, using static position for:', nameLine, error.message);
+        result.push({ name: nameLine, satrec: { staticPosition: [0, 0, 0], staticOrbit: [] } });
       }
       index += 3;
       continue;
@@ -274,7 +275,7 @@ export async function loadSatellites() {
 
   if (satelliteText) {
     const parsed = parseTLEText(satelliteText, satelliteInstance);
-    if (parsed.length > 10) {
+    if (parsed.length > 0) {
       storeSatelliteCache(satelliteText);
       return {
         satellites: parsed,
@@ -282,7 +283,7 @@ export async function loadSatellites() {
         updatedAt: new Date().toISOString(),
       };
     }
-    console.warn('Live satellite text parsed too few entries:', parsed.length);
+    console.warn('Live satellite text parsed 0 entries');
   }
 
   const cached = loadSatelliteCache();
