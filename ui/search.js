@@ -5,7 +5,7 @@ export function createSearch() {
   container.style.position = 'absolute';
   container.style.top = mobile ? '50px' : '60px';
   container.style.right = mobile ? '12px' : '118px';
-  container.style.left = mobile ? '12px' : '100px';
+  container.style.left = mobile ? '12px' : '1000px';
   container.style.width = mobile ? 'calc(100vw - 24px)' : 'min(340px, calc(100vw - 234px))';
   container.style.padding = mobile ? '6px 8px' : '8px';
   container.style.borderRadius = mobile ? '14px' : '18px';
