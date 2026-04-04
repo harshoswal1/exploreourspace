@@ -559,8 +559,8 @@ function createAlertsPanel() {
     panel.style.top = '400px';
     panel.style.right = '20px';
     panel.style.width = 'min(364px, calc(100vw - 40px))';
-    panel.style.maxHeight = '182px';
-    panel.style.padding = '12px';
+    panel.style.maxHeight = '280px';
+    panel.style.padding = '14px';
     panel.style.borderRadius = '24px';
   }
   panel.style.background = 'rgba(8,12,20,0.48)';
@@ -575,6 +575,7 @@ function createAlertsPanel() {
   const header = document.createElement('div');
   header.style.display = 'flex';
   header.style.alignItems = 'center';
+  header.style.width = '100%';
   header.style.justifyContent = 'space-between';
   header.style.cursor = isMobile ? 'pointer' : 'default';
 
@@ -583,7 +584,7 @@ function createAlertsPanel() {
   const title = document.createElement('div');
   title.textContent = 'Earth Live Alerts';
   title.style.color = '#ffffff';
-  title.style.fontSize = isMobile ? '10px' : '13px';
+  title.style.fontSize = isMobile ? '10px' : '14px';
   title.style.fontWeight = '700';
   title.style.letterSpacing = '0.08em';
   title.style.textTransform = 'uppercase';
@@ -600,11 +601,9 @@ function createAlertsPanel() {
 
   const toggle = document.createElement('div');
   toggle.textContent = isMobile ? '⚠️' : '';
+  toggle.style.marginLeft = '8px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
-  toggle.style.display = 'flex';
-  toggle.style.alignItems = 'center';
-  toggle.style.justifyContent = 'center';
 
   const content = document.createElement('div');
   content.style.marginTop = '10px';
@@ -638,7 +637,7 @@ function createAlertsPanel() {
       panel.style.width = 'min(300px, calc(100vw - 40px))';
       panel.style.left = '20px';
       panel.style.borderRadius = '20px';
-      panel.style.padding = '12px';
+      panel.style.padding = '14px';
       header.style.justifyContent = 'space-between';
       content.style.display = 'block';
       title.style.display = 'block';
@@ -652,7 +651,6 @@ function createAlertsPanel() {
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       header.style.justifyContent = 'center';
-      header.style.width = '100%';
       content.style.display = 'none';
       title.style.display = 'none';
       status.style.display = 'none';

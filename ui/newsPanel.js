@@ -57,9 +57,9 @@ export function createNewsPanel() {
   }
   panel.style.background = 'rgba(8,12,20,0.48)';
   panel.style.border = '1px solid rgba(255,255,255,0.1)';
-  panel.style.backdropFilter = 'blur(20px)';
-  panel.style.webkitBackdropFilter = 'blur(20px)';
-  panel.style.boxShadow = '0 14px 36px rgba(0,0,0,0.28)';
+  panel.style.backdropFilter = 'blur(22px)';
+  panel.style.webkitBackdropFilter = 'blur(22px)';
+  panel.style.boxShadow = '0 18px 42px rgba(0,0,0,0.28)';
   panel.style.zIndex = '15';
   panel.style.overflow = 'hidden';
   panel.style.transition = 'all 0.22s ease';
@@ -67,6 +67,7 @@ export function createNewsPanel() {
   const header = document.createElement('div');
   header.style.display = 'flex';
   header.style.alignItems = 'center';
+  header.style.width = '100%';
   header.style.justifyContent = 'space-between';
   header.style.cursor = isMobile ? 'pointer' : 'default';
 
@@ -91,11 +92,9 @@ export function createNewsPanel() {
 
   const toggle = document.createElement('div');
   toggle.textContent = isMobile ? '🛰️' : '';
+  toggle.style.marginLeft = '8px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
-  toggle.style.display = 'flex';
-  toggle.style.alignItems = 'center';
-  toggle.style.justifyContent = 'center';
 
   const content = document.createElement('div');
   content.style.marginTop = '12px';
@@ -143,7 +142,6 @@ export function createNewsPanel() {
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       header.style.justifyContent = 'center';
-      header.style.width = '100%';
       content.style.display = 'none';
       title.style.display = 'none';
       status.style.display = 'none';
