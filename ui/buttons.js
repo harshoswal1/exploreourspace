@@ -2,8 +2,10 @@ function styleButton(button) {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   button.style.width = '100%';
   button.style.padding = mobile ? '14px 14px' : '10px 12px';
+  button.style.padding = mobile ? '8px 6px' : '10px 12px';
   button.style.borderRadius = mobile ? '16px' : '14px';
   button.style.fontSize = mobile ? '14px' : '11px';
+  button.style.fontSize = mobile ? '11px' : '11px';
   button.style.fontWeight = '600';
   button.style.letterSpacing = '0.03em';
   button.style.color = 'white';
@@ -79,8 +81,10 @@ export function createButtons() {
   container.style.width = mobile ? 'calc(100% - 24px)' : '248px';
   container.style.maxWidth = mobile ? '640px' : 'none';
   container.style.maxHeight = mobile ? '42vh' : 'min(68vh, 620px)';
+  container.style.maxHeight = mobile ? '70vh' : 'min(68vh, 620px)';
   container.style.overflowY = 'auto';
   container.style.padding = mobile ? '10px 8px' : '12px';
+  container.style.padding = mobile ? '12px 10px' : '12px';
   container.style.borderRadius = '20px';
   container.style.background = 'rgba(8,12,20,0.54)';
   container.style.border = '1px solid rgba(255,255,255,0.1)';
@@ -89,6 +93,7 @@ export function createButtons() {
   container.style.boxShadow = '0 14px 36px rgba(0,0,0,0.28)';
   container.style.zIndex = '15';
   container.style.transform = mobile ? 'translateX(-50%)' : 'translateX(-18px) translateY(-6px)';
+  container.style.transform = mobile ? 'translateX(-50%) translateY(20px)' : 'translateX(-18px) translateY(-6px)';
   container.style.opacity = '0';
   container.style.pointerEvents = 'none';
   container.style.transition = 'transform 180ms ease, opacity 180ms ease';
@@ -97,6 +102,7 @@ export function createButtons() {
   stack.style.display = 'flex';
   stack.style.flexDirection = 'column';
   stack.style.gap = '12px';
+  stack.style.gap = mobile ? '8px' : '12px';
   container.appendChild(stack);
 
   const toggle = document.createElement('button');
@@ -247,6 +253,11 @@ export function createButtons() {
 
   function syncMenu() {
     container.style.transform = open ? 'translateX(0) translateY(0)' : 'translateX(-18px) translateY(-6px)';
+    if (mobile) {
+      container.style.transform = open ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)';
+    } else {
+      container.style.transform = open ? 'translateX(0) translateY(0)' : 'translateX(-18px) translateY(-6px)';
+    }
     container.style.opacity = open ? '1' : '0';
     container.style.pointerEvents = open ? 'auto' : 'none';
     toggle.textContent = open ? '◉' : '◎';
