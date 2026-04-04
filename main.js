@@ -321,10 +321,7 @@ window.addEventListener('resize', () => {
 await satelliteSystem.load();
 await asteroidSystem.load();
 if (satelliteStatusBadge && typeof satelliteStatusBadge.setStatus === 'function') {
-  satelliteStatusBadge.setStatus(
-    satelliteSystem.getStatus(),
-    satelliteSystem.getStatusDetail()
-  );
+  satelliteStatusBadge.setStatus(satelliteSystem.getStatus());
 }
 satelliteSystem.updateVisibility('');
 asteroidSystem.updateVisibility('');

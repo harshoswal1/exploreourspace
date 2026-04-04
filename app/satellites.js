@@ -13,7 +13,6 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
   let satelliteLib = null;
   const selectedTrailPoints = [];
   let status = 'UPDATING';
-  let statusDetail = '';
   const selectedTrail = new THREE.Line(
     new THREE.BufferGeometry(),
     new THREE.LineBasicMaterial({
@@ -61,9 +60,6 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
     satelliteLib = satelliteResult.lib;
     
     status = satelliteResult.status || 'FALLBACK';
-    statusDetail = satelliteResult.updatedAt
-      ? new Date(satelliteResult.updatedAt).toLocaleString()
-      : '';
 
     if (!satelliteData.length) {
       console.error('No satellite data loaded on deploy (satellite service unreachable or rate-limited).');
@@ -248,6 +244,5 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
     handlePointer,
     update,
     getStatus: () => status,
-    getStatusDetail: () => statusDetail,
   };
 }
