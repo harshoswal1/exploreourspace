@@ -38,8 +38,9 @@ export function createNewsPanel() {
   panel.id = 'news-panel-root';
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.bottom = '210px'; // Stacked above Alerts (which is at 150px)
-    panel.style.right = '20px';
+    panel.style.top = '80px';
+    panel.style.left = '20px';
+    panel.style.right = 'auto';
     panel.style.width = '40px';
     panel.style.height = '40px';
     panel.style.borderRadius = '50%';
@@ -57,9 +58,9 @@ export function createNewsPanel() {
   }
   panel.style.background = 'rgba(8,12,20,0.48)';
   panel.style.border = '1px solid rgba(255,255,255,0.1)';
-  panel.style.backdropFilter = 'blur(22px)';
-  panel.style.webkitBackdropFilter = 'blur(22px)';
-  panel.style.boxShadow = '0 18px 42px rgba(0,0,0,0.28)';
+  panel.style.backdropFilter = 'blur(20px)';
+  panel.style.webkitBackdropFilter = 'blur(20px)';
+  panel.style.boxShadow = '0 14px 36px rgba(0,0,0,0.28)';
   panel.style.zIndex = '15';
   panel.style.overflow = 'hidden';
   panel.style.transition = 'all 0.22s ease';
@@ -67,7 +68,6 @@ export function createNewsPanel() {
   const header = document.createElement('div');
   header.style.display = 'flex';
   header.style.alignItems = 'center';
-  header.style.width = '100%';
   header.style.justifyContent = 'space-between';
   header.style.cursor = isMobile ? 'pointer' : 'default';
 
@@ -127,26 +127,23 @@ export function createNewsPanel() {
       panel.style.maxHeight = '320px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
       panel.style.left = '20px';
-      header.style.justifyContent = 'space-between';
+      panel.style.left = '20px';
       panel.style.borderRadius = '20px';
       panel.style.padding = '14px';
       content.style.display = 'block';
       title.style.display = 'block';
       status.style.display = 'block';
       toggle.textContent = '✕';
-      toggle.style.marginLeft = '8px';
     } else {
       panel.style.width = '40px';
       panel.style.height = '40px';
       panel.style.left = '20px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
-      header.style.justifyContent = 'center';
       content.style.display = 'none';
       title.style.display = 'none';
       status.style.display = 'none';
       toggle.textContent = '🛰️';
-      toggle.style.marginLeft = '0';
     }
   }
 

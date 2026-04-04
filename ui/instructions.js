@@ -3,7 +3,7 @@ export function createInstructions() {
   const container = document.createElement('div');
   container.style.position = 'absolute';
   // Higher on mobile to avoid overlapping with bottom navigation buttons
-  container.style.bottom = isMobile ? '90px' : '40px';
+  container.style.bottom = isMobile ? '150px' : '40px';
   container.style.left = '50%';
   container.style.transform = 'translateX(-50%)';
   container.style.zIndex = '100';
