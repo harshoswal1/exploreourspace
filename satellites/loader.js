@@ -160,7 +160,12 @@ function isLikelyTLE(line1, line2) {
 }
 
 function parseTLEText(text, satelliteInstance) {
-  const lines = text.trim().split('\n');
+  const lines = text
+  .replace(/\r/g, '')
+  .replace(/ {2,}/g, '\n')   // split broken lines
+  .split('\n')
+  .map(l => l.trim())
+  .filter(Boolean);
   const result = [];
 
   for (let i = 0; i < lines.length; i += 3) {
