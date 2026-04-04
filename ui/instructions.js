@@ -31,7 +31,7 @@ export function createInstructions() {
       </div>
       <div style="margin-bottom: 10px;">
         <span style="color: #f6fbff;">Tap ◎</span> (Top Left) 
-        <br/> <span style="font-size: 0.9em; color: #a0c8ff; opacity: 0.8;">to toggle Layers, Objects & Scene controls</span>
+        <br/> <span style="font-size: 0.9em; color: #a0c8ff; opacity: 0.8;">to toggle Layers, Objects, orbits & weather controls</span>
       </div>
       <div style="margin-bottom: 10px;">
         <span style="color: #ffe066;">Double Tap</span> on Satellites, Asteroids, or Moon 

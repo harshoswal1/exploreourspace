@@ -259,6 +259,17 @@ export function createButtons() {
     toggle.textContent = open ? '◉' : '◎';
   }
 
+  // Auto-close menu when any option is selected
+  [
+    orbitBtn, allLayersBtn, satBtn, asteroidsBtn, asteroidBtn,
+    windBtn, auroraBtn, terminatorBtn, earthLabelsBtn, alertsBtn,
+    weatherBtn, categoryBtn, starsBtn, labelBtn
+  ].forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (open) { open = false; syncMenu(); }
+    });
+  });
+
   toggle.addEventListener('click', () => {
     open = !open;
     syncMenu();
