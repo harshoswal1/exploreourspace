@@ -1,7 +1,8 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/master/active.txt'
+  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/master/active.txt',
+  'https://celestrak.org/NORAD/elements/active.txt'
 ];
 
 export default async function handler(req, res) {
@@ -13,6 +14,12 @@ export default async function handler(req, res) {
       if (r.ok) {
         response = r;
         text = await r.text();
+        // Skip if response is too small (likely broken or blocked)
+        if (!text || text.length < 500) {
+          console.warn('Received incomplete data from', url);
+          response = null;
+          continue;
+        }
         break;
       } else {
         const errorText = await r.text();
@@ -32,6 +39,6 @@ export default async function handler(req, res) {
   }
 
   // cache for 1 hour (important)
-  res.setHeader('Cache-Control', 's-maxage=3600');
+  res.setHeader('Cache-Control', 'no-store');
   res.status(200).send(text);
 }
