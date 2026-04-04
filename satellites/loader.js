@@ -160,20 +160,26 @@ function isLikelyTLE(line1, line2) {
 }
 
 function parseTLEText(text, satelliteInstance) {
-  // Normalize text
-  const cleaned = text.replace(/\r/g, '\n');
+  // Normalize text and attempt to reconstruct broken TLE formatting
+  const cleaned = text
+    .replace(/\r/g, '\n')
+    .replace(/(1 \d{5}U)/g, '\n$1')
+    .replace(/(2 \d{5})/g, '\n$1');
 
-  // Split into tokens
-  const tokens = cleaned.split(/\n|\s(?=1\s)|\s(?=2\s)/).map(t => t.trim()).filter(Boolean);
+  // Split into lines
+  const lines = cleaned
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean);
 
   const result = [];
 
-  for (let i = 0; i < tokens.length - 2; i++) {
-    const name = tokens[i];
-    const line1 = tokens[i + 1];
-    const line2 = tokens[i + 2];
+  for (let i = 0; i < lines.length - 2; i++) {
+    const name = lines[i];
+    const line1 = lines[i + 1];
+    const line2 = lines[i + 2];
 
-    if (!isLikelyTLE(line1, line2)) continue;
+    if (!isLikelyTLE(line1, line2)) continuße;
 
     try {
       if (!satelliteInstance || typeof satelliteInstance.twoline2satrec !== 'function') {
