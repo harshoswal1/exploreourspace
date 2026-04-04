@@ -196,25 +196,38 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
       const labelScale = Math.max(0.3, Math.min(1.2, distance / 12));
       entry.label.scale.set(labelScale, labelScale * 0.3, 1);
 
-      const blink = 0.7 + 0.3 * Math.sin(Date.now() * 0.005);
-      entry.mesh.children[0].material.opacity = blink;
-      entry.mesh.children[0].material.transparent = true;
+      const { point, model, halo } = entry.mesh.userData;
 
-      const { point, model } = entry.mesh.userData;
+      const blink = 0.75 + 0.25 * Math.sin(Date.now() * 0.005);
+      point.material.opacity = blink;
+      point.material.transparent = true;
+      if (halo) {
+        halo.material.opacity = blink * (distance < 5 ? 0.7 : 0.4);
+        halo.material.transparent = true;
+      }
+
       point.material.color.set(0xffe066);
+      if (halo) halo.material.color.set(0xffe066);
       if (isImportant(entry.name)) {
         point.material.opacity = 1.0;
       }
 
+      const baseScale = Math.max(0.8, Math.min(2.5, distance / 6));
+      // Proximity-based glow: as distance decreases below 5, we increase the relative size of the glow
+      const glowScale = distance < 5 ? (0.8 + (5 - distance) * 0.15) : baseScale;
+
+      point.scale.setScalar(glowScale);
+      if (halo) {
+        const haloPulse = glowScale * (1.6 + 0.4 * Math.sin(Date.now() * 0.003));
+        halo.scale.setScalar(haloPulse);
+        halo.visible = true;
+      }
+
+      point.visible = true;
       if (distance < 5) {
-        point.visible = false;
         model.visible = true;
       } else {
-        point.visible = true;
         model.visible = false;
-
-        const scaleFactor = Math.max(0.8, Math.min(2.5, distance / 6));
-        point.scale.set(scaleFactor, scaleFactor, scaleFactor);
       }
 
       if (isSelected) {

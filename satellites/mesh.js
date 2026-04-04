@@ -33,6 +33,16 @@ export function createSatelliteMesh() {
   const point = new THREE.Mesh(pointGeo, pointMat);
   group.add(point);
 
+  const haloGeo = new THREE.SphereGeometry(0.045, 12, 12);
+  const haloMat = new THREE.MeshBasicMaterial({
+    color: 0xffe066,
+    transparent: true,
+    opacity: 0.45,
+    blending: THREE.AdditiveBlending,
+  });
+  const halo = new THREE.Mesh(haloGeo, haloMat);
+  group.add(halo);
+
   const bodyGeo = new THREE.BoxGeometry(0.03, 0.02, 0.02, 2, 2, 2);
   const bodyMat = new THREE.MeshStandardMaterial({
     color: 0xaaaaaa,
@@ -77,7 +87,7 @@ export function createSatelliteMesh() {
   const hitMesh = new THREE.Mesh(hitGeo, hitMat);
   group.add(hitMesh);
 
-  group.userData = { point, model };
+  group.userData = { point, model, halo };
 
   return group;
 }
