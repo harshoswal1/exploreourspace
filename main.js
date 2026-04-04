@@ -13,7 +13,6 @@ import { createStars } from './scene/stars.js';
 import { createButtons } from './ui/buttons.js';
 import { createBrand } from './ui/brand.js';
 import { createAsteroidStatusBadge } from './ui/asteroidStatusBadge.js';
-import { createCloudStatusBadge } from './ui/cloudStatusBadge.js';
 import { createSatelliteStatusBadge } from './ui/satelliteStatusBadge.js';
 import { createFollowExitButton } from './ui/followExitButton.js';
 import { createInfoPanel, showEarthClimateInfo, showMoonInfo } from './ui/infoPanel.js';
@@ -38,7 +37,6 @@ style.textContent = `
     }
 
     /* Position status badges specifically under the Live Badge in the TOP RIGHT */
-    #cloud-status-badge-root { top: 65px !important; right: 20px !important; }
     #asteroid-status-badge-root { top: 95px !important; right: 20px !important; }
     #satellite-status-badge-root { top: 125px !important; right: 20px !important; }
 
@@ -94,7 +92,6 @@ const { searchInput, clearBtn } = createSearch();
 createLiveBadge();
 const newsPanel = createNewsPanel();
 const poleCompass = createPoleCompass();
-const cloudStatusBadge = createCloudStatusBadge();
 const asteroidStatusBadge = createAsteroidStatusBadge();
 const satelliteStatusBadge = createSatelliteStatusBadge();
 const exitFollowBtn = createFollowExitButton();
@@ -342,7 +339,6 @@ function animate() {
     now: now,
   });
   newsPanel.update();
-  cloudStatusBadge.setStatus(earthRuntime.getCloudStatus());
   asteroidStatusBadge.setStatus(asteroidSystem.getStatus());
   exitFollowBtn.style.display = focusController.isFollowing() ? 'block' : 'none';
   satelliteSystem.update();
