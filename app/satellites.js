@@ -71,8 +71,7 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
     }
 
     if (!satelliteLib) {
-      console.warn('Satellite library missing in load(). Retrying fallback initialization.');
-      // We will try to proceed with static positions if available
+      console.warn('Satellite library missing. System will use static/fallback positions.');
     }
 
     satelliteData.forEach((sat) => {

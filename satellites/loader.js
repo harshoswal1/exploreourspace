@@ -59,28 +59,28 @@ const STATIC_SATELLITES = [
   {
     name: 'ISS (Fallback)',
     satrec: {
-      staticPosition: [0.225, 0.175, 0.04],
+      staticPosition: [2.8, 2.1, 0.6],
       staticOrbit: createStaticOrbitPoints(0.22, 51.64, 0),
     },
   },
   {
     name: 'Hubble (Fallback)',
     satrec: {
-      staticPosition: [-0.18, 0.2, 0.13],
+      staticPosition: [-2.5, 2.6, 1.2],
       staticOrbit: createStaticOrbitPoints(0.24, 28.5, 45),
     },
   },
   {
     name: 'NOAA (Fallback)',
     satrec: {
-      staticPosition: [0.08, -0.22, 0.17],
+      staticPosition: [1.2, -3.2, 1.8],
       staticOrbit: createStaticOrbitPoints(0.23, 99.2, 90),
     },
   },
   {
     name: 'Starlink (Fallback)',
     satrec: {
-      staticPosition: [-0.14, -0.16, 0.21],
+      staticPosition: [-2.0, -2.5, 2.5],
       staticOrbit: createStaticOrbitPoints(0.2, 53.0, 120),
     },
   },
@@ -113,6 +113,7 @@ async function loadSatelliteLibrary() {
         const mod = await import(source);
         const candidate = mod.default || mod;
         if (candidate && typeof candidate.twoline2satrec === 'function') {
+          if (typeof window !== 'undefined') window.satellite = candidate;
           satelliteLib = candidate;
           break;
         }
@@ -158,7 +159,7 @@ function loadSatelliteCache() {
   }
 }
 
-async function fetchWithTimeout(url, timeoutMs = 12000) {
+async function fetchWithTimeout(url, timeoutMs = 25000) {
   const controller = new AbortController();
   const signal = controller.signal;
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -224,7 +225,7 @@ function parseTLEText(text, satelliteInstance) {
         result.push({ name: satelliteName, satrec });
       } catch (error) {
         console.warn('TLE invalid or satellite library unavailable, using static position for:', satelliteName, error.message);
-        const radius = 1.1;
+        const radius = 3.4 + Math.random() * 0.4;
         const lat = (Math.random() - 0.5) * Math.PI;
         const lon = Math.random() * Math.PI * 2;
         const x = radius * Math.cos(lat) * Math.cos(lon);
