@@ -12,13 +12,12 @@ export default async function handler(req, res) {
   for (const url of SOURCES) {
     try {
       const r = await fetch(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0'
-        }
+        cache: 'no-store'
       });
       if (r.ok) {
         response = r;
         text = await r.text();
+        console.log('Fetched length from', url, text.length);
         // Skip if response is too small (likely broken or blocked)
         if (!text || text.length < 500) {
           console.warn('Received incomplete data from', url);
