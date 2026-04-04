@@ -1,6 +1,8 @@
 const SATELLITE_SOURCES = [
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle',
   'https://celestrak.org/NORAD/elements/visual.txt',
-  'https://celestrak.org/NORAD/elements/stations.txt'
+  'https://celestrak.org/NORAD/elements/stations.txt',
 ];
 
 const SATELLITE_PROXY_PREFIXES = [
@@ -152,7 +154,7 @@ async function fetchWithTimeout(url, timeoutMs = 12000) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(url, { cache: 'no-store', signal });
+    const response = await fetch(url, { cache: 'no-store', signal, redirect: 'follow' });
     return response;
   } finally {
     clearTimeout(timeout);
@@ -161,9 +163,7 @@ async function fetchWithTimeout(url, timeoutMs = 12000) {
 
 function isLikelyTLE(line1, line2) {
   if (!line1 || !line2) return false;
-  if (!line1.startsWith('1 ') || !line2.startsWith('2 ')) return false;
-  if (line1.length < 20 || line2.length < 20) return false;
-  return true;
+  return /^1\s+\d{5}/.test(line1) && /^2\s+\d{5}/.test(line2);
 }
 
 function normalizeProxyMetadata(text) {
@@ -202,25 +202,24 @@ function parseTLEText(text, satelliteInstance) {
     const line1 = lines[index + 1].trim();
     const line2 = lines[index + 2].trim();
 
-    if (nameLine && line1.startsWith('1 ') && line2.startsWith('2 ')) {
+    if (isLikelyTLE(line1, line2)) {
+      const satelliteName = nameLine.startsWith('1 ') ? `Unknown satellite ${index}` : nameLine;
       try {
         if (!satelliteInstance || typeof satelliteInstance.twoline2satrec !== 'function') {
-          index += 3;
-          continue;
+          throw new Error('satellite library unavailable');
         }
 
         const satrec = satelliteInstance.twoline2satrec(line1, line2);
-        result.push({ name: nameLine, satrec });
+        result.push({ name: satelliteName, satrec });
       } catch (error) {
-        console.warn('TLE invalid, using static position for:', nameLine, error.message);
-        // Generate random position around Earth for visibility
-        const radius = 1.1; // Just outside Earth surface
-        const lat = (Math.random() - 0.5) * Math.PI; // -90 to 90 deg
-        const lon = Math.random() * Math.PI * 2; // 0 to 360 deg
+        console.warn('TLE invalid or satellite library unavailable, using static position for:', satelliteName, error.message);
+        const radius = 1.1;
+        const lat = (Math.random() - 0.5) * Math.PI;
+        const lon = Math.random() * Math.PI * 2;
         const x = radius * Math.cos(lat) * Math.cos(lon);
         const y = radius * Math.sin(lat);
         const z = radius * Math.cos(lat) * Math.sin(lon);
-        result.push({ name: nameLine, satrec: { staticPosition: [x, y, z], staticOrbit: [] } });
+        result.push({ name: satelliteName, satrec: { staticPosition: [x, y, z], staticOrbit: [] } });
       }
       index += 3;
       continue;
@@ -246,6 +245,10 @@ export async function loadSatellites() {
       const text = await response.text();
       if (!text || text.trim().length < 50) {
         console.warn('Satellite source returned too little text:', url);
+        return null;
+      }
+      if (/<\/html>|<!doctype|<title>/i.test(text)) {
+        console.warn('Satellite source returned HTML instead of TLE text:', url);
         return null;
       }
       return text;

@@ -1,37 +1,63 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/main/active.txt'
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle',
+  'https://celestrak.org/NORAD/elements/visual.txt',
+  'https://celestrak.org/NORAD/elements/stations.txt',
 ];
 
+function isPlainTextTLE(text) {
+  if (!text) return false;
+  const sample = text.slice(0, 640);
+  if (/<\/html>|<!doctype|<title>/i.test(sample)) return false;
+  return /1\s+\d{5}.*\n2\s+\d{5}/s.test(sample);
+}
+
 export default async function handler(req, res) {
-  let response = null;
   let text = null;
+
+  let sourceUsed = null;
+
   for (const url of SOURCES) {
     try {
-      const r = await fetch(url);
-      if (!r.ok) continue;
-
-      text = await r.text();
-
-      if (text && text.length > 10000) {
-        response = r;
-        break;
+      const r = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0',
+          Accept: 'text/plain',
+        },
+        redirect: 'follow',
+        cache: 'no-store',
+      });
+      if (!r.ok) {
+        console.warn('Satellite source failed:', url, r.status);
+        continue;
       }
+
+      const body = await r.text();
+      if (!body || body.length < 500 || !isPlainTextTLE(body)) {
+        console.warn('Satellite source returned invalid text:', url);
+        continue;
+      }
+
+      text = body;
+      sourceUsed = url;
+      break;
     } catch (err) {
-      console.error('Fetch error:', err);
+      console.error('Fetch error for satellite source:', url, err);
     }
   }
 
-  if (!response) {
+  if (!text) {
     console.warn('Using minimal fallback data');
-    const fallback = `ISS (ZARYA)
+    text = `ISS (ZARYA)
 1 25544U 98067A   24093.49198941  .00006481  00000+0  12652-3 0  9998
 2 25544  51.6427 210.7470 0004318  92.4975  24.0587 15.50350066358655`;
-    return res.status(200).send(fallback);
+  } else {
+    console.log('Satellite proxy endpoint loaded live feed from:', sourceUsed);
   }
 
-  // cache for 1 hour (important)
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
-  res.status(200).send(text);
+  return res.status(200).send(text);
 }
