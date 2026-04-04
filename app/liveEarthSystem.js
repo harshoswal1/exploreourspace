@@ -545,8 +545,9 @@ function createAlertsPanel() {
   const panel = document.createElement('div');
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.bottom = '150px'; // 60px below the news icon (210px)
-    panel.style.right = '20px';
+    panel.style.top = '80px';
+    panel.style.left = '70px';
+    panel.style.right = 'auto';
     panel.style.width = '40px';
     panel.style.height = '40px';
     panel.style.borderRadius = '50%';
@@ -633,6 +634,7 @@ function createAlertsPanel() {
       panel.style.height = 'auto';
       panel.style.maxHeight = '200px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
+      panel.style.left = '20px'; // Shift to left edge when expanded
       panel.style.borderRadius = '20px';
       panel.style.padding = '12px';
       content.style.display = 'block';
@@ -642,6 +644,7 @@ function createAlertsPanel() {
     } else {
       panel.style.width = '40px';
       panel.style.height = '40px';
+      panel.style.left = '70px'; // Back to icon row position
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       content.style.display = 'none';

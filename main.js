@@ -37,14 +37,14 @@ style.textContent = `
       margin-bottom: -10px !important;
     }
 
-    /* Position the badges specifically under the Live Badge */
+    /* Position status badges specifically under the Live Badge in the TOP RIGHT */
     #cloud-status-badge-root { top: 65px !important; right: 20px !important; }
     #asteroid-status-badge-root { top: 95px !important; right: 20px !important; }
     #satellite-status-badge-root { top: 125px !important; right: 20px !important; }
 
     /* Ensure the search bar is pushed left on tiny screens */
     [id*="search-input"] {
-      max-width: 140px !important;
+      max-width: 120px !important;
     }
   }
 `;

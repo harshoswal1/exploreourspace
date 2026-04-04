@@ -38,8 +38,9 @@ export function createNewsPanel() {
   panel.id = 'news-panel-root';
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.bottom = '210px'; // Stacked above Alerts (which is at 150px)
-    panel.style.right = '20px';
+    panel.style.top = '80px'; 
+    panel.style.left = '20px';
+    panel.style.right = 'auto';
     panel.style.width = '40px';
     panel.style.height = '40px';
     panel.style.borderRadius = '50%';
@@ -125,6 +126,7 @@ export function createNewsPanel() {
       panel.style.height = 'auto';
       panel.style.maxHeight = '320px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
+      panel.style.left = '20px';
       panel.style.borderRadius = '20px';
       panel.style.padding = '14px';
       content.style.display = 'block';
@@ -134,6 +136,7 @@ export function createNewsPanel() {
     } else {
       panel.style.width = '40px';
       panel.style.height = '40px';
+      panel.style.left = '20px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       content.style.display = 'none';
