@@ -6,7 +6,7 @@ export function createCloudStatusBadge() {
     top: 'auto',
     left: 'auto',
     right: mobile ? '12px' : '20px',
-    bottom: mobile ? '112px' : '68px',
+    bottom: mobile ? '15px' : '68px',
     initialStatus: 'UPDATING',
     labelPrefix: 'CLOUDS',
     palette: {
