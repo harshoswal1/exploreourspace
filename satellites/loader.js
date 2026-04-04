@@ -3,6 +3,13 @@ const SATELLITE_SOURCES = [
   'https://raw.githubusercontent.com/celestrak/celestrak/master/NORAD/elements/active.txt'
 ];
 
+const SATELLITE_PROXY_PREFIXES = [
+  'https://api.allorigins.win/raw?url=',
+  'https://api.codetabs.com/v1/proxy?quest=',
+  'https://thingproxy.freeboard.io/fetch/',
+  'https://corsproxy.io/?'
+];
+
 const SATELLITE_MODULES = [
   'https://esm.sh/satellite.js@4.0.0',
   'https://cdn.skypack.dev/satellite.js',
@@ -155,12 +162,18 @@ async function fetchWithTimeout(url, timeoutMs = 12000) {
 function isLikelyTLE(line1, line2) {
   if (!line1 || !line2) return false;
   if (!line1.startsWith('1 ') || !line2.startsWith('2 ')) return false;
-  if (line1.length < 69 || line2.length < 69) return false;
+  if (line1.length < 20 || line2.length < 20) return false;
   return true;
 }
 
 function parseTLEText(text, satelliteInstance) {
   if (!text) return [];
+
+  // 🔥 Normalize badly formatted / single-line TLE
+  const normalized = text
+    .replace(/\r/g, '\n')
+    .replace(/ (1 \d{5}U)/g, '\n$1')
+    .replace(/ (2 \d{5})/g, '\n$1');
 
   const result = [];
 
@@ -169,7 +182,7 @@ function parseTLEText(text, satelliteInstance) {
 
   let match;
 
-  while ((match = tleRegex.exec(text)) !== null) {
+  while ((match = tleRegex.exec(normalized)) !== null) {
     const name = match[1].trim();
     const line1 = match[2].trim();
     const line2 = match[3].trim();
@@ -194,36 +207,69 @@ function parseTLEText(text, satelliteInstance) {
 export async function loadSatellites() {
   const satelliteInstance = await loadSatelliteLibrary();
 
-  try {
-  const response = await fetchWithTimeout('/api/satellites');
+  async function tryFetchText(url) {
+    try {
+      const response = await fetchWithTimeout(url);
+      if (!response.ok) {
+        console.warn('Satellite source failed:', url, response.status);
+        return null;
+      }
+      const text = await response.text();
+      if (!text || text.trim().length < 50) {
+        console.warn('Satellite source returned too little text:', url);
+        return null;
+      }
+      return text;
+    } catch (error) {
+      console.warn('Satellite source error:', url, error);
+      return null;
+    }
+  }
 
-  if (response.ok) {
-    const text = await response.text();
-    const parsed = parseTLEText(text, satelliteInstance);
+  async function fetchFromSource(source) {
+    if (!source) return null;
+    if (source.startsWith('/')) {
+      return await tryFetchText(source);
+    }
 
+    const direct = await tryFetchText(source);
+    if (direct) return direct;
+
+    for (const proxyPrefix of SATELLITE_PROXY_PREFIXES) {
+      const proxiedUrl = proxyPrefix + encodeURIComponent(source);
+      const text = await tryFetchText(proxiedUrl);
+      if (text) return text;
+    }
+    return null;
+  }
+
+  let satelliteText = null;
+  const candidateSources = ['/api/satellites', ...SATELLITE_SOURCES];
+  for (const source of candidateSources) {
+    satelliteText = await fetchFromSource(source);
+    if (satelliteText) break;
+  }
+
+  if (satelliteText) {
+    const parsed = parseTLEText(satelliteText, satelliteInstance);
     if (parsed.length > 10) {
-      storeSatelliteCache(text);
+      storeSatelliteCache(satelliteText);
       return {
         satellites: parsed,
         status: 'LIVE',
         updatedAt: new Date().toISOString(),
       };
     }
-  } else {
-    console.warn('Satellite API failed with status', response.status);
+    console.warn('Live satellite text parsed too few entries:', parsed.length);
   }
-} catch (error) {
-  console.warn('Satellite API error:', error);
-}
-
-  
 
   const cached = loadSatelliteCache();
-if (cached && cached.text) {
-  console.warn('Using last cached satellite data');
-  const cachedParsed = parseTLEText(cached.text, satelliteInstance);
-  return { satellites: cachedParsed, status: 'CACHED', updatedAt: cached.updatedAt };
-}
+  if (cached && cached.text) {
+    console.warn('Using last cached satellite data');
+    const cachedParsed = parseTLEText(cached.text, satelliteInstance);
+    return { satellites: cachedParsed, status: 'CACHED', updatedAt: cached.updatedAt };
+  }
+
   const fallback = parseTLEText(FALLBACK_TLE, satelliteInstance);
   if (fallback.length > 0) {
     return { satellites: fallback, status: 'FALLBACK' };
