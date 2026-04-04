@@ -73,9 +73,9 @@ export function createButtons() {
   const container = document.createElement('div');
   container.dataset.uiElement = 'true';
   container.style.position = 'absolute';
-  container.style.top = mobile ? 'auto' : '156px';
-  container.style.bottom = mobile ? '80px' : 'auto';
-  container.style.left = mobile ? '50%' : '20px';
+  container.style.top = mobile ? '165px' : '156px';
+  container.style.bottom = 'auto';
+  container.style.left = mobile ? '20px' : '20px';
   container.style.width = mobile ? 'calc(100% - 24px)' : '248px';
   container.style.maxWidth = mobile ? '640px' : 'none';
   container.style.maxHeight = mobile ? '70vh' : 'min(68vh, 620px)';
@@ -88,7 +88,7 @@ export function createButtons() {
   container.style.webkitBackdropFilter = 'blur(20px)';
   container.style.boxShadow = '0 14px 36px rgba(0,0,0,0.28)';
   container.style.zIndex = '15';
-  container.style.transform = mobile ? 'translateX(-50%) translateY(20px)' : 'translateX(-18px) translateY(-6px)';
+  container.style.transform = mobile ? 'translateY(10px)' : 'translateX(-18px) translateY(-6px)';
   container.style.opacity = '0';
   container.style.pointerEvents = 'none';
   container.style.transition = 'transform 180ms ease, opacity 180ms ease';
@@ -102,15 +102,18 @@ export function createButtons() {
   const toggle = document.createElement('button');
   toggle.textContent = '◎';
   toggle.style.position = 'absolute';
-  toggle.style.top = mobile ? 'auto' : '104px';
-  toggle.style.bottom = mobile ? '20px' : 'auto';
-  toggle.style.left = mobile ? '50%' : '24px';
-  toggle.style.transform = mobile ? 'translateX(-50%)' : 'none';
-  toggle.style.width = mobile ? '56px' : '64px';
-  toggle.style.height = mobile ? '56px' : '64px';
+  toggle.style.top = mobile ? '115px' : '104px';
+  toggle.style.bottom = 'auto';
+  toggle.style.left = mobile ? '20px' : '24px';
+  toggle.style.transform = 'none';
+  toggle.style.width = mobile ? '40px' : '64px';
+  toggle.style.height = mobile ? '40px' : '64px';
   toggle.style.padding = '0';
   toggle.style.borderRadius = '50%';
-  toggle.style.fontSize = mobile ? '28px' : '34px';
+  toggle.style.fontSize = mobile ? '20px' : '34px';
+  toggle.style.display = 'flex';
+  toggle.style.alignItems = 'center';
+  toggle.style.justifyContent = 'center';
   toggle.style.fontWeight = '600';
   toggle.style.lineHeight = '1';
   toggle.style.color = '#f6fbff';
@@ -247,7 +250,7 @@ export function createButtons() {
 
   function syncMenu() {
     if (mobile) {
-      container.style.transform = open ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)';
+      container.style.transform = open ? 'translateY(0)' : 'translateY(10px)';
     } else {
       container.style.transform = open ? 'translateX(0) translateY(0)' : 'translateX(-18px) translateY(-6px)';
     }

@@ -545,8 +545,8 @@ function createAlertsPanel() {
   const panel = document.createElement('div');
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.top = '130px';
-    panel.style.left = '20px';
+    panel.style.top = '115px';
+    panel.style.left = '120px';
     panel.style.right = 'auto';
     panel.style.width = '40px';
     panel.style.height = '40px';
@@ -634,6 +634,7 @@ function createAlertsPanel() {
     if (expanded) {
       panel.style.height = 'auto';
       panel.style.maxHeight = '200px';
+      panel.style.top = '165px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
       panel.style.left = '20px';
       panel.style.borderRadius = '20px';
@@ -645,9 +646,10 @@ function createAlertsPanel() {
       toggle.textContent = '✕';
       toggle.style.marginLeft = '8px';
     } else {
+      panel.style.top = '115px';
       panel.style.width = '40px';
       panel.style.height = '40px';
-      panel.style.left = '20px';
+      panel.style.left = '120px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       header.style.justifyContent = 'center';

@@ -38,8 +38,8 @@ export function createNewsPanel() {
   panel.id = 'news-panel-root';
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.top = '80px';
-    panel.style.left = '20px';
+    panel.style.top = '115px';
+    panel.style.left = '70px';
     panel.style.right = 'auto';
     panel.style.width = '40px';
     panel.style.height = '40px';
@@ -125,8 +125,8 @@ export function createNewsPanel() {
     if (expanded) {
       panel.style.height = 'auto';
       panel.style.maxHeight = '320px';
+      panel.style.top = '165px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
-      panel.style.left = '20px';
       panel.style.left = '20px';
       panel.style.borderRadius = '20px';
       panel.style.padding = '14px';
@@ -135,6 +135,7 @@ export function createNewsPanel() {
       status.style.display = 'block';
       toggle.textContent = '✕';
     } else {
+      panel.style.top = '115px';
       panel.style.width = '40px';
       panel.style.height = '40px';
       panel.style.left = '20px';
