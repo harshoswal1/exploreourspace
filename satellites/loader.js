@@ -160,24 +160,19 @@ function isLikelyTLE(line1, line2) {
 }
 
 function parseTLEText(text, satelliteInstance) {
-  // Normalize text and attempt to reconstruct broken TLE formatting
-  const cleaned = text
-    .replace(/\r/g, '\n')
-    .replace(/(1 \d{5}U)/g, '\n$1')
-    .replace(/(2 \d{5})/g, '\n$1');
-
-  // Split into lines
-  const lines = cleaned
-    .split('\n')
-    .map(l => l.trim())
-    .filter(Boolean);
+  if (!text) return [];
 
   const result = [];
 
-  for (let i = 0; i < lines.length - 2; i++) {
-    const name = lines[i];
-    const line1 = lines[i + 1];
-    const line2 = lines[i + 2];
+  // This regex captures: name + line1 + line2 even if in ONE LINE
+  const tleRegex = /([A-Z0-9 ()\-\.]+?)\s+(1\s\d{5}U[^\n]+?)\s+(2\s\d{5}[^\n]+)/g;
+
+  let match;
+
+  while ((match = tleRegex.exec(text)) !== null) {
+    const name = match[1].trim();
+    const line1 = match[2].trim();
+    const line2 = match[3].trim();
 
     if (!isLikelyTLE(line1, line2)) continue;
 
@@ -188,8 +183,6 @@ function parseTLEText(text, satelliteInstance) {
 
       const satrec = satelliteInstance.twoline2satrec(line1, line2);
       result.push({ name, satrec });
-
-      i += 2; // move to next set
     } catch (error) {
       console.warn('Skipping invalid TLE entry:', name, error);
     }
