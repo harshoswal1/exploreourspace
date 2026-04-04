@@ -1,24 +1,47 @@
+export const config = { runtime: 'nodejs' };
+
+const SOURCES = [
+  'https://raw.githubusercontent.com/celestrak/celestrak/master/NORAD/elements/active.txt',
+  'https://celestrak.org/NORAD/elements/stations.txt',
+];
+
 export default async function handler(req, res) {
-  try {
-    const response = await fetch(
-  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle',
-  {
-    headers: {
-      'User-Agent': 'Mozilla/5.0',
-    },
-  }
-);
-    if (!response.ok) {
-      return res.status(500).json({ error: 'Failed to fetch satellites' });
+  let response = null;
+  let text = null;
+  for (const url of SOURCES) {
+    try {
+      const r = await fetch(
+        url,
+        {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Vercel Server)',
+            'Accept': 'text/plain',
+            'Accept-Language': 'en-US,en;q=0.9',
+          },
+        }
+      );
+      if (r.ok) {
+        response = r;
+        text = await r.text();
+        break;
+      } else {
+        const errorText = await r.text();
+        console.error('Celestrak fetch failed:', r.status, errorText, 'for', url);
+      }
+    } catch (err) {
+      console.error('Fetch error for', url, err);
     }
-
-    const text = await response.text();
-
-    // cache for 1 hour (important)
-    res.setHeader('Cache-Control', 's-maxage=3600');
-
-    res.status(200).send(text);
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
   }
+
+  if (!response) {
+    console.warn('All sources failed, returning minimal fallback');
+    const fallback = `ISS (ZARYA)
+1 25544U 98067A   24093.49198941  .00006481  00000+0  12652-3 0  9998
+2 25544  51.6427 210.7470 0004318  92.4975  24.0587 15.50350066358655`;
+    return res.status(200).send(fallback);
+  }
+
+  // cache for 1 hour (important)
+  res.setHeader('Cache-Control', 's-maxage=3600');
+  res.status(200).send(text);
 }
