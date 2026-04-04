@@ -20,6 +20,7 @@ import { createLiveBadge } from './ui/liveBadge.js';
 import { createNewsPanel } from './ui/newsPanel.js';
 import { createPoleCompass } from './ui/poleCompass.js';
 import { createSearch } from './ui/search.js';
+import { createInstructions } from './ui/instructions.js';
 import { getEarthClimateInfo } from './utils/earthClimate.js';
 
 const state = createAppState();
@@ -70,6 +71,7 @@ document.body.style.touchAction = 'none';
 
 
 createBrand();
+createInstructions();
 const infoDiv = createInfoPanel();
 const {
   orbitBtn,
