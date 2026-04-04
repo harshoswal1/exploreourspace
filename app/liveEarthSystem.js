@@ -495,10 +495,10 @@ function updateTerminatorGeometry(line, sunDirection) {
 
   for (let index = 0; index < 96; index += 1) {
     const angle = (index / 96) * Math.PI * 2;
-    const point = tangent
-      .clone()
+    const point = reusableVectorA
+      .copy(tangent)
       .multiplyScalar(Math.cos(angle) * (EARTH_RADIUS + 0.09))
-      .add(bitangent.clone().multiplyScalar(Math.sin(angle) * (EARTH_RADIUS + 0.09)));
+      .add(reusableVectorB.copy(bitangent).multiplyScalar(Math.sin(angle) * (EARTH_RADIUS + 0.09)));
     points.push(point);
   }
 
@@ -544,12 +544,24 @@ function createAlertsPanel() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   const panel = document.createElement('div');
   panel.style.position = 'absolute';
-  panel.style.top = '400px';
-  panel.style.right = '20px';
-  panel.style.width = isMobile ? '220px' : 'min(364px, calc(100vw - 40px))';
-  panel.style.maxHeight = isMobile ? '54px' : '182px';
-  panel.style.padding = '12px';
-  panel.style.borderRadius = '24px';
+  if (isMobile) {
+    panel.style.bottom = '150px';
+    panel.style.right = '20px';
+    panel.style.width = '44px';
+    panel.style.height = '44px';
+    panel.style.borderRadius = '50%';
+    panel.style.padding = '0';
+    panel.style.display = 'flex';
+    panel.style.alignItems = 'center';
+    panel.style.justifyContent = 'center';
+  } else {
+    panel.style.top = '400px';
+    panel.style.right = '20px';
+    panel.style.width = 'min(364px, calc(100vw - 40px))';
+    panel.style.maxHeight = '182px';
+    panel.style.padding = '12px';
+    panel.style.borderRadius = '24px';
+  }
   panel.style.background = 'linear-gradient(180deg, rgba(8,12,20,0.7), rgba(8,12,20,0.54))';
   panel.style.border = '1px solid rgba(255,255,255,0.12)';
   panel.style.backdropFilter = 'blur(22px)';
@@ -570,21 +582,23 @@ function createAlertsPanel() {
   const title = document.createElement('div');
   title.textContent = 'Earth Live Alerts';
   title.style.color = '#ffffff';
-  title.style.fontSize = '13px';
+  title.style.fontSize = isMobile ? '10px' : '13px';
   title.style.fontWeight = '700';
   title.style.letterSpacing = '0.08em';
   title.style.textTransform = 'uppercase';
+  if (isMobile) title.style.display = 'none';
 
   const status = document.createElement('div');
   status.style.marginTop = '4px';
   status.style.color = 'rgba(196,212,240,0.72)';
-  status.style.fontSize = '11px';
+  status.style.fontSize = isMobile ? '9px' : '11px';
   status.style.letterSpacing = '0.05em';
   status.style.textTransform = 'uppercase';
   status.textContent = 'Updating';
+  if (isMobile) status.style.display = 'none';
 
   const toggle = document.createElement('div');
-  toggle.textContent = isMobile ? '▼' : '';
+  toggle.textContent = isMobile ? '⚠️' : '';
   toggle.style.marginLeft = '8px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
@@ -616,15 +630,24 @@ function createAlertsPanel() {
   function setExpanded(value) {
     expanded = value;
     if (expanded) {
-      panel.style.maxHeight = '182px';
-      panel.style.width = 'min(364px, calc(100vw - 40px))';
+      panel.style.height = 'auto';
+      panel.style.maxHeight = '200px';
+      panel.style.width = '260px';
+      panel.style.borderRadius = '20px';
+      panel.style.padding = '12px';
       content.style.display = 'block';
-      toggle.textContent = '▲';
+      title.style.display = 'block';
+      status.style.display = 'block';
+      toggle.textContent = '✕';
     } else {
-      panel.style.maxHeight = '54px';
-      panel.style.width = '220px';
+      panel.style.width = '44px';
+      panel.style.height = '44px';
+      panel.style.borderRadius = '50%';
+      panel.style.padding = '0';
       content.style.display = 'none';
-      toggle.textContent = '▼';
+      title.style.display = 'none';
+      status.style.display = 'none';
+      toggle.textContent = '⚠️';
     }
   }
 
@@ -702,8 +725,8 @@ function updatePlaceLabels(labels, earth, camera, visible) {
 
   labels.forEach((label) => {
     const worldPosition = label.sprite.getWorldPosition(reusableVectorA);
-    const outward = worldPosition.clone().sub(earth.position).normalize();
-    const towardCamera = camera.position.clone().sub(worldPosition).normalize();
+    const outward = reusableVectorB.copy(worldPosition).sub(earth.position).normalize();
+    const towardCamera = reusableVectorC.copy(camera.position).sub(worldPosition).normalize();
     const facingCamera = outward.dot(towardCamera) > 0.18;
     const visibleByZoom =
       label.type === 'city' ? earthDistance < 10.5 : earthDistance < 16.5;
