@@ -70,9 +70,9 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
       return;
     }
 
-    if (!satelliteLib && satelliteData.some((sat) => !sat.satrec?.staticPosition)) {
-      console.error('Satellite library did not load correctly. Check CDN availability and network policies.');
-      return;
+    if (!satelliteLib) {
+      console.warn('Satellite library missing in load(). Retrying fallback initialization.');
+      // We will try to proceed with static positions if available
     }
 
     satelliteData.forEach((sat) => {

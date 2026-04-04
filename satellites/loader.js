@@ -24,7 +24,16 @@ let FALLBACK_TLE = `ISS (ZARYA)
 2 25544  51.6427 210.7470 0004318  92.4975  24.0587 15.50350066358655
 HUBBLE SPACE TELESCOPE
 1 20580U 90037B   24093.54780934  .00001142  00000+0  63548-4 0  9994
-2 20580  28.4707  57.4868 0003271  21.3862  40.4839 15.09242447778696`;
+2 20580  28.4707  57.4868 0003271  21.3862  40.4839 15.09242447778696
+TIANGONG
+1 48274U 21035A   24093.52838507  .00015563  00000+0  19194-3 0  9996
+2 48274  41.4745 166.3881 0003052 227.1432 249.2319 15.59754707166885
+NOAA 19
+1 33591U 09005A   24093.54576352  .00000085  00000+0  86196-4 0  9990
+2 33591  99.1983 133.4357 0013898 107.4101 252.8550 14.12502621783457
+GOES 16
+1 41866U 16071A   24093.40134563  .00000000  00000+0  00000+0 0  9999
+2 41866   0.0215 104.9542 0001103 273.1534  82.1643  1.00273542 27018`;
 
 function createStaticOrbitPoints(radius, inclinationDeg, longitudeOffsetDeg = 0, count = 90) {
   const inclination = (inclinationDeg * Math.PI) / 180;
@@ -290,6 +299,7 @@ export async function loadSatellites() {
       storeSatelliteCache(satelliteText);
       return {
         satellites: parsed,
+        lib: satelliteInstance,
         status: 'LIVE',
         updatedAt: new Date().toISOString(),
       };
@@ -301,12 +311,12 @@ export async function loadSatellites() {
   if (cached && cached.text) {
     console.warn('Using last cached satellite data');
     const cachedParsed = parseTLEText(cached.text, satelliteInstance);
-    return { satellites: cachedParsed, status: 'CACHED', updatedAt: cached.updatedAt };
+    return { satellites: cachedParsed, lib: satelliteInstance, status: 'CACHED', updatedAt: cached.updatedAt };
   }
 
   const fallback = parseTLEText(FALLBACK_TLE, satelliteInstance);
   if (fallback.length > 0) {
-    return { satellites: fallback, status: 'FALLBACK' };
+    return { satellites: fallback, lib: satelliteInstance, status: 'FALLBACK' };
   }
 
   console.warn('Fallback TLE data parsing failed; using built-in static satellite placeholders.');
@@ -315,6 +325,7 @@ export async function loadSatellites() {
       name: sat.name,
       satrec: sat.satrec,
     })),
+    lib: satelliteInstance,
     status: 'FALLBACK',
   };
 }
