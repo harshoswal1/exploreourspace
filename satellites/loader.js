@@ -234,6 +234,7 @@ function parseTLEText(text, satelliteInstance) {
 }
 
 export async function loadSatellites() {
+  const satelliteInstance = await loadSatelliteLibrary();
 
   async function tryFetchText(url) {
     try {
