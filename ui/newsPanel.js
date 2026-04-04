@@ -91,9 +91,11 @@ export function createNewsPanel() {
 
   const toggle = document.createElement('div');
   toggle.textContent = isMobile ? '🛰️' : '';
-  toggle.style.marginLeft = '8px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
+  toggle.style.display = 'flex';
+  toggle.style.alignItems = 'center';
+  toggle.style.justifyContent = 'center';
 
   const content = document.createElement('div');
   content.style.marginTop = '12px';
@@ -126,22 +128,27 @@ export function createNewsPanel() {
       panel.style.maxHeight = '320px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
       panel.style.left = '20px';
+      header.style.justifyContent = 'space-between';
       panel.style.borderRadius = '20px';
       panel.style.padding = '14px';
       content.style.display = 'block';
       title.style.display = 'block';
       status.style.display = 'block';
       toggle.textContent = '✕';
+      toggle.style.marginLeft = '8px';
     } else {
       panel.style.width = '40px';
       panel.style.height = '40px';
       panel.style.left = '20px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
+      header.style.justifyContent = 'center';
+      header.style.width = '100%';
       content.style.display = 'none';
       title.style.display = 'none';
       status.style.display = 'none';
       toggle.textContent = '🛰️';
+      toggle.style.marginLeft = '0';
     }
   }
 

@@ -600,9 +600,11 @@ function createAlertsPanel() {
 
   const toggle = document.createElement('div');
   toggle.textContent = isMobile ? '⚠️' : '';
-  toggle.style.marginLeft = '8px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
+  toggle.style.display = 'flex';
+  toggle.style.alignItems = 'center';
+  toggle.style.justifyContent = 'center';
 
   const content = document.createElement('div');
   content.style.marginTop = '10px';
@@ -637,20 +639,25 @@ function createAlertsPanel() {
       panel.style.left = '20px';
       panel.style.borderRadius = '20px';
       panel.style.padding = '12px';
+      header.style.justifyContent = 'space-between';
       content.style.display = 'block';
       title.style.display = 'block';
       status.style.display = 'block';
       toggle.textContent = '✕';
+      toggle.style.marginLeft = '8px';
     } else {
       panel.style.width = '40px';
       panel.style.height = '40px';
       panel.style.left = '20px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
+      header.style.justifyContent = 'center';
+      header.style.width = '100%';
       content.style.display = 'none';
       title.style.display = 'none';
       status.style.display = 'none';
       toggle.textContent = '⚠️';
+      toggle.style.marginLeft = '0';
     }
   }
 

@@ -10,8 +10,8 @@ export function createAsteroidStatusBadge() {
     initialStatus: 'UPDATING',
     labelPrefix: 'ASTEROIDS',
     palette: {
-      liveDot: '#ff9a62',
-      liveGlow: '0 0 12px rgba(255,154,98,0.85)',
+      liveDot: '#f5712a',
+      liveGlow: '0 0 12px rgba(255, 100, 16, 0.85)',
       liveBorder: 'rgba(255,154,98,0.28)',
       liveText: '#ffe4d6',
       fallbackDot: '#d7b98a',
