@@ -6,7 +6,7 @@ export function createAsteroidStatusBadge() {
     top: 'auto',
     left: 'auto',
     right: mobile ? '12px' : '20px',
-    bottom: mobile ? '72px' : '20px',
+    bottom: mobile ? '50px' : '20px',
     initialStatus: 'UPDATING',
     labelPrefix: 'ASTEROIDS',
     palette: {
