@@ -1,7 +1,8 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://raw.githubusercontent.com/celestrak/celestrak/master/NORAD/elements/gp.php?GROUP=active&FORMAT=tle',
+  'https://celestrak.org/NORAD/elements/active.txt',
+  'https://celestrak.org/NORAD/elements/stations.txt'
 ];
 
 export default async function handler(req, res) {
@@ -9,16 +10,7 @@ export default async function handler(req, res) {
   let text = null;
   for (const url of SOURCES) {
     try {
-      const r = await fetch(
-        url,
-        {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Vercel Server)',
-            'Accept': 'text/plain',
-            'Accept-Language': 'en-US,en;q=0.9',
-          },
-        }
-      );
+      const r = await fetch(url);
       if (r.ok) {
         response = r;
         text = await r.text();
