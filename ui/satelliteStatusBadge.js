@@ -6,7 +6,7 @@ export function createSatelliteStatusBadge() {
     top: 'auto',
     left: 'auto',
     right: mobile ? '12px' : '20px',
-    bottom: mobile ? '20px' : '20px',
+    bottom: mobile ? '50px' : '50px',
     initialStatus: 'UPDATING',
     labelPrefix: 'SATELLITES',
     palette: {
