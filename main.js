@@ -310,11 +310,12 @@ asteroidSystem.updateVisibility('');
 
 function animate() {
   requestAnimationFrame(animate);
+  const now = new Date();
 
-  earthRuntime.update();
+  earthRuntime.update(now);
   liveEarthSystem.update({
     sunDirection: earthRuntime.getSunDirection(),
-    now: new Date(),
+    now: now,
   });
   newsPanel.update();
   cloudStatusBadge.setStatus(earthRuntime.getCloudStatus());

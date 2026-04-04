@@ -503,7 +503,7 @@ function updateTerminatorGeometry(line, sunDirection) {
   }
 
   line.geometry.setFromPoints(points);
-  return bitangent.multiplyScalar(EARTH_RADIUS + 0.32);
+  return reusableVectorC.copy(bitangent).multiplyScalar(EARTH_RADIUS + 0.32);
 }
 
 function createSunBadge() {
@@ -1090,11 +1090,8 @@ sunBadge.container.style.display = 'flex';
       }
     },
     setAlertsVisible(visible) {
-      alertsPanel.panel.style.display = 'block';
-      alertMarkers.group.visible = false;
-      alertMarkers.markers.forEach((marker) => {
-        marker.visible = false;
-      });
+      alertsPanel.panel.style.display = visible ? 'block' : 'none';
+      alertMarkers.group.visible = visible;
     },
   };
 }

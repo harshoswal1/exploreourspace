@@ -290,7 +290,7 @@ export function createEarth(scene, renderer) {
   };
 }
 
-export function updateEarthLighting(earthParts, sunDirection, now = new Date()) {
+export function updateEarthLighting(earthParts, sunDirection, now) {
   const {
     earth,
     moon,
