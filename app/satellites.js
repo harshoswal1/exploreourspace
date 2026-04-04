@@ -71,7 +71,7 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
       return;
     }
 
-    if (!satellite && satelliteData.some((sat) => !sat.satrec?.staticPosition)) {
+    if (!satelliteLib && satelliteData.some((sat) => !sat.satrec?.staticPosition)) {
       console.error('Satellite library did not load correctly. Check CDN availability and network policies.');
       return;
     }
