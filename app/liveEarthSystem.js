@@ -730,11 +730,11 @@ function updateSunBadge(badge, camera, sunDirection) {
 
 async function fetchJsonWithRetry(url, options = {}) {
   const MAX_ATTEMPTS = 3;
-  const BASE_DELAY_MS = 1200;
+  const BASE_DELAY_MS = 2000; // Increased for mobile stability
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, { ...options, cache: 'no-cache' });
       if (response.ok) return response;
 
       if (response.status === 429) {

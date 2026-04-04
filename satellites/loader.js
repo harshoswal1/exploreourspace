@@ -9,7 +9,8 @@ const SATELLITE_PROXY_PREFIXES = [
   'https://api.allorigins.win/raw?url=',
   'https://api.codetabs.com/v1/proxy?quest=',
   'https://thingproxy.freeboard.io/fetch/',
-  'https://corsproxy.io/?'
+  'https://corsproxy.io/?',
+  'https://proxy.cors.sh/'
 ];
 
 const SATELLITE_MODULES = [
@@ -154,7 +155,7 @@ async function fetchWithTimeout(url, timeoutMs = 12000) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(url, { cache: 'no-store', signal, redirect: 'follow' });
+    const response = await fetch(url, { cache: 'no-cache', signal, redirect: 'follow' });
     return response;
   } finally {
     clearTimeout(timeout);
@@ -210,6 +211,7 @@ function parseTLEText(text, satelliteInstance) {
         }
 
         const satrec = satelliteInstance.twoline2satrec(line1, line2);
+        if (!satrec) throw new Error('Parsing returned null');
         result.push({ name: satelliteName, satrec });
       } catch (error) {
         console.warn('TLE invalid or satellite library unavailable, using static position for:', satelliteName, error.message);

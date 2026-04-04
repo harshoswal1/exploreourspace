@@ -1,5 +1,4 @@
 import * as THREE from 'https://esm.sh/three@0.152.2';
-import * as satellite from 'https://esm.sh/satellite.js@4.0.0';
 
 import { loadSatellites } from '../satellites/loader.js';
 import { createSatelliteMesh, createLabel } from '../satellites/mesh.js';
@@ -11,6 +10,7 @@ import { classifySatellite } from '../utils/satelliteCategory.js';
 
 export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
   const entries = [];
+  let satelliteLib = null;
   const selectedTrailPoints = [];
   let status = 'UPDATING';
   let statusDetail = '';
@@ -57,6 +57,10 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
   async function load() {
     const satelliteResult = await loadSatellites();
     const satelliteData = satelliteResult.satellites || [];
+    // If we loaded successfully, we should have a lib reference via the first valid satrec 
+    // or we can just import it dynamically here to avoid blocking the whole file.
+    if (typeof window !== 'undefined' && window.satellite) satelliteLib = window.satellite;
+    
     status = satelliteResult.status || 'FALLBACK';
     statusDetail = satelliteResult.updatedAt
       ? new Date(satelliteResult.updatedAt).toLocaleString()
@@ -144,16 +148,16 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
     selectedTrailPoints.length = 0;
 
     const now = new Date();
-    if (!satellite && !selectedEntry.satrec?.staticPosition) {
+    if (!satelliteLib && !selectedEntry.satrec?.staticPosition) {
       console.warn('Satellite propagation library is not loaded (deploy network problem).');
       return null;
     }
 
     const pv = selectedEntry.satrec?.staticPosition
       ? {}
-      : satellite.propagate(selectedEntry.satrec, now);
+      : (satelliteLib ? satelliteLib.propagate(selectedEntry.satrec, now) : {});
 
-    showSatelliteInfo(infoDiv, selectedEntry.name, pv, now, satellite);
+    showSatelliteInfo(infoDiv, selectedEntry.name, pv, now, satelliteLib);
     return selectedEntry;
   }
 
