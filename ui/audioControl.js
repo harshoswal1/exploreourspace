@@ -42,7 +42,7 @@ export function createAudioControl() {
 
   audio.addEventListener('error', (e) => {
     console.error('Audio Error Details:', audio.error);
-    button.innerHTML = '⚠️';
+    button.innerHTML = '💥';
     button.title = 'Audio failed to load (Check console for CORS/Network errors)';
   });
 
