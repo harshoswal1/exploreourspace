@@ -91,7 +91,7 @@ export function createNewsPanel() {
 
   const toggle = document.createElement('div');
   toggle.textContent = isMobile ? '🛰️' : '';
-  toggle.style.marginLeft = '8px';
+  toggle.style.marginLeft = '7px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
 
