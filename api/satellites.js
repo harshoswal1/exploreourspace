@@ -1,8 +1,7 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://celestrak.org/NORAD/elements/active.txt',
-  'https://celestrak.org/NORAD/elements/stations.txt'
+  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/master/active.txt'
 ];
 
 export default async function handler(req, res) {
