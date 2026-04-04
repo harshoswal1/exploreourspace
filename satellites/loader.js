@@ -180,7 +180,7 @@ function parseTLEText(text, satelliteInstance) {
     }
   }
 
-  return result.slice(0, 400);
+  return result.slice(0, 800);
 }
 
 export async function loadSatellites() {
