@@ -179,7 +179,7 @@ function parseTLEText(text, satelliteInstance) {
     const line1 = lines[i + 1];
     const line2 = lines[i + 2];
 
-    if (!isLikelyTLE(line1, line2)) continuße;
+    if (!isLikelyTLE(line1, line2)) continue;
 
     try {
       if (!satelliteInstance || typeof satelliteInstance.twoline2satrec !== 'function') {
