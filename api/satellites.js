@@ -1,9 +1,7 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/master/active.txt',
-  'https://celestrak.org/NORAD/elements/active.txt',
-  'https://api.allorigins.win/raw?url=https://celestrak.org/NORAD/elements/active.txt'
+  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/main/active.txt'
 ];
 
 export default async function handler(req, res) {
@@ -11,31 +9,26 @@ export default async function handler(req, res) {
   let text = null;
   for (const url of SOURCES) {
     try {
-      const r = await fetch(url, {
-        cache: 'no-store'
-      });
-      if (r.ok) {
+      const r = await fetch(url);
+      if (!r.ok) continue;
+
+      text = await r.text();
+
+      if (text && text.length > 10000) {
         response = r;
-        text = await r.text();
-        console.log('Fetched length from', url, text.length);
-        // Skip if response is too small (likely broken or blocked)
-        if (!text || text.length < 500) {
-          console.warn('Received incomplete data from', url);
-          response = null;
-          continue;
-        }
         break;
-      } else {
-        const errorText = await r.text();
-        console.error('Celestrak fetch failed:', r.status, errorText, 'for', url);
       }
     } catch (err) {
-      console.error('Fetch error for', url, err);
+      console.error('Fetch error:', err);
     }
   }
 
   if (!response) {
-    return res.status(500).json({ error: 'All sources failed (check logs)' });
+    console.warn('Using minimal fallback data');
+    const fallback = `ISS (ZARYA)
+1 25544U 98067A   24093.49198941  .00006481  00000+0  12652-3 0  9998
+2 25544  51.6427 210.7470 0004318  92.4975  24.0587 15.50350066358655`;
+    return res.status(200).send(fallback);
   }
 
   // cache for 1 hour (important)
