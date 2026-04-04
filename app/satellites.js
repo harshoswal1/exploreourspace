@@ -57,9 +57,8 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
   async function load() {
     const satelliteResult = await loadSatellites();
     const satelliteData = satelliteResult.satellites || [];
-    // If we loaded successfully, we should have a lib reference via the first valid satrec 
-    // or we can just import it dynamically here to avoid blocking the whole file.
-    if (typeof window !== 'undefined' && window.satellite) satelliteLib = window.satellite;
+    // Capture the library instance returned by the loader
+    satelliteLib = satelliteResult.lib;
     
     status = satelliteResult.status || 'FALLBACK';
     statusDetail = satelliteResult.updatedAt
