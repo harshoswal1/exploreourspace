@@ -1,6 +1,8 @@
 const SATELLITE_SOURCES = [
-  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle',
-  'https://raw.githubusercontent.com/celestrak/celestrak/master/NORAD/elements/active.txt'
+  'https://r.jina.ai/http://celestrak.org/NORAD/elements/visual.txt',
+  'https://r.jina.ai/http://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
+  'https://celestrak.org/NORAD/elements/visual.txt',
+  'https://celestrak.org/NORAD/elements/stations.txt'
 ];
 
 const SATELLITE_PROXY_PREFIXES = [
@@ -166,39 +168,59 @@ function isLikelyTLE(line1, line2) {
   return true;
 }
 
+function normalizeProxyMetadata(text) {
+  if (!text) return text;
+  const marker = 'Markdown Content:';
+  const markerIndex = text.indexOf(marker);
+  if (markerIndex !== -1) {
+    return text.slice(markerIndex + marker.length);
+  }
+  return text;
+}
+
 function parseTLEText(text, satelliteInstance) {
   if (!text) return [];
 
-  // 🔥 Normalize badly formatted / single-line TLE
-  const normalized = text
+  const normalizedText = normalizeProxyMetadata(text)
     .replace(/\r/g, '\n')
-    .replace(/ (1 \d{5}U)/g, '\n$1')
-    .replace(/ (2 \d{5})/g, '\n$1');
+    .replace(/\t/g, ' ')
+    .trim();
+
+  const lines = normalizedText
+    .split('\n')
+    .map((line) => line.replace(/\uFEFF/g, '').trimEnd())
+    .filter((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return false;
+      if (/^(Title|URL Source|Markdown Content):/i.test(trimmed)) return false;
+      return true;
+    });
 
   const result = [];
+  let index = 0;
 
-  // This regex captures: name + line1 + line2 even if in ONE LINE
-  const tleRegex = /([A-Z0-9 ()\-\.]+?)\s+(1\s\d{5}U[^\n]+?)\s+(2\s\d{5}[^\n]+)/g;
+  while (index < lines.length - 2) {
+    const nameLine = lines[index].trim();
+    const line1 = lines[index + 1].trim();
+    const line2 = lines[index + 2].trim();
 
-  let match;
+    if (nameLine && line1.startsWith('1 ') && line2.startsWith('2 ')) {
+      try {
+        if (!satelliteInstance || typeof satelliteInstance.twoline2satrec !== 'function') {
+          index += 3;
+          continue;
+        }
 
-  while ((match = tleRegex.exec(normalized)) !== null) {
-    const name = match[1].trim();
-    const line1 = match[2].trim();
-    const line2 = match[3].trim();
-
-    if (!isLikelyTLE(line1, line2)) continue;
-
-    try {
-      if (!satelliteInstance || typeof satelliteInstance.twoline2satrec !== 'function') {
-        continue;
+        const satrec = satelliteInstance.twoline2satrec(line1, line2);
+        result.push({ name: nameLine, satrec });
+      } catch (error) {
+        console.warn('Skipping invalid TLE entry:', nameLine, error);
       }
-
-      const satrec = satelliteInstance.twoline2satrec(line1, line2);
-      result.push({ name, satrec });
-    } catch (error) {
-      console.warn('Skipping invalid TLE entry:', name, error);
+      index += 3;
+      continue;
     }
+
+    index += 1;
   }
 
   return result.slice(0, 800);
