@@ -103,6 +103,8 @@ export function createButtons() {
   toggle.textContent = '◎';
   toggle.style.position = 'absolute';
   toggle.style.top = mobile ? '-72px' : '104px';
+  toggle.style.top = mobile ? 'auto' : '104px';
+  toggle.style.bottom = mobile ? '20px' : 'auto';
   toggle.style.left = mobile ? '50%' : '24px';
   toggle.style.transform = mobile ? 'translateX(-50%)' : 'none';
   toggle.style.width = mobile ? '56px' : '64px';
@@ -115,6 +117,10 @@ export function createButtons() {
   toggle.style.color = '#f6fbff';
   toggle.style.background = 'transparent';
   toggle.style.border = 'none';
+  toggle.style.background = 'rgba(8, 12, 20, 0.45)';
+  toggle.style.backdropFilter = 'blur(10px)';
+  toggle.style.webkitBackdropFilter = 'blur(10px)';
+  toggle.style.border = '1px solid rgba(255, 255, 255, 0.2)';
   toggle.style.boxShadow =
     '0 0 0 1px rgba(180,225,255,0.08), inset 0 0 28px rgba(120,190,255,0.08)';
   toggle.style.textShadow =

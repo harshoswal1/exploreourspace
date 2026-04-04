@@ -3,7 +3,7 @@ export function createSearch() {
   const container = document.createElement('div');
   container.dataset.uiElement = 'true';
   container.style.position = 'absolute';
-  container.style.top = mobile ? '50px' : '60px';
+  container.style.top = mobile ? '50px' : '20px';
   container.style.right = mobile ? '12px' : '118px';
   container.style.left = mobile ? '12px' : 'auto';
   container.style.width = mobile ? 'calc(100vw - 24px)' : 'min(340px, calc(100vw - 234px))';
