@@ -38,9 +38,8 @@ export function createNewsPanel() {
   panel.id = 'news-panel-root';
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.top = '80px'; 
-    panel.style.left = '20px';
-    panel.style.right = 'auto';
+    panel.style.bottom = '210px'; // Stacked above Alerts (which is at 150px)
+    panel.style.right = '20px';
     panel.style.width = '40px';
     panel.style.height = '40px';
     panel.style.borderRadius = '50%';

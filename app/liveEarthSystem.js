@@ -545,8 +545,8 @@ function createAlertsPanel() {
   const panel = document.createElement('div');
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.top = '80px';
-    panel.style.left = '70px';
+    panel.style.top = '130px';
+    panel.style.left = '20px';
     panel.style.right = 'auto';
     panel.style.width = '40px';
     panel.style.height = '40px';
@@ -634,7 +634,7 @@ function createAlertsPanel() {
       panel.style.height = 'auto';
       panel.style.maxHeight = '200px';
       panel.style.width = 'min(300px, calc(100vw - 40px))';
-      panel.style.left = '20px'; // Shift to left edge when expanded
+      panel.style.left = '20px';
       panel.style.borderRadius = '20px';
       panel.style.padding = '12px';
       content.style.display = 'block';
@@ -644,7 +644,7 @@ function createAlertsPanel() {
     } else {
       panel.style.width = '40px';
       panel.style.height = '40px';
-      panel.style.left = '70px'; // Back to icon row position
+      panel.style.left = '20px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       content.style.display = 'none';
