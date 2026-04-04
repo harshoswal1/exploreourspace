@@ -27,11 +27,11 @@ export function createInstructions() {
   const content = `
     <div style="font-size: ${isMobile ? '13px' : '15px'}; line-height: 1.5; font-weight: 500;">
       <div style="margin-bottom: 10px;">
-        <span style="color: #ffd37a; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em; font-weight: 700;">Interaction Guide</span>
+        <span style="color: #f9d180; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em; font-weight: 700;">Interaction Guide</span>
       </div>
       <div style="margin-bottom: 8px;">
         <span style="color: #ffe066;">Double Tap</span> on Satellites, Asteroids, or Moon 
-        <br/> <span style="font-size: 0.9em; color: #a0c8ff; opacity: 0.8;">for closer look & real-time data</span>
+        <br/> <span style="font-size: 0.9em; color: #a0c8ff; opacity: 0.8;">for closer 3D look & real-time data</span>
       </div>
       <div>
         <span style="color: #7ee7ff;">Touch Earth</span> 
