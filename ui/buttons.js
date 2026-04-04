@@ -1,10 +1,8 @@
 function styleButton(button) {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   button.style.width = '100%';
-  button.style.padding = mobile ? '14px 14px' : '10px 12px';
   button.style.padding = mobile ? '8px 6px' : '10px 12px';
   button.style.borderRadius = mobile ? '16px' : '14px';
-  button.style.fontSize = mobile ? '14px' : '11px';
   button.style.fontSize = mobile ? '11px' : '11px';
   button.style.fontWeight = '600';
   button.style.letterSpacing = '0.03em';
@@ -80,10 +78,8 @@ export function createButtons() {
   container.style.left = mobile ? '50%' : '20px';
   container.style.width = mobile ? 'calc(100% - 24px)' : '248px';
   container.style.maxWidth = mobile ? '640px' : 'none';
-  container.style.maxHeight = mobile ? '42vh' : 'min(68vh, 620px)';
   container.style.maxHeight = mobile ? '70vh' : 'min(68vh, 620px)';
   container.style.overflowY = 'auto';
-  container.style.padding = mobile ? '10px 8px' : '12px';
   container.style.padding = mobile ? '12px 10px' : '12px';
   container.style.borderRadius = '20px';
   container.style.background = 'rgba(8,12,20,0.54)';
@@ -92,7 +88,6 @@ export function createButtons() {
   container.style.webkitBackdropFilter = 'blur(20px)';
   container.style.boxShadow = '0 14px 36px rgba(0,0,0,0.28)';
   container.style.zIndex = '15';
-  container.style.transform = mobile ? 'translateX(-50%)' : 'translateX(-18px) translateY(-6px)';
   container.style.transform = mobile ? 'translateX(-50%) translateY(20px)' : 'translateX(-18px) translateY(-6px)';
   container.style.opacity = '0';
   container.style.pointerEvents = 'none';
@@ -101,7 +96,6 @@ export function createButtons() {
   const stack = document.createElement('div');
   stack.style.display = 'flex';
   stack.style.flexDirection = 'column';
-  stack.style.gap = '12px';
   stack.style.gap = mobile ? '8px' : '12px';
   container.appendChild(stack);
 
@@ -252,7 +246,6 @@ export function createButtons() {
   let open = false;
 
   function syncMenu() {
-    container.style.transform = open ? 'translateX(0) translateY(0)' : 'translateX(-18px) translateY(-6px)';
     if (mobile) {
       container.style.transform = open ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)';
     } else {
