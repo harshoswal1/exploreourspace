@@ -1,9 +1,13 @@
 export default async function handler(req, res) {
   try {
     const response = await fetch(
-      'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
-    );
-
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle',
+  {
+    headers: {
+      'User-Agent': 'Mozilla/5.0',
+    },
+  }
+);
     if (!response.ok) {
       return res.status(500).json({ error: 'Failed to fetch satellites' });
     }
