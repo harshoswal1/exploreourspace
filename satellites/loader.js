@@ -215,7 +215,14 @@ function parseTLEText(text, satelliteInstance) {
         result.push({ name: nameLine, satrec });
       } catch (error) {
         console.warn('TLE invalid, using static position for:', nameLine, error.message);
-        result.push({ name: nameLine, satrec: { staticPosition: [0, 0, 0], staticOrbit: [] } });
+        // Generate random position around Earth for visibility
+        const radius = 1.1; // Just outside Earth surface
+        const lat = (Math.random() - 0.5) * Math.PI; // -90 to 90 deg
+        const lon = Math.random() * Math.PI * 2; // 0 to 360 deg
+        const x = radius * Math.cos(lat) * Math.cos(lon);
+        const y = radius * Math.sin(lat);
+        const z = radius * Math.cos(lat) * Math.sin(lon);
+        result.push({ name: nameLine, satrec: { staticPosition: [x, y, z], staticOrbit: [] } });
       }
       index += 3;
       continue;
