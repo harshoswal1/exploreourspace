@@ -21,6 +21,7 @@ import { createNewsPanel } from './ui/newsPanel.js';
 import { createPoleCompass } from './ui/poleCompass.js';
 import { createSearch } from './ui/search.js';
 import { createInstructions } from './ui/instructions.js';
+import { createAudioControl } from './ui/audioControl.js';
 import { getEarthClimateInfo } from './utils/earthClimate.js';
 
 const state = createAppState();
@@ -92,6 +93,7 @@ const {
   createButtons();
 const { searchInput, clearBtn } = createSearch();
 createLiveBadge();
+createAudioControl();
 const newsPanel = createNewsPanel();
 const poleCompass = createPoleCompass();
 const asteroidStatusBadge = createAsteroidStatusBadge();
