@@ -160,27 +160,30 @@ function isLikelyTLE(line1, line2) {
 }
 
 function parseTLEText(text, satelliteInstance) {
-  const lines = text
-  .replace(/\r/g, '')
-  .replace(/ {2,}/g, '\n')   // split broken lines
-  .split('\n')
-  .map(l => l.trim())
-  .filter(Boolean);
+  // Normalize text
+  const cleaned = text.replace(/\r/g, '\n');
+
+  // Split into tokens
+  const tokens = cleaned.split(/\n|\s(?=1\s)|\s(?=2\s)/).map(t => t.trim()).filter(Boolean);
+
   const result = [];
 
-  for (let i = 0; i < lines.length; i += 3) {
-    const name = lines[i]?.trim();
-    const line1 = lines[i + 1]?.trim();
-    const line2 = lines[i + 2]?.trim();
+  for (let i = 0; i < tokens.length - 2; i++) {
+    const name = tokens[i];
+    const line1 = tokens[i + 1];
+    const line2 = tokens[i + 2];
 
-    if (!name || !line1 || !line2 || !isLikelyTLE(line1, line2)) continue;
+    if (!isLikelyTLE(line1, line2)) continue;
+
     try {
       if (!satelliteInstance || typeof satelliteInstance.twoline2satrec !== 'function') {
-        console.warn('Satellite library unavailable when parsing TLE entries. Skipping:', name);
         continue;
       }
+
       const satrec = satelliteInstance.twoline2satrec(line1, line2);
       result.push({ name, satrec });
+
+      i += 2; // move to next set
     } catch (error) {
       console.warn('Skipping invalid TLE entry:', name, error);
     }
