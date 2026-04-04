@@ -36,16 +36,6 @@ style.textContent = `
       transform: scale(0.8);
       transform-origin: top right;
     }
-    /* Force News and Alerts to be icons or slim rows */
-    #news-panel-root, .news-container {
-      bottom: 210px !important;
-      top: auto !important;
-      right: 20px !important;
-      width: 44px !important;
-      height: 44px !important;
-      border-radius: 50% !important;
-      overflow: hidden;
-    }
   }
 `;
 document.head.appendChild(style);

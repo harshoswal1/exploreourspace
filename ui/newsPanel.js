@@ -35,15 +35,26 @@ function styleHeadlineLink(link) {
 export function createNewsPanel() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   const panel = document.createElement('div');
+  panel.id = 'news-panel-root';
   panel.style.position = 'absolute';
-  panel.style.top = '90px';
-  panel.style.right = '20px';
-  panel.style.left = 'auto';
-  panel.style.width = isMobile ? '220px' : 'min(360px, calc(100vw - 40px))';
-  panel.style.minWidth = '220px';
-  panel.style.maxHeight = isMobile ? '54px' : '280px';
-  panel.style.padding = '14px';
-  panel.style.borderRadius = '22px';
+  if (isMobile) {
+    panel.style.bottom = '210px'; // Stacked above Alerts (which is at 150px)
+    panel.style.right = '20px';
+    panel.style.width = '44px';
+    panel.style.height = '44px';
+    panel.style.borderRadius = '50%';
+    panel.style.padding = '0';
+    panel.style.display = 'flex';
+    panel.style.alignItems = 'center';
+    panel.style.justifyContent = 'center';
+  } else {
+    panel.style.top = '90px';
+    panel.style.right = '20px';
+    panel.style.width = 'min(360px, calc(100vw - 40px))';
+    panel.style.maxHeight = '280px';
+    panel.style.padding = '14px';
+    panel.style.borderRadius = '22px';
+  }
   panel.style.background = 'rgba(8,12,20,0.48)';
   panel.style.border = '1px solid rgba(255,255,255,0.1)';
   panel.style.backdropFilter = 'blur(20px)';
@@ -68,6 +79,7 @@ export function createNewsPanel() {
   title.style.fontWeight = '700';
   title.style.letterSpacing = '0.08em';
   title.style.textTransform = 'uppercase';
+  if (isMobile) title.style.display = 'none';
 
   const status = document.createElement('div');
   status.style.marginTop = '4px';
@@ -75,9 +87,10 @@ export function createNewsPanel() {
   status.style.fontSize = '11px';
   status.style.letterSpacing = '0.06em';
   status.style.textTransform = 'uppercase';
+  if (isMobile) status.style.display = 'none';
 
   const toggle = document.createElement('div');
-  toggle.textContent = isMobile ? '▼' : '';
+  toggle.textContent = isMobile ? '🛰️' : '';
   toggle.style.marginLeft = '8px';
   toggle.style.color = '#9fdcff';
   toggle.style.fontSize = '14px';
@@ -109,15 +122,24 @@ export function createNewsPanel() {
   function setExpanded(value) {
     expanded = value;
     if (expanded) {
-      panel.style.maxHeight = '280px';
-      panel.style.width = 'min(360px, calc(100vw - 40px))';
+      panel.style.height = 'auto';
+      panel.style.maxHeight = '320px';
+      panel.style.width = '260px';
+      panel.style.borderRadius = '20px';
+      panel.style.padding = '14px';
       content.style.display = 'block';
-      toggle.textContent = '▲';
+      title.style.display = 'block';
+      status.style.display = 'block';
+      toggle.textContent = '✕';
     } else {
-      panel.style.maxHeight = '54px';
-      panel.style.width = '220px';
+      panel.style.width = '44px';
+      panel.style.height = '44px';
+      panel.style.borderRadius = '50%';
+      panel.style.padding = '0';
       content.style.display = 'none';
-      toggle.textContent = '▼';
+      title.style.display = 'none';
+      status.style.display = 'none';
+      toggle.textContent = '🛰️';
     }
   }
 
