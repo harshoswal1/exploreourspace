@@ -63,7 +63,7 @@ export function createInstructions() {
   // Auto-dismiss after 12 seconds to keep the UI clean
   setTimeout(() => {
     if (container.parentNode) dismiss();
-  }, 12000);
+  }, 60000);
 
   return container;
 }
