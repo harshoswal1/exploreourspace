@@ -1,12 +1,15 @@
 export function createAudioControl() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   
-  // Using a more stable redirector link from Archive.org
   const audio = new Audio();
-  audio.src = 'https://archive.org/download/interstellar-main-theme-hans-zimmer/Interstellar%20Main%20Theme%20-%20Hans%20Zimmer.mp3';
+  // Set crossOrigin to anonymous to handle CORS restrictions from Archive.org
+  audio.crossOrigin = 'anonymous';
+  // Using a direct node link which is generally more stable for streaming
+  audio.src = 'https://ia801404.us.archive.org/24/items/interstellar-main-theme-hans-zimmer/Interstellar%20Main%20Theme%20-%20Hans%20Zimmer.mp3';
   audio.loop = true;
-  audio.volume = 0.5;
+  audio.volume = 0.7;
   audio.preload = 'auto';
+  audio.load();
 
   const button = document.createElement('button');
   button.dataset.uiElement = 'true';
@@ -15,8 +18,8 @@ export function createAudioControl() {
   button.style.position = 'absolute';
   
   // Positioned in the top-right area, between the Live Badge and the Search Bar
-  button.style.top = isMobile ? '12px' : '27px';
-  button.style.right = isMobile ? '70px' : '492px';
+  button.style.top = isMobile ? '12px' : '20px';
+  button.style.right = isMobile ? '70px' : '72px';
   
   button.style.width = isMobile ? '32px' : '40px';
   button.style.height = isMobile ? '32px' : '40px';
@@ -37,10 +40,20 @@ export function createAudioControl() {
 
   let isPlaying = false;
 
-  audio.addEventListener('error', () => {
-    console.error('Audio failed to load. Check your network or the source URL.');
+  audio.addEventListener('error', (e) => {
+    console.error('Audio Error Details:', audio.error);
     button.innerHTML = '⚠️';
-    button.title = 'Audio failed to load';
+    button.title = 'Audio failed to load (Check console for CORS/Network errors)';
+  });
+
+  // Show loading icon if the stream stalls or needs to buffer
+  audio.addEventListener('waiting', () => {
+    if (isPlaying) button.innerHTML = '⏳';
+  });
+
+  // Restore volume icon once playback resumes
+  audio.addEventListener('playing', () => {
+    if (isPlaying) button.innerHTML = '🔊';
   });
 
   button.addEventListener('click', () => {
@@ -50,11 +63,9 @@ export function createAudioControl() {
       button.style.boxShadow = 'none';
       isPlaying = false;
     } else {
-      // Show a loading icon if the audio hasn't buffered enough to play yet
-      if (audio.readyState < 2) {
-        button.innerHTML = '⏳';
-      }
+      button.innerHTML = '⏳';
 
+      // Play returns a promise; we use it to confirm playback started
       audio.play()
         .then(() => {
           isPlaying = true;
