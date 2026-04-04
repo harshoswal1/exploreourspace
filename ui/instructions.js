@@ -29,7 +29,11 @@ export function createInstructions() {
       <div style="margin-bottom: 10px;">
         <span style="color: #f9d180; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em; font-weight: 700;">Interaction Guide</span>
       </div>
-      <div style="margin-bottom: 8px;">
+      <div style="margin-bottom: 10px;">
+        <span style="color: #f6fbff;">Tap ◎</span> (Top Left) 
+        <br/> <span style="font-size: 0.9em; color: #a0c8ff; opacity: 0.8;">to toggle Layers, Objects & Scene controls</span>
+      </div>
+      <div style="margin-bottom: 10px;">
         <span style="color: #ffe066;">Double Tap</span> on Satellites, Asteroids, or Moon 
         <br/> <span style="font-size: 0.9em; color: #a0c8ff; opacity: 0.8;">for closer 3D look & real-time data</span>
       </div>
