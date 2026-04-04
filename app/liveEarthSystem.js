@@ -651,6 +651,7 @@ function createAlertsPanel() {
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       header.style.justifyContent = 'center';
+      header.style.height = '100%';
       content.style.display = 'none';
       title.style.display = 'none';
       status.style.display = 'none';
