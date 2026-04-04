@@ -545,10 +545,10 @@ function createAlertsPanel() {
   const panel = document.createElement('div');
   panel.style.position = 'absolute';
   if (isMobile) {
-    panel.style.bottom = '150px';
+    panel.style.bottom = '150px'; // 60px below the news icon (210px)
     panel.style.right = '20px';
-    panel.style.width = '44px';
-    panel.style.height = '44px';
+    panel.style.width = '40px';
+    panel.style.height = '40px';
     panel.style.borderRadius = '50%';
     panel.style.padding = '0';
     panel.style.display = 'flex';
@@ -562,8 +562,8 @@ function createAlertsPanel() {
     panel.style.padding = '12px';
     panel.style.borderRadius = '24px';
   }
-  panel.style.background = 'linear-gradient(180deg, rgba(8,12,20,0.7), rgba(8,12,20,0.54))';
-  panel.style.border = '1px solid rgba(255,255,255,0.12)';
+  panel.style.background = 'rgba(8,12,20,0.48)';
+  panel.style.border = '1px solid rgba(255,255,255,0.1)';
   panel.style.backdropFilter = 'blur(22px)';
   panel.style.webkitBackdropFilter = 'blur(22px)';
   panel.style.boxShadow = '0 18px 42px rgba(0,0,0,0.28)';
@@ -632,7 +632,7 @@ function createAlertsPanel() {
     if (expanded) {
       panel.style.height = 'auto';
       panel.style.maxHeight = '200px';
-      panel.style.width = '260px';
+      panel.style.width = 'min(300px, calc(100vw - 40px))';
       panel.style.borderRadius = '20px';
       panel.style.padding = '12px';
       content.style.display = 'block';
@@ -640,8 +640,8 @@ function createAlertsPanel() {
       status.style.display = 'block';
       toggle.textContent = '✕';
     } else {
-      panel.style.width = '44px';
-      panel.style.height = '44px';
+      panel.style.width = '40px';
+      panel.style.height = '40px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       content.style.display = 'none';

@@ -13,7 +13,7 @@ export function createBrand() {
   title.style.color = '#f7fbff';
   title.style.fontFamily = '"Trebuchet MS", "Arial Black", sans-serif';
   title.style.fontWeight = '900';
-  title.style.fontSize = isMobile ? '18px' : '34px';
+  title.style.fontSize = isMobile ? '15px' : '34px';
   title.style.lineHeight = '0.92';
   title.style.letterSpacing = '0.06em';
   title.style.textTransform = 'uppercase';
@@ -26,7 +26,7 @@ export function createBrand() {
   subtitle.style.color = '#b8caec';
   subtitle.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Georgia, serif';
   subtitle.style.fontStyle = 'italic';
-  subtitle.style.fontSize = isMobile ? '10px' : '18px';
+  subtitle.style.fontSize = isMobile ? '8px' : '18px';
   subtitle.style.letterSpacing = '0.18em';
   subtitle.style.textTransform = 'uppercase';
   subtitle.style.textShadow = '0 8px 20px rgba(0,0,0,0.38)';

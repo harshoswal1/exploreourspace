@@ -30,11 +30,21 @@ const MOON_AVERAGE_DISTANCE_KM = 384400;
 const style = document.createElement('style');
 style.textContent = `
   @media (max-width: 900px) {
-    /* Shrink status badges and stack them below Live Badge */
-    [style*="top: 20px"][style*="right: 20px"], 
-    .status-badge, .badge-container {
-      transform: scale(0.8);
-      transform-origin: top right;
+    /* Make status badges tiny pills stacked vertically */
+    .status-badge, [class*="StatusBadge"], [id*="status-badge"] {
+      transform: scale(0.6) !important;
+      transform-origin: right top !important;
+      margin-bottom: -10px !important;
+    }
+
+    /* Position the badges specifically under the Live Badge */
+    #cloud-status-badge-root { top: 65px !important; right: 20px !important; }
+    #asteroid-status-badge-root { top: 95px !important; right: 20px !important; }
+    #satellite-status-badge-root { top: 125px !important; right: 20px !important; }
+
+    /* Ensure the search bar is pushed left on tiny screens */
+    [id*="search-input"] {
+      max-width: 140px !important;
     }
   }
 `;
