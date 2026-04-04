@@ -321,7 +321,7 @@ window.addEventListener('resize', () => {
 await satelliteSystem.load();
 await asteroidSystem.load();
 if (satelliteStatusBadge && typeof satelliteStatusBadge.setStatus === 'function') {
-  satelliteStatusBadge.setStatus(satelliteSystem.getStatus());
+  satelliteStatusBadge.setStatus(satelliteSystem.getStatus(), '');
 }
 satelliteSystem.updateVisibility('');
 asteroidSystem.updateVisibility('');
@@ -336,7 +336,7 @@ function animate() {
     now: now,
   });
   newsPanel.update();
-  asteroidStatusBadge.setStatus(asteroidSystem.getStatus());
+  asteroidStatusBadge.setStatus(asteroidSystem.getStatus(), '');
   exitFollowBtn.style.display = focusController.isFollowing() ? 'block' : 'none';
   satelliteSystem.update();
   asteroidSystem.update();
