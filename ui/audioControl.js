@@ -1,10 +1,12 @@
 export function createAudioControl() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   
-  // Using a public archive link for the Interstellar Main Theme
-  const audio = new Audio('https://ia801404.us.archive.org/24/items/interstellar-main-theme-hans-zimmer/Interstellar%20Main%20Theme%20-%20Hans%20Zimmer.mp3');
+  // Using a more stable redirector link from Archive.org
+  const audio = new Audio();
+  audio.src = 'https://archive.org/download/interstellar-main-theme-hans-zimmer/Interstellar%20Main%20Theme%20-%20Hans%20Zimmer.mp3';
   audio.loop = true;
-  audio.volume = 0.4;
+  audio.volume = 0.5;
+  audio.preload = 'auto';
 
   const button = document.createElement('button');
   button.dataset.uiElement = 'true';
@@ -35,17 +37,36 @@ export function createAudioControl() {
 
   let isPlaying = false;
 
+  audio.addEventListener('error', () => {
+    console.error('Audio failed to load. Check your network or the source URL.');
+    button.innerHTML = '⚠️';
+    button.title = 'Audio failed to load';
+  });
+
   button.addEventListener('click', () => {
     if (isPlaying) {
       audio.pause();
       button.innerHTML = '🔇';
       button.style.boxShadow = 'none';
+      isPlaying = false;
     } else {
-      audio.play().catch(err => console.warn('Audio playback blocked by browser policy:', err));
-      button.innerHTML = '🔊';
-      button.style.boxShadow = '0 0 15px rgba(124, 200, 255, 0.4)';
+      // Show a loading icon if the audio hasn't buffered enough to play yet
+      if (audio.readyState < 2) {
+        button.innerHTML = '⏳';
+      }
+
+      audio.play()
+        .then(() => {
+          isPlaying = true;
+          button.innerHTML = '🔊';
+          button.style.boxShadow = '0 0 15px rgba(124, 200, 255, 0.4)';
+        })
+        .catch(err => {
+          console.warn('Playback failed. This usually happens if the browser blocks audio or the file is missing:', err);
+          button.innerHTML = '🔇';
+          isPlaying = false;
+        });
     }
-    isPlaying = !isPlaying;
   });
 
   button.addEventListener('mouseenter', () => button.style.transform = 'scale(1.1)');
