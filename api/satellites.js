@@ -1,8 +1,9 @@
 export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
-  'https://cdn.jsdelivr.net/gh/celestrak/NORAD-Elements@master/active.txt',
-  'https://celestrak.org/NORAD/elements/active.txt'
+  'https://raw.githubusercontent.com/celestrak/NORAD-Elements/master/active.txt',
+  'https://celestrak.org/NORAD/elements/active.txt',
+  'https://api.allorigins.win/raw?url=https://celestrak.org/NORAD/elements/active.txt'
 ];
 
 export default async function handler(req, res) {
@@ -10,7 +11,11 @@ export default async function handler(req, res) {
   let text = null;
   for (const url of SOURCES) {
     try {
-      const r = await fetch(url);
+      const r = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0'
+        }
+      });
       if (r.ok) {
         response = r;
         text = await r.text();
