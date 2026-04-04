@@ -232,7 +232,8 @@ function parseTLEText(text, satelliteInstance) {
   console.log('Parsed', result.length, 'satellites from TLE data');
   return result.slice(0, 800);
 }
-  const satelliteInstance = await loadSatelliteLibrary();
+
+export async function loadSatellites() {
 
   async function tryFetchText(url) {
     try {
