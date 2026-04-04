@@ -1,5 +1,6 @@
 const SATELLITE_SOURCES = [
-  '/api/satellites'
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle',
+  'https://raw.githubusercontent.com/celestrak/celestrak/master/NORAD/elements/active.txt'
 ];
 
 const SATELLITE_MODULES = [
@@ -230,4 +231,3 @@ if (cached && cached.text) {
     status: 'FALLBACK',
   };
 }
-
