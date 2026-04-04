@@ -1,6 +1,4 @@
 const SATELLITE_SOURCES = [
-  'https://r.jina.ai/http://celestrak.org/NORAD/elements/visual.txt',
-  'https://r.jina.ai/http://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
   'https://celestrak.org/NORAD/elements/visual.txt',
   'https://celestrak.org/NORAD/elements/stations.txt'
 ];
@@ -231,10 +229,9 @@ function parseTLEText(text, satelliteInstance) {
     index += 1;
   }
 
+  console.log('Parsed', result.length, 'satellites from TLE data');
   return result.slice(0, 800);
 }
-
-export async function loadSatellites() {
   const satelliteInstance = await loadSatelliteLibrary();
 
   async function tryFetchText(url) {
