@@ -256,7 +256,7 @@ export function createButtons() {
     }
     container.style.opacity = open ? '1' : '0';
     container.style.pointerEvents = open ? 'auto' : 'none';
-    toggle.textContent = open ? '🔨' : '🛠️';
+    toggle.textContent = open ? '🛠️' : '🔨';
   }
 
   // Auto-close menu when any option is selected
