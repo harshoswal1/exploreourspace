@@ -304,11 +304,19 @@ function updateSceneVisibility() {
   asteroidSystem.updateVisibility(query);
 }
 
-// Instant sound feedback for any interaction in the 3D space
+let lastPointerDownAt = 0;
+
 window.addEventListener('pointerdown', (event) => {
   if (isUIElementTarget(event.target)) return;
-  // Play a light click immediately on touch
   playSFX('click');
+
+  const now = Date.now();
+  if (now - lastPointerDownAt < 300) {
+    handleSceneSelection(event.clientX, event.clientY);
+    lastPointerDownAt = 0;
+  } else {
+    lastPointerDownAt = now;
+  }
 });
 
 function handleEarthClick(clientX, clientY) {
@@ -333,34 +341,6 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('click', (event) => {
   if (isUIElementTarget(event.target)) return;
   handleEarthClick(event.clientX, event.clientY);
-  updateSceneVisibility();
-});
-
-window.addEventListener('dblclick', (event) => {
-  if (isUIElementTarget(event.target)) return;
-  handleSceneSelection(event.clientX, event.clientY);
-  updateSceneVisibility();
-});
-
-window.addEventListener('touchstart', (event) => {
-  event.preventDefault();
-  const touch = event.touches[0];
-  if (!touch || isUIElementTarget(event.target)) return;
-  const now = Date.now();
-  const movedLittle =
-    Math.abs(touch.clientX - lastTouchX) < 18 && Math.abs(touch.clientY - lastTouchY) < 18;
-  const isDoubleTap = now - lastTouchTapAt < 320 && movedLittle;
-
-  if (isDoubleTap) {
-    handleSceneSelection(touch.clientX, touch.clientY);
-    lastTouchTapAt = 0;
-  } else {
-    handleEarthClick(touch.clientX, touch.clientY);
-    lastTouchTapAt = now;
-    lastTouchX = touch.clientX;
-    lastTouchY = touch.clientY;
-  }
-
   updateSceneVisibility();
 });
 
