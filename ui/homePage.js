@@ -1,4 +1,4 @@
-import { playSFX } from '../utils/sfx.js';
+import { playSFX, stopSFX } from '../utils/sfx.js';
 
 export function createHomePage(onStart) {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
@@ -252,6 +252,9 @@ export function createHomePage(onStart) {
   overlay.innerHTML = content;
   document.body.appendChild(overlay);
 
+  // Start the sustained loading/processing sound
+  playSFX('loading', true);
+
   const integrityFill = overlay.querySelector('#integrity-fill');
 
   // Terminal Boot Animation Logic
@@ -277,6 +280,9 @@ export function createHomePage(onStart) {
   const step2 = overlay.querySelector('#story-step-2');
 
   setTimeout(() => {
+    // Stop the loading sound exactly when the sequence ends
+    stopSFX('loading');
+    
     playSFX('transition');
     step1.style.display = 'none';
     step2.style.display = 'block';
