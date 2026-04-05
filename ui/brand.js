@@ -21,8 +21,6 @@ export function createBrand() {
 
   const subtitle = document.createElement('div');
   subtitle.textContent = 'Company';
-  subtitle.style.marginTop = '2px';
-  subtitle.style.marginLeft = '2px';
   subtitle.style.color = '#b8caec';
   subtitle.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Georgia, serif';
   subtitle.style.fontStyle = 'italic';
@@ -31,8 +29,38 @@ export function createBrand() {
   subtitle.style.textTransform = 'uppercase';
   subtitle.style.textShadow = '0 8px 20px rgba(0,0,0,0.38)';
 
+  // Row container for Subtitle + Attribution
+  const subRow = document.createElement('div');
+  subRow.style.display = 'flex';
+  subRow.style.alignItems = 'baseline';
+  subRow.style.marginTop = '2px';
+  subRow.style.marginLeft = '2px';
+  subRow.style.pointerEvents = 'none';
+
+  // Attribution & Social Links
+  const attribution = document.createElement('div');
+  attribution.style.marginLeft = isMobile ? '8px' : '12px';
+  attribution.style.color = 'rgba(255, 255, 255, 0.45)';
+  attribution.style.fontFamily = 'Arial, sans-serif';
+  attribution.style.fontSize = isMobile ? '8px' : '10px';
+  attribution.style.letterSpacing = '0.05em';
+  attribution.style.pointerEvents = 'auto'; // Make links clickable
+  attribution.style.display = 'flex';
+  attribution.style.gap = '6px';
+  attribution.style.alignItems = 'center';
+  attribution.style.textTransform = 'none';
+
+  attribution.innerHTML = `
+    <span style="font-weight: 400;">- by Harsh Oswal</span>
+    <a href="https://instagram.com/" target="_blank" title="Instagram" style="text-decoration: none; color: inherit; opacity: 0.6; font-size: 11px;">IG</a>
+    <a href="https://linkedin.com/in/" target="_blank" title="LinkedIn" style="text-decoration: none; color: inherit; opacity: 0.6; font-size: 11px;">LI</a>
+  `;
+
+  subRow.appendChild(subtitle);
+  subRow.appendChild(attribution);
+
   wrap.appendChild(title);
-  wrap.appendChild(subtitle);
+  wrap.appendChild(subRow);
   document.body.appendChild(wrap);
 
   return wrap;
