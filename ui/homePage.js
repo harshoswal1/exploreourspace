@@ -66,40 +66,32 @@ export function createHomePage(onStart) {
         </div>
         
         <div class="hud-info-grid">
-          <div class="hud-card">
-            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="capability-item">
             <div class="card-icon">${getSatSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>TRACK</h4>
               <p>Real-time telemetry for 800+ active satellites in LEO/MEO orbits.</p>
-              <div class="signal-bar"><div class="fill" style="width: 85%"></div></div>
             </div>
           </div>
-          <div class="hud-card">
-            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="capability-item">
             <div class="card-icon">${getAsteroidSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>DETECT</h4>
               <p>Continuous monitoring of Near-Earth Objects via NASA JPL data feeds.</p>
-              <div class="signal-bar"><div class="fill" style="width: 92%"></div></div>
             </div>
           </div>
-          <div class="hud-card">
-            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="capability-item">
             <div class="card-icon">${getEarthSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>ANALYZE</h4>
               <p>Live planetary diagnostics including climate bands and local weather.</p>
-              <div class="signal-bar"><div class="fill" style="width: 70%"></div></div>
             </div>
           </div>
-          <div class="hud-card">
-            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="capability-item">
             <div class="card-icon">${getNavSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>NAVIGATE</h4>
               <p>Advanced target-lock systems for individual object observation.</p>
-              <div class="signal-bar"><div class="fill" style="width: 100%"></div></div>
             </div>
           </div>
         </div>
@@ -137,15 +129,12 @@ export function createHomePage(onStart) {
       @keyframes typing { from { width: 0 } to { width: 100% } }
       @keyframes blink { from, to { border-color: transparent } 50% { border-color: #ffcc33 } }
 
-      .hud-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 40px; }
-      .hud-card { background: rgba(255, 204, 51, 0.03); border: 1px solid rgba(255, 204, 51, 0.15); padding: 20px; position: relative; text-align: left; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; align-items: center; gap: 15px; backdrop-filter: blur(5px); }
-      .hud-card:hover { background: rgba(255, 204, 51, 0.08); border-color: #ffcc33; transform: scale(1.02); }
+      .hud-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 50px; }
+      .capability-item { padding: 10px; position: relative; text-align: left; display: flex; align-items: flex-start; gap: 20px; transition: transform 0.3s ease; }
+      .capability-item:hover { transform: translateX(5px); }
       .card-icon { width: 24px; color: #ffcc33; opacity: 0.8; }
-      .hud-card h4 { color: #fff; font-family: 'Orbitron'; font-size: 12px; margin: 0 0 5px; letter-spacing: 2px; }
-      .hud-card p { color: rgba(255, 204, 51, 0.6); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; }
-      .signal-bar { width: 100%; height: 2px; background: rgba(255, 204, 51, 0.05); margin-top: 8px; position: relative; overflow: hidden; }
-      .signal-bar .fill { height: 100%; background: #ffcc33; box-shadow: 0 0 5px #ffcc33; animation: signalPulse 2s infinite ease-in-out; }
-      @keyframes signalPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+      .capability-item h4 { color: #fff; font-family: 'Orbitron'; font-size: 13px; margin: 0 0 8px; letter-spacing: 2px; border-bottom: 1px solid rgba(255, 204, 51, 0.2); display: inline-block; padding-bottom: 4px; }
+      .capability-item p { color: rgba(255, 204, 51, 0.7); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; line-height: 1.4; }
       
       .mission-brief {
         font-family: 'Rajdhani';
@@ -168,14 +157,10 @@ export function createHomePage(onStart) {
       @keyframes blinkStatus { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
       .tech-header { font-family: 'Orbitron'; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #ffcc33; margin-bottom: 10px; }
 
-      .card-corner { position: absolute; width: 10px; height: 10px; border: 2px solid rgba(255, 204, 51, 0.3); }
-      .tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
-      .tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
-
       .sci-fi-btn {
-        background: rgba(255, 204, 51, 0.05); border: 1px solid #ffcc33; color: #ffcc33; padding: 22px 50px; 
+        background: rgba(255, 204, 51, 0.05); border: 1px solid #ffcc33; color: #ffcc33; padding: 20px 45px; 
         font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px; cursor: pointer; position: relative;
-        overflow: hidden; transition: all 0.3s; clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+        overflow: hidden; transition: all 0.3s; border-radius: 4px; box-shadow: 0 0 15px rgba(255, 204, 51, 0.1);
       }
       .sci-fi-btn:hover { background: #ffcc33; color: #000; box-shadow: 0 0 40px rgba(255, 204, 51, 0.5); transform: translateY(-3px); }
       .btn-text { position: relative; z-index: 2; }
