@@ -156,7 +156,7 @@ export function createHomePage(onStart) {
         background: rgba(255, 204, 51, 0.05); border: 1px solid #ffcc33; color: #ffcc33; padding: 22px 60px; 
         font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px; cursor: pointer; position: relative;
         overflow: hidden; transition: all 0.3s; 
-        clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+        border-radius: 4px;
       }
       .sci-fi-btn:hover { background: #ffcc33; color: #000; box-shadow: 0 0 40px rgba(255, 204, 51, 0.5); transform: translateY(-3px); }
       .btn-text { position: relative; z-index: 2; }
