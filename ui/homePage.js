@@ -27,10 +27,14 @@ export function createHomePage(onStart) {
     <div class="hud-grid"></div>
     <div class="vignette"></div>
     <div class="radar-sweep"></div>
+    <div class="targeting-reticle"></div>
+    <div class="rotating-hub"></div>
+    <div class="pulse-ring"></div>
     
     <!-- Floating Space Elements -->
     <div class="sat-anim sat-1"></div>
     <div class="sat-anim sat-2"></div>
+    <div class="sat-anim sat-3"></div>
 
     <!-- Side Telemetry Streams -->
     <div class="telemetry-stream left-stream"></div>
@@ -41,6 +45,11 @@ export function createHomePage(onStart) {
     <div class="viewport-bracket tr"></div>
     <div class="viewport-bracket bl"></div>
     <div class="viewport-bracket br"></div>
+    
+    <div class="corner-data tl-data">LAT: 28.6139<br/>LON: 77.2090<br/>HDG: 042°</div>
+    <div class="corner-data tr-data">ALT: 408 KM<br/>VEL: 7.66 KM/S<br/>SIG: NOMINAL</div>
+    <div class="corner-data bl-data">UPLINK: ACTIVE<br/>FREQ: 14.2 GHz<br/>CH: DSN-7</div>
+    <div class="corner-data br-data">SENSORS: 100%<br/>NEO_SCAN: RUNNING<br/>AUTO_TRACK: ON</div>
 
     <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
       <div id="story-step-1" class="intro-sequence">
@@ -123,11 +132,31 @@ export function createHomePage(onStart) {
       .viewport-bracket.bl { bottom: 40px; left: 40px; border-right: 0; border-top: 0; }
       .viewport-bracket.br { bottom: 40px; right: 40px; border-left: 0; border-top: 0; }
       @media (max-width: 900px) {
-        .viewport-bracket { width: 20px; height: 20px; }
+        .viewport-bracket { width: 20px; height: 20px; top: 20px; bottom: 20px; left: 20px; right: 20px; }
       }
 
+      /* Corner Data Readouts */
+      .corner-data { position: absolute; font-family: monospace; font-size: 8px; color: rgba(126, 231, 255, 0.4); line-height: 1.4; pointer-events: none; z-index: 6; text-transform: uppercase; }
+      .tl-data { top: 45px; left: 90px; }
+      .tr-data { top: 45px; right: 90px; text-align: right; }
+      .bl-data { bottom: 45px; left: 90px; }
+      .br-data { bottom: 45px; right: 90px; text-align: right; }
+      @media (max-width: 900px) { .corner-data { display: none; } }
+
+      /* Central Targeting Reticle */
+      .targeting-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; border: 1px solid rgba(126, 231, 255, 0.05); border-radius: 50%; pointer-events: none; z-index: 1; }
+      .targeting-reticle::before, .targeting-reticle::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(126, 231, 255, 0.15); border-radius: 50%; }
+      .targeting-reticle::before { width: 40px; height: 40px; border-style: dashed; animation: rotateHub 10s linear infinite; }
+      .targeting-reticle::after { width: 2px; height: 60px; background: rgba(126, 231, 255, 0.2); }
+
+      .rotating-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; border: 2px solid transparent; border-top: 2px solid rgba(126, 231, 255, 0.05); border-radius: 50%; animation: rotateHub 25s linear infinite; pointer-events: none; }
+      @keyframes rotateHub { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+      .pulse-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border: 1px solid #7ee7ff; border-radius: 50%; animation: pulseRing 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; pointer-events: none; z-index: 1; }
+      @keyframes pulseRing { 0% { width: 0; height: 0; opacity: 0.5; } 100% { width: 800px; height: 800px; opacity: 0; } }
+
       /* Telemetry Data Streams */
-      .telemetry-stream { position: absolute; top: 0; bottom: 0; width: 60px; font-family: monospace; font-size: 8px; color: rgba(126, 231, 255, 0.2); overflow: hidden; line-height: 1.5; pointer-events: none; z-index: 2; padding: 20px 10px; }
+      .telemetry-stream { position: absolute; top: 0; bottom: 0; width: 80px; font-family: monospace; font-size: 8px; color: rgba(126, 231, 255, 0.2); overflow: hidden; line-height: 1.5; pointer-events: none; z-index: 2; padding: 20px 10px; }
       .left-stream { left: 10px; text-align: left; }
       .right-stream { right: 10px; text-align: right; }
       .telemetry-stream::after { content: "01011010 POS_X: 42.102 SYNCING... PING 24ms COORDINATES LOCKED 12.09N 77.01E ALTITUDE 400KM TARGET_SAT_ISS_01 DATA_PACKET_RECEIVED [OK]"; display: block; animation: streamScroll 15s linear infinite; }
