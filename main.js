@@ -119,7 +119,10 @@ createHomePage(() => {
   satelliteStatusBadge = createSatelliteStatusBadge();
   exitFollowBtn = createFollowExitButton();
 
-  
+    // ✅ ADD IT HERE
+  if (exitFollowBtn) {
+    exitFollowBtn.addEventListener('click', clearFollowMode);
+  }
   
   // Initialize badge states now that they exist
   if (satelliteStatusBadge) {
@@ -304,9 +307,7 @@ function handleEarthClick(clientX, clientY) {
   }
 }
 
-exitFollowBtn.addEventListener('click', () => {
-  clearFollowMode();
-});
+
 
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
