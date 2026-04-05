@@ -3,8 +3,8 @@ export function createBrand() {
 
   const wrap = document.createElement('div');
   wrap.style.position = 'absolute';
-  wrap.style.bottom = '24px';
-  wrap.style.left = '20px';
+  wrap.style.top = '20px';
+  wrap.style.left = '24px';
   wrap.style.zIndex = '16';
   wrap.style.pointerEvents = 'none';
 
@@ -17,8 +17,8 @@ export function createBrand() {
   title.style.lineHeight = '0.92';
   title.style.letterSpacing = '0.4em';
   title.style.textTransform = 'uppercase';
-  title.style.textShadow = '0 0 10px #ffcc33';
-  title.style.borderLeft = '3px solid #ffcc33';
+  title.style.textShadow = '0 0 10px #7ee7ff';
+  title.style.borderLeft = '3px solid #7ee7ff';
   title.style.paddingLeft = '15px';
 
   const subtitle = document.createElement('div');
@@ -39,12 +39,11 @@ export function createBrand() {
   const socialStack = document.createElement('div');
   socialStack.dataset.uiElement = 'true';
   socialStack.style.position = 'absolute';
-  socialStack.style.right = isMobile ? '20px' : '24px';
-  socialStack.style.top = isMobile ? '60px' : '80px';
-  socialStack.style.left = 'auto';
+  socialStack.style.left = isMobile ? '20px' : '24px';
+  socialStack.style.top = isMobile ? '165px' : '190px';
   socialStack.style.display = 'flex';
   socialStack.style.flexDirection = 'column';
-  socialStack.style.alignItems = 'flex-end';
+  socialStack.style.alignItems = 'flex-start';
   socialStack.style.gap = isMobile ? '12px' : '16px';
   socialStack.style.zIndex = '16';
   socialStack.style.pointerEvents = 'auto';

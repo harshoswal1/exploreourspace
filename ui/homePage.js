@@ -16,13 +16,12 @@ export function createHomePage(onStart) {
   overlay.style.left = '0';
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
-  overlay.style.background = 'radial-gradient(circle at center, rgba(20, 15, 10, 0.3) 0%, rgba(5, 5, 5, 0.95) 100%)';
+  overlay.style.background = 'radial-gradient(circle at center, rgba(10, 20, 40, 0.4) 0%, rgba(0, 0, 0, 0.9) 100%)';
   overlay.style.backdropFilter = 'blur(15px)';
   overlay.style.webkitBackdropFilter = 'blur(15px)';
   overlay.style.display = 'flex';
-  overlay.style.flexDirection = 'column';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'stretch';
+  overlay.style.justifyContent = 'stretch';
   overlay.style.zIndex = '5000';
   overlay.style.color = 'white';
   overlay.style.fontFamily = "'Rajdhani', sans-serif";
@@ -153,24 +152,24 @@ export function createHomePage(onStart) {
       .intro-sequence { animation: introFade 5s forwards; }
       @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
       
-      .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #ffcc33; opacity: 0.7; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
+      .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #7ee7ff; opacity: 0.7; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
       
       /* Viewport Brackets */
-      .viewport-bracket { position: absolute; width: 80px; height: 80px; border: 1px solid rgba(255, 204, 51, 0.1); z-index: 5; pointer-events: none; }
-      .viewport-bracket::after { content: ''; position: absolute; width: 15px; height: 15px; border: 2px solid #ffcc33; }
+      .viewport-bracket { position: absolute; width: 80px; height: 80px; border: 1px solid rgba(126, 231, 255, 0.1); z-index: 5; pointer-events: none; }
+      .viewport-bracket::after { content: ''; position: absolute; width: 15px; height: 15px; border: 2px solid #7ee7ff; }
       .viewport-bracket.tl { top: 30px; left: 30px; border-right: 0; border-bottom: 0; } .viewport-bracket.tl::after { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
       .viewport-bracket.tr { top: 30px; right: 30px; border-left: 0; border-bottom: 0; } .viewport-bracket.tr::after { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
       .viewport-bracket.bl { bottom: 30px; left: 30px; border-right: 0; border-top: 0; } .viewport-bracket.bl::after { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
       .viewport-bracket.br { bottom: 30px; right: 30px; border-left: 0; border-top: 0; } .viewport-bracket.br::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
 
       /* Integrity Bar */
-      .integrity-bar-wrap { position: absolute; bottom: 80px; width: 240px; left: 50%; transform: translateX(-50%); z-index: 10; font-family: 'Share Tech Mono'; }
-      .integrity-label { font-size: 10px; color: #ffcc33; text-align: center; margin-bottom: 10px; letter-spacing: 4px; font-weight: 700; }
-      .integrity-track { width: 100%; height: 2px; background: rgba(255, 204, 51, 0.1); border-radius: 1px; overflow: hidden; }
-      .integrity-fill { height: 100%; width: 0%; background: #ffcc33; box-shadow: 0 0 10px #ffcc33; transition: width 3s cubic-bezier(0.1, 0, 0.1, 1); }
+      .integrity-bar-wrap { position: absolute; bottom: 40px; right: 40px; width: 240px; z-index: 10; font-family: 'Share Tech Mono'; }
+      .integrity-label { font-size: 10px; color: #7ee7ff; text-align: right; margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; }
+      .integrity-track { width: 100%; height: 2px; background: rgba(126, 231, 255, 0.1); border-radius: 1px; overflow: hidden; }
+      .integrity-fill { height: 100%; width: 0%; background: #7ee7ff; box-shadow: 0 0 10px #7ee7ff; transition: width 3s cubic-bezier(0.1, 0, 0.1, 1); }
 
       /* Floating Data Nodes */
-      .data-node { position: absolute; font-family: 'Share Tech Mono'; font-size: 10px; color: #ffcc33; opacity: 0; animation: floatData 8s infinite; pointer-events: none; font-weight: 700; letter-spacing: 1px; }
+      .data-node { position: absolute; font-family: 'Share Tech Mono'; font-size: 10px; color: #7ee7ff; opacity: 0; animation: floatData 8s infinite; pointer-events: none; font-weight: 700; letter-spacing: 1px; }
       @keyframes floatData { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 0.6; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100px); } }
       .node-1 { top: 30%; left: 20%; animation-delay: 0s; }
       .node-2 { top: 40%; right: 25%; animation-delay: 4s; }
@@ -194,8 +193,8 @@ export function createHomePage(onStart) {
       @media (max-width: 900px) { .corner-data { display: none; } }
 
       /* Central Targeting Reticle */
-      .targeting-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; border: 1px solid rgba(255, 204, 51, 0.05); border-radius: 50%; pointer-events: none; z-index: 1; }
-      .targeting-reticle::before, .targeting-reticle::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(255, 204, 51, 0.1); border-radius: 50%; }
+      .targeting-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; border: 1px solid rgba(126, 231, 255, 0.05); border-radius: 50%; pointer-events: none; z-index: 1; }
+      .targeting-reticle::before, .targeting-reticle::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(126, 231, 255, 0.1); border-radius: 50%; }
       .targeting-reticle::before { width: 40px; height: 40px; border-style: dashed; animation: rotateHub 10s linear infinite; }
       .targeting-reticle::after { width: 2px; height: 60px; background: rgba(255, 204, 51, 0.15); }
 

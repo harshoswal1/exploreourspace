@@ -39,23 +39,6 @@ globalStyle.textContent = `
     width: 100%;
     height: 100%;
   }
-  @media (max-width: 900px) {
-    /* Make status badges tiny pills stacked vertically */
-    .status-badge, [class*="StatusBadge"], [id*="status-badge"] {
-      transform: scale(0.6) !important;
-      transform-origin: right top !important;
-      margin-bottom: -10px !important;
-    }
-
-    /* Position status badges specifically under the Live Badge in the TOP RIGHT */
-    #asteroid-status-badge-root { top: 95px !important; right: 20px !important; }
-    #satellite-status-badge-root { top: 125px !important; right: 20px !important; }
-
-    /* Ensure the search bar is pushed left on tiny screens */
-    [id*="search-input"] {
-      max-width: 120px !important;
-    }
-  }
 `;
 document.head.appendChild(globalStyle);
 

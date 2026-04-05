@@ -3,10 +3,10 @@ import { createStatusBadge } from './statusBadge.js';
 export function createAsteroidStatusBadge() {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   return createStatusBadge({
-    top: mobile ? '125px' : '145px',
+    top: 'auto',
     left: 'auto',
     right: mobile ? '12px' : '20px',
-    bottom: 'auto',
+    bottom: mobile ? '10px' : '20px',
     initialStatus: 'UPDATING',
     labelPrefix: 'ASTEROIDS',
     palette: {
