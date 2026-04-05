@@ -34,7 +34,7 @@ export function createHomePage(onStart) {
     <div class="vignette"></div>
 
     <!-- System Integrity Bar -->
-    <div class="integrity-bar-wrap" style="position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 240px; z-index: 10;">
+    <div class="integrity-bar-wrap" id="integrity-container" style="position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 240px; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;">
       <div class="integrity-label">ESTABLISHING QUANTUM LINK</div>
       <div class="integrity-track"><div class="integrity-fill" id="integrity-fill"></div></div>
     </div>
@@ -44,8 +44,12 @@ export function createHomePage(onStart) {
         <div class="glitch-text" style="font-family: 'Orbitron'; font-weight: 700; color: #ffcc33;">// SECURE UPLINK ACQUIRED</div>
         <h1 style="font-size: ${isMobile ? '36px' : '72px'}; font-weight: 900; letter-spacing: 0.2em; margin: 10px 0; color: #fff; text-shadow: 0 0 30px rgba(255, 204, 51, 0.4); font-family: 'Orbitron', sans-serif; text-transform: uppercase;">The Space</h1>
         <div style="height: 2px; width: 120px; background: linear-gradient(90deg, transparent, #ffcc33, transparent); margin: 20px auto;"></div>
-        <p class="typewriter">SYNCHRONIZING WITH DEEP SPACE NETWORK [DSN-7]...</p>
-        <div class="boot-log" id="boot-log"></div>
+        
+        <div style="margin-top: 40px;">
+          <button id="next-btn" class="sci-fi-btn" style="padding: 15px 40px; font-size: 14px;">
+            <span class="btn-text">NEXT</span>
+          </button>
+        </div>
       </div>
 
       <div id="story-step-2" style="display: none; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
@@ -98,10 +102,13 @@ export function createHomePage(onStart) {
             </div>
           </div>
         </div>
+        
+        <!-- Boot Log inside step 2, but hidden until Explore is clicked -->
+        <div class="boot-log" id="boot-log" style="opacity: 0; transition: opacity 0.5s ease;"></div>
 
         <button id="explore-btn" class="sci-fi-btn">
           <div class="btn-content">
-            <span class="btn-text">INITIALIZE SYSTEM</span>
+            <span class="btn-text">EXPLORE EARTH</span>
           </div>
         </button>
       </div>
@@ -116,7 +123,7 @@ export function createHomePage(onStart) {
       * { box-sizing: border-box; }
       .vignette { position: absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle, transparent 40%, black 150%); z-index: 1; }
       .intro-sequence { animation: introFade 5s forwards; }
-      @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
+      @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 20% { opacity:1; } 100% { opacity:1; transform:scale(1); } }
       
       .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #7ee7ff; opacity: 0.7; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
 
@@ -180,29 +187,15 @@ export function createHomePage(onStart) {
   document.body.appendChild(overlay);
 
   const integrityFill = overlay.querySelector('#integrity-fill');
-
-  // Terminal Boot Animation Logic
+  const integrityContainer = overlay.querySelector('#integrity-container');
   const log = overlay.querySelector('#boot-log');
-  const messages = [
-    "> AUTHENTICATING COMMANDER: HARSH OSWAL",
-    "> DECRYPTING SAT-UPLINK [AES-256]",
-    "> FETCHING TLE ORBITAL PARAMETERS...",
-    "> NASA NEO FEED: CONNECTED",
-    "> ATMOSPHERIC SCANNERS: CALIBRATING",
-    "> SYSTEM CORE: READY"
-  ];
-  messages.forEach((msg, i) => {
-    setTimeout(() => {
-      log.innerHTML += `<div>${msg}</div>`;
-      integrityFill.style.width = `${(i + 1) * 16.6}%`;
-    }, 400 * i);
-  });
 
   // Handle Story Transitions
   const step1 = overlay.querySelector('#story-step-1');
   const step2 = overlay.querySelector('#story-step-2');
+  const nextBtn = overlay.querySelector('#next-btn');
 
-  setTimeout(() => {
+  nextBtn.addEventListener('click', () => {
     step1.style.display = 'none';
     step2.style.display = 'block';
     step2.style.animation = 'step2In 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards';
@@ -210,21 +203,56 @@ export function createHomePage(onStart) {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `@keyframes step2In { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }`;
     document.head.appendChild(styleSheet);
-  }, 5000);
+  });
 
   const btn = overlay.querySelector('#explore-btn');
+  const hudGrid = overlay.querySelector('.hud-info-grid');
+  const missionBrief = overlay.querySelector('.mission-brief');
+  const techHeader = overlay.querySelector('.tech-header');
+  const capabilitiesTitle = overlay.querySelector('h2');
+
   btn.addEventListener('click', () => {
-    // Start fade out
-    overlay.style.transition = 'all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1)';
-    overlay.style.opacity = '0';
-    overlay.style.transform = 'scale(1.1)';
-    
-    // Start the app logic after a slight delay to let the fade breathe
-    setTimeout(() => {
-      if (onStart) onStart();
-      overlay.style.visibility = 'hidden';
-      setTimeout(() => overlay.remove(), 500);
-    }, 600);
+    // Hide Step 2 UI elements to make room for loader
+    btn.style.display = 'none';
+    hudGrid.style.opacity = '0';
+    missionBrief.style.opacity = '0';
+    techHeader.style.opacity = '0';
+    capabilitiesTitle.style.opacity = '0';
+
+    // Show Loader
+    integrityContainer.style.opacity = '1';
+    log.style.opacity = '1';
+
+    const messages = [
+      "> AUTHENTICATING COMMANDER: HARSH OSWAL",
+      "> DECRYPTING SAT-UPLINK [AES-256]",
+      "> FETCHING TLE ORBITAL PARAMETERS...",
+      "> NASA NEO FEED: CONNECTED",
+      "> ATMOSPHERIC SCANNERS: CALIBRATING",
+      "> SYSTEM CORE: READY"
+    ];
+
+    messages.forEach((msg, i) => {
+      setTimeout(() => {
+        log.innerHTML += `<div>${msg}</div>`;
+        integrityFill.style.width = `${(i + 1) * 16.6}%`;
+
+        // Final Transition after last message
+        if (i === messages.length - 1) {
+          setTimeout(() => {
+            overlay.style.transition = 'all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1)';
+            overlay.style.opacity = '0';
+            overlay.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+              if (onStart) onStart();
+              overlay.style.visibility = 'hidden';
+              setTimeout(() => overlay.remove(), 500);
+            }, 600);
+          }, 800);
+        }
+      }, 500 * i);
+    });
   });
 
   return overlay;
