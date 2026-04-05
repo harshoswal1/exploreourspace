@@ -255,8 +255,7 @@ function getMoonHit(clientX, clientY) {
 function handleSceneSelection(clientX, clientY) {
   const asteroidEntry = asteroidSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (asteroidEntry) {
-    playSFX('lock');
-    playSFX('zoom');
+    playSFX('zoom'); // Use the snappy mechanical snap for focus
     satelliteSystem.clearSelection({ hidePanel: false });
     focusController.follow(asteroidEntry.mesh, new THREE.Vector3(0.65, 0.34, 0.65));
     asteroidSystem.updateVisibility(satelliteSystem.getQueryValue(searchInput));
@@ -265,16 +264,14 @@ function handleSceneSelection(clientX, clientY) {
 
   const satelliteEntry = satelliteSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (satelliteEntry) {
-    playSFX('lock');
-    playSFX('zoom');
+    playSFX('zoom'); // Single snappy sound
     focusController.follow(satelliteEntry.mesh, new THREE.Vector3(0.42, 0.26, 0.42));
     return;
   }
 
   const moonHit = getMoonHit(clientX, clientY);
   if (moonHit) {
-    playSFX('lock');
-    playSFX('zoom');
+    playSFX('zoom'); // Consistent focus sound
     clearFollowMode();
     earthRuntime.setMoonDistanceVisible(true);
     const moonPhase = earthRuntime.getMoonPhaseInfo();

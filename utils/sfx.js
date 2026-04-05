@@ -1,10 +1,10 @@
 const SFX_URLS = {
-  boot: 'https://assets.mixkit.co/active_storage/sfx/212/212-preview.mp3', // Mechanical power hum
-  click: 'https://assets.mixkit.co/active_storage/sfx/878/878-preview.mp3', // Heavy metallic switch
-  transition: 'https://assets.mixkit.co/active_storage/sfx/123/123-preview.mp3', // Industrial metal slide
-  lock: 'https://assets.mixkit.co/active_storage/sfx/875/875-preview.mp3', // Heavy metallic latch
-  error: 'https://assets.mixkit.co/active_storage/sfx/122/122-preview.mp3', // Mechanical grinding
-  zoom: 'https://assets.mixkit.co/active_storage/sfx/2823/2823-preview.mp3' // Metallic ball bearing / rolling friction
+  boot: 'https://assets.mixkit.co/active_storage/sfx/2569/2569-preview.mp3', // Instant mechanical lock
+  click: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3', // Tiny metallic click
+  transition: 'https://assets.mixkit.co/active_storage/sfx/592/592-preview.mp3', // Fast metallic slide
+  lock: 'https://assets.mixkit.co/active_storage/sfx/875/875-preview.mp3', // Quick metallic latch
+  error: 'https://assets.mixkit.co/active_storage/sfx/122/122-preview.mp3', // Quick mechanical grind
+  zoom: 'https://assets.mixkit.co/active_storage/sfx/601/601-preview.mp3' // Instant mechanical snap (bearing hit)
 };
 
 const sounds = {};
