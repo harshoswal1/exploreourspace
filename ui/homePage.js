@@ -130,7 +130,7 @@ export function createHomePage(onStart) {
       .module-item h4 { color: #fff; font-family: 'Orbitron'; font-size: 14px; margin: 0; letter-spacing: 2px; font-weight: 700; }
       .module-status { font-family: 'Share Tech Mono'; font-size: 9px; color: #ffcc33; letter-spacing: 1px; opacity: 0.6; border: 1px solid rgba(255, 204, 51, 0.3); padding: 2px 6px; border-radius: 2px; }
       .module-item p { color: rgba(255, 204, 51, 0.6); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; line-height: 1.4; max-width: 450px; }
-      
+
       .mission-brief {
         font-family: 'Rajdhani';
         font-size: 14px;
@@ -160,8 +160,6 @@ export function createHomePage(onStart) {
       }
       .sci-fi-btn:hover { background: #ffcc33; color: #000; box-shadow: 0 0 40px rgba(255, 204, 51, 0.5); transform: translateY(-3px); }
       .btn-text { position: relative; z-index: 2; }
-      
-      .nebula { 
     </style>
   `;
 
