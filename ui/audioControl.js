@@ -18,8 +18,8 @@ export function createAudioControl() {
   button.style.position = 'absolute';
   
   // Positioned in the top-right area, between the Live Badge and the Search Bar
-  button.style.top = isMobile ? '12px' : '27px';
-  button.style.right = isMobile ? '92px' : '520px';
+  button.style.top = isMobile ? '12px' : '20px';
+  button.style.right = isMobile ? '54px' : '520px';
   
   button.style.width = isMobile ? '32px' : '40px';
   button.style.height = isMobile ? '32px' : '40px';
