@@ -102,7 +102,7 @@ export function createHomePage(onStart) {
 
     <!-- Bottom Signature -->
     <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10; font-family: monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(126, 231, 255, 0.5); text-transform: uppercase;">
-      @Harsh Oswal
+      -----Harsh Oswal-----
     </div>
 
     <style>
