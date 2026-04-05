@@ -37,8 +37,8 @@ export function createHomePage(onStart) {
 
     <div class="story-wrapper" style="max-width: 600px; position: relative; z-index: 2;">
       <div id="story-step-1" class="fade-in-out">
-        <h2 style="font-size: ${isMobile ? '18px' : '24px'}; letter-spacing: 0.8em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; font-weight: 200; font-family: 'Courier New', monospace;">COMMANDER <br/> <span style="font-weight: 800; color: #7ee7ff; text-shadow: 0 0 15px #7ee7ff;">HARSH OSWAL</span></h2>
-        <p style="font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #7ee7ff; opacity: 0.6; margin-top: 40px; font-family: monospace;">[ ESTABLISHING UPLINK... ]</p>
+        <h2 style="font-size: ${isMobile ? '18px' : '24px'}; letter-spacing: 0.8em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; font-weight: 200; font-family: 'Courier New', monospace;">By<br/> <span style="font-weight: 800; color: #7ee7ff; text-shadow: 0 0 15px #7ee7ff;">HARSH OSWAL</span></h2>
+        <p style="font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #7ee7ff; opacity: 0.6; margin-top: 40px; font-family: monospace;">[ INITIALIZING COSMIC LINK... ]</p>
       </div>
 
       <div id="story-step-2" style="display: none;">
