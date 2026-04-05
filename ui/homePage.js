@@ -89,6 +89,30 @@ export function createHomePage(onStart) {
           </div>
         </div>
         
+        <!-- Visual Gesture Guide -->
+        <div class="gesture-guide">
+          <div class="gesture-item">
+            <div class="gesture-icon">
+              <div class="hand-circle"></div>
+              <div class="hand-arrow rotate"></div>
+            </div>
+            <span class="gesture-label">DRAG TO ROTATE</span>
+          </div>
+          <div class="gesture-item">
+            <div class="gesture-icon">
+              <div class="hand-circle pinch"></div>
+            </div>
+            <span class="gesture-label">PINCH TO ZOOM</span>
+          </div>
+          <div class="gesture-item">
+            <div class="gesture-icon">
+              <div class="tap-ring"></div>
+              <div class="tap-ring" style="animation-delay: 0.4s"></div>
+            </div>
+            <span class="gesture-label">DBL-TAP TO FOCUS</span>
+          </div>
+        </div>
+
         <!-- Boot Log inside step 2, but hidden until Explore is clicked -->
         <div class="boot-log" id="boot-log" style="opacity: 0; transition: opacity 0.5s ease;"></div>
 
@@ -131,6 +155,36 @@ export function createHomePage(onStart) {
       .module-status { font-family: 'Share Tech Mono'; font-size: 9px; color: #ffcc33; letter-spacing: 1px; opacity: 0.6; border: 1px solid rgba(255, 204, 51, 0.3); padding: 2px 6px; border-radius: 2px; }
       .module-item p { color: rgba(255, 204, 51, 0.6); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; line-height: 1.4; max-width: 450px; }
       
+      /* Gesture Guide Styles */
+      .gesture-guide { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; border-top: 1px solid rgba(255, 204, 51, 0.1); padding-top: 30px; }
+      .gesture-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+      .gesture-label { font-family: 'Share Tech Mono'; font-size: 10px; color: #ffcc33; opacity: 0.6; letter-spacing: 1px; }
+      
+      .gesture-icon { width: 40px; height: 40px; position: relative; border: 1px solid rgba(255, 204, 51, 0.2); border-radius: 50%; }
+      
+      /* Rotate Anim */
+      .hand-circle { width: 6px; height: 6px; background: #ffcc33; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+      .hand-arrow.rotate { width: 20px; height: 20px; border: 2px solid transparent; border-top-color: #ffcc33; border-radius: 50%; position: absolute; top: 10px; left: 10px; animation: rotateGesture 2s infinite linear; }
+      @keyframes rotateGesture { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+      /* Pinch Anim */
+      .hand-circle.pinch { animation: pinchGesture 2s infinite ease-in-out; }
+      @keyframes pinchGesture { 
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 
+        50% { transform: translate(-50%, -50%) scale(2.5); opacity: 1; } 
+      }
+
+      /* Double Tap Anim */
+      .tap-ring { 
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+        width: 4px; height: 4px; border: 1px solid #ffcc33; border-radius: 50%; 
+        animation: tapGesture 1.2s infinite ease-out; opacity: 0;
+      }
+      @keyframes tapGesture { 
+        0% { width: 4px; height: 4px; opacity: 1; } 
+        100% { width: 30px; height: 30px; opacity: 0; } 
+      }
+
       .mission-brief {
         font-family: 'Rajdhani';
         font-size: 14px;
@@ -152,14 +206,6 @@ export function createHomePage(onStart) {
       @keyframes blinkStatus { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
       .tech-header { font-family: 'Orbitron'; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #ffcc33; margin-bottom: 10px; }
 
-      .sci-fi-btn {
-        background: rgba(255, 204, 51, 0.05); border: 1px solid #ffcc33; color: #ffcc33; padding: 20px 45px; 
-        font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px; cursor: pointer; position: relative;
-        overflow: hidden; transition: all 0.3s; border-radius: 4px; box-shadow: 0 0 15px rgba(255, 204, 51, 0.1);
-      }
-      .sci-fi-btn:hover { background: #ffcc33; color: #000; box-shadow: 0 0 40px rgba(255, 204, 51, 0.5); transform: translateY(-3px); }
-      .btn-text { position: relative; z-index: 2; }
-      
       .nebula { 
     </style>
   `;
