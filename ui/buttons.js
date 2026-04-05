@@ -1,3 +1,5 @@
+import { playSFX } from '../utils/sfx.js';
+
 function styleButton(button) {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   button.style.width = '100%';
@@ -27,6 +29,10 @@ function styleButton(button) {
     button.style.color = '#ffffff';
     button.style.boxShadow =
       '0 0 15px rgba(126, 231, 255, 0.3)';
+  });
+
+  button.addEventListener('mousedown', () => {
+    playSFX('click');
   });
 
   button.addEventListener('mouseleave', () => {
@@ -274,6 +280,7 @@ export function createButtons() {
   });
 
   toggle.addEventListener('click', () => {
+    playSFX('transition');
     open = !open;
     syncMenu();
   });

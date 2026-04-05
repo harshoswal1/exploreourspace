@@ -1,3 +1,5 @@
+import { playSFX } from '../utils/sfx.js';
+
 export function createHomePage(onStart) {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
 
@@ -265,6 +267,7 @@ export function createHomePage(onStart) {
   messages.forEach((msg, i) => {
     setTimeout(() => {
       log.innerHTML += `<div>${msg}</div>`;
+      playSFX('boot');
       integrityFill.style.width = `${(i + 1) * 16.6}%`;
     }, 400 * i);
   });
@@ -274,6 +277,7 @@ export function createHomePage(onStart) {
   const step2 = overlay.querySelector('#story-step-2');
 
   setTimeout(() => {
+    playSFX('transition');
     step1.style.display = 'none';
     step2.style.display = 'block';
     step2.style.animation = 'step2In 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards';
@@ -285,6 +289,7 @@ export function createHomePage(onStart) {
 
   const btn = overlay.querySelector('#explore-btn');
   btn.addEventListener('click', () => {
+    playSFX('lock');
     // Start fade out
     overlay.style.transition = 'all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1)';
     overlay.style.opacity = '0';

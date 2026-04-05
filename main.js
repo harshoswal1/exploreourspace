@@ -20,6 +20,7 @@ import { createLiveBadge } from './ui/liveBadge.js';
 import { createNewsPanel } from './ui/newsPanel.js';
 import { createPoleCompass } from './ui/poleCompass.js';
 import { createSearch } from './ui/search.js';
+import { playSFX } from './utils/sfx.js';
 import { createInstructions } from './ui/instructions.js';
 import { createAudioControl } from './ui/audioControl.js';
 import { createHomePage } from './ui/homePage.js';
@@ -252,6 +253,7 @@ function getMoonHit(clientX, clientY) {
 function handleSceneSelection(clientX, clientY) {
   const asteroidEntry = asteroidSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (asteroidEntry) {
+    playSFX('lock');
     satelliteSystem.clearSelection({ hidePanel: false });
     focusController.follow(asteroidEntry.mesh, new THREE.Vector3(0.65, 0.34, 0.65));
     asteroidSystem.updateVisibility(satelliteSystem.getQueryValue(searchInput));
@@ -260,6 +262,7 @@ function handleSceneSelection(clientX, clientY) {
 
   const satelliteEntry = satelliteSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (satelliteEntry) {
+    playSFX('lock');
     focusController.follow(satelliteEntry.mesh, new THREE.Vector3(0.42, 0.26, 0.42));
     return;
   }
