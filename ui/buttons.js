@@ -102,7 +102,7 @@ export function createButtons() {
   container.appendChild(stack);
 
   const toggle = document.createElement('button');
-  toggle.textContent = '◎';
+  toggle.textContent = '⚙️';
   toggle.dataset.uiElement = 'true';
   toggle.style.position = 'absolute';
   toggle.style.top = mobile ? '115px' : '104px';
@@ -259,7 +259,7 @@ export function createButtons() {
     }
     container.style.opacity = open ? '1' : '0';
     container.style.pointerEvents = open ? 'auto' : 'none';
-    toggle.textContent = open ? '🛠️' : '🔨';
+    toggle.textContent = open ? '✕' : '⚙️';
   }
 
   // Auto-close menu when any option is selected
