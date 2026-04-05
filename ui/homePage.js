@@ -25,10 +25,14 @@ export function createHomePage(onStart) {
   const content = `
     <div class="nebula"></div>
     <div class="hud-grid"></div>
+    <div class="hud-hex-grid"></div>
     <div class="vignette"></div>
     <div class="radar-sweep"></div>
+    <div class="glitch-overlay"></div>
     <div class="targeting-reticle"></div>
+    <div class="targeting-brackets"></div>
     <div class="rotating-hub"></div>
+    <div class="rotating-hex"></div>
     <div class="pulse-ring"></div>
     
     <!-- Floating Space Elements -->
@@ -39,6 +43,10 @@ export function createHomePage(onStart) {
     <!-- Side Telemetry Streams -->
     <div class="telemetry-stream left-stream"></div>
     <div class="telemetry-stream right-stream"></div>
+
+    <!-- Floating Data Nodes -->
+    <div class="data-node node-1">TRK_492 // 0.229</div>
+    <div class="data-node node-2">SIG_BUFF // 88%</div>
 
     <!-- HUD Viewport Brackets -->
     <div class="viewport-bracket tl"></div>
@@ -51,10 +59,16 @@ export function createHomePage(onStart) {
     <div class="corner-data bl-data">UPLINK: ACTIVE<br/>FREQ: 14.2 GHz<br/>CH: DSN-7</div>
     <div class="corner-data br-data">SENSORS: 100%<br/>NEO_SCAN: RUNNING<br/>AUTO_TRACK: ON</div>
 
+    <!-- System Integrity Bar -->
+    <div class="integrity-bar-wrap">
+      <div class="integrity-label">SYSTEM_INTEGRITY</div>
+      <div class="integrity-track"><div class="integrity-fill" id="integrity-fill"></div></div>
+    </div>
+
     <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
       <div id="story-step-1" class="intro-sequence">
-        <div class="glitch-text" data-text="ENCRYPTED UPLINK">ENCRYPTED UPLINK</div>
-        <h1 style="font-size: ${isMobile ? '32px' : '64px'}; font-weight: 900; letter-spacing: 0.15em; margin: 0; color: #fff; text-shadow: 0 0 30px rgba(126, 231, 255, 0.6); font-family: 'Arial Black', sans-serif;">ORBITAL VISUALIZER</h1>
+        <div class="glitch-text" data-text="CRITICAL UPLINK">CRITICAL UPLINK</div>
+        <h1 style="font-size: ${isMobile ? '32px' : '64px'}; font-weight: 900; letter-spacing: 0.15em; margin: 0; color: #fff; text-shadow: 0 0 40px rgba(126, 231, 255, 0.8); font-family: 'Arial Black', sans-serif;">ORBITAL VISUALIZER</h1>
         <div style="height: 1px; width: 100px; background: #7ee7ff; margin: 20px auto; box-shadow: 0 0 10px #7ee7ff;"></div>
         <p class="typewriter">SYNCHRONIZING WITH DEEP SPACE NETWORK [DSN-7]...</p>
         <div class="boot-log" id="boot-log"></div>
@@ -126,13 +140,35 @@ export function createHomePage(onStart) {
       .boot-log { font-family: monospace; font-size: 9px; color: #7ee7ff; opacity: 0.5; margin-top: 20px; text-align: left; max-width: 300px; margin-left: auto; margin-right: auto; height: 50px; overflow: hidden; line-height: 1.4; }
       
       /* Viewport Brackets */
-      .viewport-bracket { position: absolute; width: 40px; height: 40px; border: 1px solid rgba(126, 231, 255, 0.3); z-index: 5; pointer-events: none; }
-      .viewport-bracket.tl { top: 40px; left: 40px; border-right: 0; border-bottom: 0; }
-      .viewport-bracket.tr { top: 40px; right: 40px; border-left: 0; border-bottom: 0; }
-      .viewport-bracket.bl { bottom: 40px; left: 40px; border-right: 0; border-top: 0; }
-      .viewport-bracket.br { bottom: 40px; right: 40px; border-left: 0; border-top: 0; }
+      .viewport-bracket { position: absolute; width: 60px; height: 60px; border: 1px solid rgba(126, 231, 255, 0.4); z-index: 5; pointer-events: none; }
+      .viewport-bracket::after { content: ''; position: absolute; width: 10px; height: 10px; border: 2px solid #7ee7ff; }
+      .viewport-bracket.tl { top: 40px; left: 40px; border-right: 0; border-bottom: 0; } .viewport-bracket.tl::after { top: -5px; left: -5px; border-right: 0; border-bottom: 0; }
+      .viewport-bracket.tr { top: 40px; right: 40px; border-left: 0; border-bottom: 0; } .viewport-bracket.tr::after { top: -5px; right: -5px; border-left: 0; border-bottom: 0; }
+      .viewport-bracket.bl { bottom: 40px; left: 40px; border-right: 0; border-top: 0; } .viewport-bracket.bl::after { bottom: -5px; left: -5px; border-right: 0; border-top: 0; }
+      .viewport-bracket.br { bottom: 40px; right: 40px; border-left: 0; border-top: 0; } .viewport-bracket.br::after { bottom: -5px; right: -5px; border-left: 0; border-top: 0; }
+
+      /* Integrity Bar */
+      .integrity-bar-wrap { position: absolute; bottom: 80px; width: 240px; left: 50%; transform: translateX(-50%); z-index: 10; font-family: monospace; }
+      .integrity-label { font-size: 8px; color: #7ee7ff; text-align: left; margin-bottom: 4px; letter-spacing: 2px; }
+      .integrity-track { width: 100%; height: 4px; background: rgba(126, 231, 255, 0.1); border-radius: 2px; overflow: hidden; }
+      .integrity-fill { height: 100%; width: 0%; background: #7ee7ff; box-shadow: 0 0 10px #7ee7ff; transition: width 3s cubic-bezier(0.1, 0, 0.1, 1); }
+
+      /* Floating Data Nodes */
+      .data-node { position: absolute; font-family: monospace; font-size: 9px; color: #7ee7ff; opacity: 0; animation: floatData 8s infinite; pointer-events: none; }
+      @keyframes floatData { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 0.6; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100px); } }
+      .node-1 { top: 30%; left: 20%; animation-delay: 0s; }
+      .node-2 { top: 40%; right: 25%; animation-delay: 4s; }
+
+      /* Rotating Hex HUD */
+      .rotating-hex { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; border: 1px solid rgba(126, 231, 255, 0.1); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); animation: rotateHub 40s linear infinite reverse; pointer-events: none; }
+      .hud-hex-grid { position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%237ee7ff' fill-opacity='1' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9l11-6.35 11 6.35V31.1l-11 6.35-11-6.35V17.9z'%3E%3C/path%3E%3C/svg%3E"); }
+
+      .glitch-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(126, 231, 255, 0.02); opacity: 0; pointer-events: none; z-index: 10; animation: glitchFlash 10s infinite; }
+      @keyframes glitchFlash { 0%, 95%, 100% { opacity: 0; } 96% { opacity: 0.1; transform: translateX(5px); } 98% { opacity: 0.1; transform: translateX(-5px); } }
+
       @media (max-width: 900px) {
-        .viewport-bracket { width: 20px; height: 20px; top: 20px; bottom: 20px; left: 20px; right: 20px; }
+        .viewport-bracket { width: 30px; height: 30px; top: 20px; bottom: 20px; left: 20px; right: 20px; }
+        .integrity-bar-wrap { width: 160px; bottom: 120px; }
       }
 
       /* Corner Data Readouts */
@@ -214,6 +250,8 @@ export function createHomePage(onStart) {
   overlay.innerHTML = content;
   document.body.appendChild(overlay);
 
+  const integrityFill = overlay.querySelector('#integrity-fill');
+
   // Terminal Boot Animation Logic
   const log = overlay.querySelector('#boot-log');
   const messages = [
@@ -227,6 +265,7 @@ export function createHomePage(onStart) {
   messages.forEach((msg, i) => {
     setTimeout(() => {
       log.innerHTML += `<div>${msg}</div>`;
+      integrityFill.style.width = `${(i + 1) * 16.6}%`;
     }, 400 * i);
   });
 
