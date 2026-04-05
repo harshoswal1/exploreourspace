@@ -15,6 +15,7 @@ export function createInstructions() {
   panel.style.background = 'rgba(8, 12, 20, 0.7)';
   panel.style.backdropFilter = 'blur(16px)';
   panel.style.webkitBackdropFilter = 'blur(16px)';
+  panel.dataset.uiElement = 'true';
   panel.style.border = '1px solid rgba(255, 255, 255, 0.12)';
   panel.style.borderRadius = '18px';
   panel.style.padding = isMobile ? '14px 20px' : '18px 28px';

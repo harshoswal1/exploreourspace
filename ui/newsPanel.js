@@ -36,6 +36,7 @@ export function createNewsPanel() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   const panel = document.createElement('div');
   panel.id = 'news-panel-root';
+  panel.dataset.uiElement = 'true';
   panel.style.position = 'absolute';
   if (isMobile) {
     panel.style.top = '115px';

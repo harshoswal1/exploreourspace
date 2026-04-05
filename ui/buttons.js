@@ -110,6 +110,7 @@ export function createButtons() {
 
   const toggle = document.createElement('button');
   toggle.textContent = '◎';
+  toggle.dataset.uiElement = 'true';
   toggle.style.position = 'absolute';
   toggle.style.top = mobile ? '115px' : '104px';
   toggle.style.bottom = 'auto';

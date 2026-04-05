@@ -121,6 +121,7 @@ createHomePage(() => {
   exitFollowBtn = createFollowExitButton();
 
   if (exitFollowBtn) {
+    exitFollowBtn.dataset.uiElement = 'true';
     exitFollowBtn.addEventListener('pointerdown', () => {
       playSFX('transition');
       clearFollowMode();
