@@ -150,8 +150,8 @@ export function createHomePage(onStart) {
     <style>
       * { box-sizing: border-box; }
       .vignette { position: absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle, transparent 40%, black 150%); z-index: 1; }
-      .intro-sequence { animation: introFade 3s forwards; }
-      @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 20% { opacity:1; } 80% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
+      .intro-sequence { animation: introFade 5s forwards; }
+      @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
       
       .boot-log { font-family: 'Rajdhani'; font-size: 11px; color: #7ee7ff; opacity: 0.6; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; font-weight: 500; text-transform: uppercase; }
       
@@ -312,7 +312,7 @@ export function createHomePage(onStart) {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `@keyframes step2In { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }`;
     document.head.appendChild(styleSheet);
-  }, 3000);
+  }, 5000);
 
   const btn = overlay.querySelector('#explore-btn');
   btn.addEventListener('click', () => {
