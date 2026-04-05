@@ -3,10 +3,10 @@ import { createStatusBadge } from './statusBadge.js';
 export function createSatelliteStatusBadge() {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   return createStatusBadge({
-    top: 'auto',
+    top: mobile ? '95px' : '110px',
     left: 'auto',
     right: mobile ? '12px' : '20px',
-    bottom: mobile ? '50px' : '20px',
+    bottom: 'auto',
     initialStatus: 'UPDATING',
     labelPrefix: 'SATELLITES',
     palette: {
