@@ -1,5 +1,3 @@
-import { playSFX, stopSFX } from '../utils/sfx.js';
-
 export function createHomePage(onStart) {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
 
@@ -252,9 +250,6 @@ export function createHomePage(onStart) {
   overlay.innerHTML = content;
   document.body.appendChild(overlay);
 
-  // Start the sustained loading/processing sound
-  playSFX('loading', true);
-
   const integrityFill = overlay.querySelector('#integrity-fill');
 
   // Terminal Boot Animation Logic
@@ -270,7 +265,6 @@ export function createHomePage(onStart) {
   messages.forEach((msg, i) => {
     setTimeout(() => {
       log.innerHTML += `<div>${msg}</div>`;
-      playSFX('boot');
       integrityFill.style.width = `${(i + 1) * 16.6}%`;
     }, 400 * i);
   });
@@ -280,10 +274,6 @@ export function createHomePage(onStart) {
   const step2 = overlay.querySelector('#story-step-2');
 
   setTimeout(() => {
-    // Stop the loading sound exactly when the sequence ends
-    stopSFX('loading');
-    
-    playSFX('transition');
     step1.style.display = 'none';
     step2.style.display = 'block';
     step2.style.animation = 'step2In 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards';
@@ -294,10 +284,6 @@ export function createHomePage(onStart) {
   }, 3000);
 
   const btn = overlay.querySelector('#explore-btn');
-  
-  // Play the lock sound immediately when pressed down
-  btn.addEventListener('pointerdown', () => playSFX('lock'));
-
   btn.addEventListener('click', () => {
     // Start fade out
     overlay.style.transition = 'all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1)';

@@ -1,5 +1,3 @@
-import { playSFX } from '../utils/sfx.js';
-
 export function createAudioControl() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   
@@ -59,10 +57,6 @@ export function createAudioControl() {
   // Restore volume icon once playback resumes
   audio.addEventListener('playing', () => {
     if (isPlaying) button.innerHTML = '🔊';
-  });
-
-  button.addEventListener('pointerdown', () => {
-    playSFX('click');
   });
 
   button.addEventListener('click', () => {

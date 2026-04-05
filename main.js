@@ -20,7 +20,6 @@ import { createLiveBadge } from './ui/liveBadge.js';
 import { createNewsPanel } from './ui/newsPanel.js';
 import { createPoleCompass } from './ui/poleCompass.js';
 import { createSearch } from './ui/search.js';
-import { playSFX, stopSFX } from './utils/sfx.js';
 import { createInstructions } from './ui/instructions.js';
 import { createAudioControl } from './ui/audioControl.js';
 import { createHomePage } from './ui/homePage.js';
@@ -108,7 +107,6 @@ const { searchInput, clearBtn } = createSearch();
 
 let newsPanel, poleCompass, asteroidStatusBadge, satelliteStatusBadge, exitFollowBtn;
 let isStarted = false;
-let isZoomingSFX = false;
 
 createHomePage(() => {
   isStarted = true;
@@ -124,7 +122,6 @@ createHomePage(() => {
   if (exitFollowBtn) {
     exitFollowBtn.dataset.uiElement = 'true';
     exitFollowBtn.addEventListener('pointerdown', () => {
-      playSFX('transition');
       clearFollowMode();
     });
   }
@@ -214,7 +211,6 @@ wireUI({
 });
 
 function clearFollowMode() {
-  if (isZoomingSFX) { stopSFX('zoom_loop'); isZoomingSFX = false; }
   focusController.clear();
   earthRuntime.setMoonDistanceVisible(false);
   satelliteSystem.clearSelection();
@@ -258,8 +254,6 @@ function getMoonHit(clientX, clientY) {
 function handleSceneSelection(clientX, clientY) {
   const asteroidEntry = asteroidSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (asteroidEntry) {
-    playSFX('zoom_loop', true);
-    isZoomingSFX = true;
     satelliteSystem.clearSelection({ hidePanel: false });
     focusController.follow(asteroidEntry.mesh, new THREE.Vector3(0.65, 0.34, 0.65));
     asteroidSystem.updateVisibility(satelliteSystem.getQueryValue(searchInput));
@@ -268,16 +262,12 @@ function handleSceneSelection(clientX, clientY) {
 
   const satelliteEntry = satelliteSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (satelliteEntry) {
-    playSFX('zoom_loop', true);
-    isZoomingSFX = true;
     focusController.follow(satelliteEntry.mesh, new THREE.Vector3(0.42, 0.26, 0.42));
     return;
   }
 
   const moonHit = getMoonHit(clientX, clientY);
   if (moonHit) {
-    playSFX('zoom_loop', true);
-    isZoomingSFX = true;
     clearFollowMode();
     earthRuntime.setMoonDistanceVisible(true);
     const moonPhase = earthRuntime.getMoonPhaseInfo();
@@ -295,7 +285,6 @@ function handleSceneSelection(clientX, clientY) {
 
   const climateInfo = getEarthClimateAtPointer(clientX, clientY);
   if (climateInfo) {
-    playSFX('lock');
     clearFollowMode();
     showEarthClimateInfo(infoDiv, climateInfo, clientX, clientY);
     return;
@@ -314,7 +303,6 @@ let lastPointerDownAt = 0;
 
 window.addEventListener('pointerdown', (event) => {
   if (isUIElementTarget(event.target)) return;
-  playSFX('click');
 
   const now = Date.now();
   if (now - lastPointerDownAt < 300) {
@@ -339,7 +327,6 @@ function handleEarthClick(clientX, clientY) {
 
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
-    playSFX('transition');
     clearFollowMode();
   }
 });
@@ -382,17 +369,6 @@ function animate() {
   asteroidSystem.update();
   focusController.update();
   
-  // Monitor zoom sound lifecycle
-  if (isZoomingSFX) {
-    const dist = camera.position.distanceTo(controls.target);
-    // If we are not following anymore, or we have arrived at the high-detail threshold
-    if (!focusController.isFollowing() || dist < 5) {
-      stopSFX('zoom_loop');
-      isZoomingSFX = false;
-      if (focusController.isFollowing()) playSFX('lock'); // Add a confirmation 'thud' on arrival
-    }
-  }
-
   controls.update();
   if (poleCompass) poleCompass.update(camera, earthRuntime.earthParts.earth);
   renderer.render(scene, camera);
