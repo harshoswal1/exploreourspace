@@ -121,7 +121,7 @@ createHomePage(() => {
   exitFollowBtn = createFollowExitButton();
 
   if (exitFollowBtn) {
-    exitFollowBtn.addEventListener('click', () => {
+    exitFollowBtn.addEventListener('pointerdown', () => {
       playSFX('transition');
       clearFollowMode();
     });
@@ -304,10 +304,16 @@ function updateSceneVisibility() {
   asteroidSystem.updateVisibility(query);
 }
 
+// Instant sound feedback for any interaction in the 3D space
+window.addEventListener('pointerdown', (event) => {
+  if (isUIElementTarget(event.target)) return;
+  // Play a light click immediately on touch
+  playSFX('click');
+});
+
 function handleEarthClick(clientX, clientY) {
   const climateInfo = getEarthClimateAtPointer(clientX, clientY);
   if (climateInfo) {
-    playSFX('click');
     clearFollowMode();
     showEarthClimateInfo(infoDiv, climateInfo, clientX, clientY);
   } else {

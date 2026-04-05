@@ -71,8 +71,11 @@ export function createSearch() {
   clearBtn.style.display = 'none';
   fieldWrap.appendChild(clearBtn);
 
-  clearBtn.addEventListener('click', () => {
+  clearBtn.addEventListener('pointerdown', () => {
     playSFX('click');
+  });
+
+  clearBtn.addEventListener('click', () => {
     searchInput.value = '';
   });
 

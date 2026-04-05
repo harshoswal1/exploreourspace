@@ -288,8 +288,11 @@ export function createHomePage(onStart) {
   }, 3000);
 
   const btn = overlay.querySelector('#explore-btn');
+  
+  // Play the lock sound immediately when pressed down
+  btn.addEventListener('pointerdown', () => playSFX('lock'));
+
   btn.addEventListener('click', () => {
-    playSFX('lock');
     // Start fade out
     overlay.style.transition = 'all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1)';
     overlay.style.opacity = '0';

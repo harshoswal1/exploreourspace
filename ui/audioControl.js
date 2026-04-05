@@ -61,9 +61,11 @@ export function createAudioControl() {
     if (isPlaying) button.innerHTML = '🔊';
   });
 
-  button.addEventListener('click', () => {
+  button.addEventListener('pointerdown', () => {
     playSFX('click');
-    
+  });
+
+  button.addEventListener('click', () => {
     if (isPlaying) {
       audio.pause();
       button.innerHTML = '🔇';

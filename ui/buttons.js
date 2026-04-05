@@ -31,7 +31,7 @@ function styleButton(button) {
       '0 0 15px rgba(126, 231, 255, 0.3)';
   });
 
-  button.addEventListener('mousedown', () => {
+  button.addEventListener('pointerdown', () => {
     playSFX('click');
   });
 
@@ -279,7 +279,7 @@ export function createButtons() {
     });
   });
 
-  toggle.addEventListener('click', () => {
+  toggle.addEventListener('pointerdown', () => {
     playSFX('transition');
     open = !open;
     syncMenu();
