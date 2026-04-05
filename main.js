@@ -22,6 +22,7 @@ import { createPoleCompass } from './ui/poleCompass.js';
 import { createSearch } from './ui/search.js';
 import { createInstructions } from './ui/instructions.js';
 import { createAudioControl } from './ui/audioControl.js';
+import { createHomePage } from './ui/homePage.js';
 import { getEarthClimateInfo } from './utils/earthClimate.js';
 
 const state = createAppState();
