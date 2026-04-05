@@ -57,41 +57,34 @@ export function createHomePage(onStart) {
         <div class="tech-header">
           <span class="status-dot"></span> <span class="bracket">[</span> SYSTEM STATUS: ACTIVE <span class="bracket">]</span>
         </div>
-        <h2 style="font-size: ${isMobile ? '24px' : '42px'}; letter-spacing: 0.3em; color: #fff; text-transform: uppercase; margin: 10px 0 10px; font-weight: 700; font-family: 'Orbitron';">Capabilities</h2>
+        <h2 style="font-size: ${isMobile ? '24px' : '36px'}; letter-spacing: 0.4em; color: #fff; text-transform: uppercase; margin: 10px 0 30px; font-weight: 700; font-family: 'Orbitron';">Core Modules</h2>
         
         <!-- Unique Summary Brief -->
         <div class="mission-brief">
           <span class="brief-tag">MISSION BRIEF:</span> 
-          A unified strategic interface for real-time orbital surveillance, planetary climate analysis, and Near-Earth Object (NEO) trajectory tracking.
+          Initialize a unified strategic uplink to monitor Earth's orbital congestion, celestial hazards, and planetary health through multi-spectral data streams.
         </div>
         
         <div class="hud-info-grid">
-          <div class="capability-item">
+          <div class="module-item">
             <div class="card-icon">${getSatSVG("#ffcc33")}</div>
             <div class="card-content">
-              <h4>TRACK</h4>
-              <p>Real-time telemetry for 800+ active satellites in LEO/MEO orbits.</p>
+              <div class="module-header"><h4>Orbital Surveillance</h4> <span class="module-status">NOMINAL</span></div>
+              <p>Mapping the 800+ active satellites currently maintaining LEO/MEO positions via real-time telemetry.</p>
             </div>
           </div>
-          <div class="capability-item">
+          <div class="module-item">
             <div class="card-icon">${getAsteroidSVG("#ffcc33")}</div>
             <div class="card-content">
-              <h4>DETECT</h4>
-              <p>Continuous monitoring of Near-Earth Objects via NASA JPL data feeds.</p>
+              <div class="module-header"><h4>Deep Space Guard</h4> <span class="module-status">SCANNING</span></div>
+              <p>Real-time trajectory interception for Near-Earth Objects (NEOs) sourced directly from NASA JPL feeds.</p>
             </div>
           </div>
-          <div class="capability-item">
+          <div class="module-item">
             <div class="card-icon">${getEarthSVG("#ffcc33")}</div>
             <div class="card-content">
-              <h4>ANALYZE</h4>
-              <p>Live planetary diagnostics including climate bands and local weather.</p>
-            </div>
-          </div>
-          <div class="capability-item">
-            <div class="card-icon">${getNavSVG("#ffcc33")}</div>
-            <div class="card-content">
-              <h4>NAVIGATE</h4>
-              <p>Advanced target-lock systems for individual object observation.</p>
+              <div class="module-header"><h4>Planetary Vitals</h4> <span class="module-status">ACTIVE</span></div>
+              <p>Multi-spectral Earth diagnostics, providing atmospheric data and climate metadata across global coordinates.</p>
             </div>
           </div>
         </div>
@@ -129,12 +122,14 @@ export function createHomePage(onStart) {
       @keyframes typing { from { width: 0 } to { width: 100% } }
       @keyframes blink { from, to { border-color: transparent } 50% { border-color: #ffcc33 } }
 
-      .hud-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 50px; }
-      .capability-item { padding: 10px; position: relative; text-align: left; display: flex; align-items: flex-start; gap: 20px; transition: transform 0.3s ease; }
-      .capability-item:hover { transform: translateX(5px); }
+      .hud-info-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; }
+      .module-item { padding: 15px 20px; position: relative; text-align: left; display: flex; align-items: center; gap: 25px; transition: all 0.3s ease; background: rgba(255, 204, 51, 0.02); border-left: 2px solid rgba(255, 204, 51, 0.1); }
+      .module-item:hover { transform: translateX(10px); background: rgba(255, 204, 51, 0.05); border-left-color: #ffcc33; }
       .card-icon { width: 24px; color: #ffcc33; opacity: 0.8; }
-      .capability-item h4 { color: #fff; font-family: 'Orbitron'; font-size: 13px; margin: 0 0 8px; letter-spacing: 2px; border-bottom: 1px solid rgba(255, 204, 51, 0.2); display: inline-block; padding-bottom: 4px; }
-      .capability-item p { color: rgba(255, 204, 51, 0.7); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; line-height: 1.4; }
+      .module-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+      .module-item h4 { color: #fff; font-family: 'Orbitron'; font-size: 14px; margin: 0; letter-spacing: 2px; font-weight: 700; }
+      .module-status { font-family: 'Share Tech Mono'; font-size: 9px; color: #ffcc33; letter-spacing: 1px; opacity: 0.6; border: 1px solid rgba(255, 204, 51, 0.3); padding: 2px 6px; border-radius: 2px; }
+      .module-item p { color: rgba(255, 204, 51, 0.6); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; line-height: 1.4; max-width: 450px; }
       
       .mission-brief {
         font-family: 'Rajdhani';
