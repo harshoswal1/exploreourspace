@@ -2,14 +2,15 @@ function styleButton(button) {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   button.style.width = '100%';
   button.style.padding = mobile ? '8px 6px' : '10px 12px';
-  button.style.borderRadius = mobile ? '16px' : '14px';
-  button.style.fontSize = mobile ? '11px' : '11px';
-  button.style.fontWeight = '600';
-  button.style.letterSpacing = '0.03em';
-  button.style.color = 'white';
+  button.style.borderRadius = '2px';
+  button.style.fontSize = '10px';
+  button.style.fontWeight = '700';
+  button.style.letterSpacing = '0.1em';
+  button.style.textTransform = 'uppercase';
+  button.style.color = 'rgba(255, 255, 255, 0.8)';
   button.style.background =
-    'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
-  button.style.border = '1px solid rgba(255,255,255,0.14)';
+    'rgba(10, 25, 45, 0.6)';
+  button.style.border = '1px solid rgba(126, 231, 255, 0.2)';
   button.style.outline = 'none';
   button.style.cursor = 'pointer';
   button.style.backdropFilter = 'blur(24px)';
@@ -21,15 +22,17 @@ function styleButton(button) {
   button.dataset.active = 'false';
 
   button.addEventListener('mouseenter', () => {
-    button.style.transform = 'translateY(-1px)';
-    button.style.borderColor = 'rgba(255,255,255,0.24)';
+    button.style.background = 'rgba(126, 231, 255, 0.15)';
+    button.style.borderColor = 'rgba(126, 231, 255, 0.8)';
+    button.style.color = '#ffffff';
     button.style.boxShadow =
-      '0 10px 28px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.12)';
+      '0 0 15px rgba(126, 231, 255, 0.3)';
   });
 
   button.addEventListener('mouseleave', () => {
-    button.style.transform = 'translateY(0)';
-    button.style.borderColor = 'rgba(255,255,255,0.14)';
+    button.style.background = 'rgba(10, 25, 45, 0.6)';
+    button.style.borderColor = 'rgba(126, 231, 255, 0.2)';
+    button.style.color = 'rgba(255, 255, 255, 0.8)';
     button.style.boxShadow =
       '0 6px 20px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.08)';
   });

@@ -197,6 +197,11 @@ export function createSatelliteSystem({ scene, camera, infoDiv, state }) {
       entry.label.scale.set(labelScale, labelScale * 0.3, 1);
 
       const { point, model, halo } = entry.mesh.userData;
+      
+      // Safety check: skip if mesh userData hasn't been fully populated yet
+      if (!point || !model) {
+        return;
+      }
 
       const blink = 0.75 + 0.25 * Math.sin(Date.now() * 0.005);
       point.material.opacity = blink;

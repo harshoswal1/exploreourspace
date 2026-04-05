@@ -26,8 +26,9 @@ export function createAudioControl() {
   button.style.width = isMobile ? '32px' : '40px';
   button.style.height = isMobile ? '32px' : '40px';
   button.style.borderRadius = '50%';
-  button.style.background = 'rgba(8,12,20,0.58)';
-  button.style.border = '1px solid rgba(255,255,255,0.18)';
+  button.style.background = 'rgba(10, 25, 45, 0.8)';
+  button.style.border = '1px solid #7ee7ff';
+  button.style.borderRadius = '2px';
   button.style.backdropFilter = 'blur(18px)';
   button.style.webkitBackdropFilter = 'blur(18px)';
   button.style.color = 'white';

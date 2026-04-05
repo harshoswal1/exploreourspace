@@ -71,9 +71,6 @@ document.body.appendChild(renderer.domElement);
 
 document.body.style.touchAction = 'none';
 
-
-createBrand();
-createInstructions();
 const infoDiv = createInfoPanel();
 const {
   orbitBtn,
@@ -95,9 +92,10 @@ const {
 const { searchInput, clearBtn } = createSearch();
 
 let newsPanel, poleCompass, asteroidStatusBadge, satelliteStatusBadge, exitFollowBtn;
+let isStarted = false;
 
 createHomePage(() => {
-  // This code runs when "Explore Earth" is clicked
+  isStarted = true;
   createInstructions();
   createLiveBadge();
   createAudioControl();
@@ -113,7 +111,10 @@ createHomePage(() => {
   }
 });
 
+// Brand is visible immediately but the rest of UI initializes on start
 createBrand();
+scene.background = new THREE.Color(0x000000);
+renderer.setClearColor(0x000000);
 
 const isMobile = window.matchMedia('(max-width: 900px)').matches;
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -337,13 +338,15 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-await satelliteSystem.load();
-await asteroidSystem.load();
-if (satelliteStatusBadge && typeof satelliteStatusBadge.setStatus === 'function') {
-  satelliteStatusBadge.setStatus(satelliteSystem.getStatus(), '');
-}
-satelliteSystem.updateVisibility('');
-asteroidSystem.updateVisibility('');
+// Load data in the background without blocking the initial render
+satelliteSystem.load().then(() => {
+  if (satelliteStatusBadge) satelliteStatusBadge.setStatus(satelliteSystem.getStatus(), '');
+  satelliteSystem.updateVisibility(satelliteSystem.getQueryValue(searchInput));
+});
+
+asteroidSystem.load().then(() => {
+  asteroidSystem.updateVisibility(satelliteSystem.getQueryValue(searchInput));
+});
 
 function animate() {
   requestAnimationFrame(animate);
