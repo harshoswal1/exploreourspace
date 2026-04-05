@@ -35,15 +35,16 @@ export function createBrand() {
   wrap.appendChild(subtitle);
   document.body.appendChild(wrap);
 
-  // Vertical Social Stack positioned below the Toggle Button
+  // Horizontal Social Stack positioned next to the Toggle Button
   const socialStack = document.createElement('div');
   socialStack.dataset.uiElement = 'true';
   socialStack.style.position = 'absolute';
-  socialStack.style.left = isMobile ? '20px' : '24px';
-  socialStack.style.top = isMobile ? '165px' : '190px';
+  socialStack.style.left = isMobile ? '70px' : '104px';
+  socialStack.style.top = isMobile ? '115px' : '104px';
+  socialStack.style.height = isMobile ? '40px' : '64px';
   socialStack.style.display = 'flex';
-  socialStack.style.flexDirection = 'column';
-  socialStack.style.alignItems = 'flex-start';
+  socialStack.style.flexDirection = 'row';
+  socialStack.style.alignItems = 'center';
   socialStack.style.gap = isMobile ? '12px' : '16px';
   socialStack.style.zIndex = '16';
   socialStack.style.pointerEvents = 'auto';
@@ -56,7 +57,7 @@ export function createBrand() {
   nameTag.style.fontSize = isMobile ? '12px' : '14px';
   nameTag.style.fontWeight = '400';
   nameTag.style.letterSpacing = '2px';
-  nameTag.style.marginBottom = '10px';
+  nameTag.style.marginRight = '10px';
   nameTag.style.opacity = '0.7';
   socialStack.appendChild(nameTag);
 
