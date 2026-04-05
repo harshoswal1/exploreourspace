@@ -87,15 +87,21 @@ export function createHomePage(onStart) {
         <div class="tech-header">
           <span class="status-dot"></span> <span class="bracket">[</span> SYSTEM STATUS: ACTIVE <span class="bracket">]</span>
         </div>
-        <h2 style="font-size: ${isMobile ? '24px' : '42px'}; letter-spacing: 0.3em; color: #fff; text-transform: uppercase; margin: 10px 0 45px; font-weight: 700; font-family: 'Orbitron';">Interface</h2>
+        <h2 style="font-size: ${isMobile ? '24px' : '42px'}; letter-spacing: 0.3em; color: #fff; text-transform: uppercase; margin: 10px 0 10px; font-weight: 700; font-family: 'Orbitron';">Capabilities</h2>
+        
+        <!-- Unique Summary Brief -->
+        <div class="mission-brief">
+          <span class="brief-tag">MISSION BRIEF:</span> 
+          A unified strategic interface for real-time orbital surveillance, planetary climate analysis, and Near-Earth Object (NEO) trajectory tracking.
+        </div>
         
         <div class="hud-info-grid">
           <div class="hud-card">
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
             <div class="card-icon">${getSatSVG()}</div>
             <div class="card-content">
-              <h4>ORBITAL_SENSORS</h4>
-              <p>800+ Live Satellites</p>
+              <h4>TRACK</h4>
+              <p>Real-time telemetry for 800+ active satellites in LEO/MEO orbits.</p>
               <div class="signal-bar"><div class="fill" style="width: 85%"></div></div>
             </div>
           </div>
@@ -103,8 +109,8 @@ export function createHomePage(onStart) {
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
             <div class="card-icon">${getAsteroidSVG()}</div>
             <div class="card-content">
-              <h4>NEO_DETECTION</h4>
-              <p>NASA Trajectory Feed</p>
+              <h4>DETECT</h4>
+              <p>Continuous monitoring of Near-Earth Objects via NASA JPL data feeds.</p>
               <div class="signal-bar"><div class="fill" style="width: 92%"></div></div>
             </div>
           </div>
@@ -112,8 +118,8 @@ export function createHomePage(onStart) {
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
             <div class="card-icon">${getEarthSVG()}</div>
             <div class="card-content">
-              <h4>GEO_METRICS</h4>
-              <p>Global Climate Scan</p>
+              <h4>ANALYZE</h4>
+              <p>Live planetary diagnostics including climate bands and local weather.</p>
               <div class="signal-bar"><div class="fill" style="width: 70%"></div></div>
             </div>
           </div>
@@ -121,8 +127,8 @@ export function createHomePage(onStart) {
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
             <div class="card-icon">${getNavSVG()}</div>
             <div class="card-content">
-              <h4>NAV_COMMAND</h4>
-              <p>Target-Lock Enabled</p>
+              <h4>NAVIGATE</h4>
+              <p>Advanced target-lock systems for individual object observation.</p>
               <div class="signal-bar"><div class="fill" style="width: 100%"></div></div>
             </div>
           </div>
@@ -230,6 +236,22 @@ export function createHomePage(onStart) {
       .signal-bar .fill { height: 100%; background: #7ee7ff; box-shadow: 0 0 5px #7ee7ff; animation: signalPulse 2s infinite ease-in-out; }
       @keyframes signalPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
       
+      .mission-brief {
+        font-family: 'Rajdhani';
+        font-size: 14px;
+        color: rgba(126, 231, 255, 0.8);
+        margin-bottom: 30px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+        letter-spacing: 1px;
+        border-left: 2px solid #7ee7ff;
+        padding-left: 15px;
+        text-align: left;
+      }
+      .brief-tag { color: #fff; font-weight: 700; margin-right: 8px; font-family: 'Orbitron'; font-size: 11px; }
+
       .status-dot { width: 6px; height: 6px; background: #00ff88; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 8px #00ff88; animation: blinkStatus 1.5s infinite; }
       @keyframes blinkStatus { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
       .tech-header { font-family: 'Orbitron'; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #7ee7ff; margin-bottom: 10px; }
