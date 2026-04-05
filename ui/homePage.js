@@ -34,7 +34,7 @@ export function createHomePage(onStart) {
     <div class="vignette"></div>
 
     <!-- System Integrity Bar -->
-    <div class="integrity-bar-wrap" id="integrity-container" style="position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 240px; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;">
+    <div class="integrity-bar-wrap" id="integrity-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 280px; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;">
       <div class="integrity-label">ESTABLISHING QUANTUM LINK</div>
       <div class="integrity-track"><div class="integrity-fill" id="integrity-fill"></div></div>
     </div>
@@ -111,7 +111,7 @@ export function createHomePage(onStart) {
       .intro-sequence { animation: introFade 5s forwards; }
       @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 20% { opacity:1; } 100% { opacity:1; transform:scale(1); } }
       
-      .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #7ee7ff; opacity: 0.7; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
+      .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #7ee7ff; opacity: 0.7; margin-top: 20px; text-align: center; max-width: 400px; margin-left: auto; margin-right: auto; height: 80px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
 
       .integrity-label { font-size: 10px; color: #7ee7ff; text-align: center; margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; font-family: 'Share Tech Mono'; }
       .integrity-track { width: 100%; height: 2px; background: rgba(126, 231, 255, 0.1); border-radius: 1px; overflow: hidden; }
@@ -202,6 +202,9 @@ export function createHomePage(onStart) {
     // Show Loader
     integrityContainer.style.opacity = '1';
     log.style.opacity = '1';
+    
+    // Reposition log to be under the centered progress bar
+    log.style.marginTop = "20px";
 
     const messages = [
       "> AUTHENTICATING COMMANDER: HARSH OSWAL",
