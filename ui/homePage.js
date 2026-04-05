@@ -36,12 +36,19 @@ export function createHomePage(onStart) {
     <div class="telemetry-stream left-stream"></div>
     <div class="telemetry-stream right-stream"></div>
 
+    <!-- HUD Viewport Brackets -->
+    <div class="viewport-bracket tl"></div>
+    <div class="viewport-bracket tr"></div>
+    <div class="viewport-bracket bl"></div>
+    <div class="viewport-bracket br"></div>
+
     <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
       <div id="story-step-1" class="intro-sequence">
         <div class="glitch-text" data-text="ENCRYPTED UPLINK">ENCRYPTED UPLINK</div>
-        <h1 style="font-size: ${isMobile ? '32px' : '64px'}; font-weight: 900; letter-spacing: 0.15em; margin: 0; color: #fff; text-shadow: 0 0 30px rgba(126, 231, 255, 0.6);">ORBITAL VISUALIZER</h1>
+        <h1 style="font-size: ${isMobile ? '32px' : '64px'}; font-weight: 900; letter-spacing: 0.15em; margin: 0; color: #fff; text-shadow: 0 0 30px rgba(126, 231, 255, 0.6); font-family: 'Arial Black', sans-serif;">ORBITAL VISUALIZER</h1>
         <div style="height: 1px; width: 100px; background: #7ee7ff; margin: 20px auto; box-shadow: 0 0 10px #7ee7ff;"></div>
         <p class="typewriter">SYNCHRONIZING WITH DEEP SPACE NETWORK [DSN-7]...</p>
+        <div class="boot-log" id="boot-log"></div>
       </div>
 
       <div id="story-step-2" style="display: none; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
@@ -106,6 +113,19 @@ export function createHomePage(onStart) {
       .intro-sequence { animation: introFade 3s forwards; }
       @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 20% { opacity:1; } 80% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
       
+      /* Boot Log Styles */
+      .boot-log { font-family: monospace; font-size: 9px; color: #7ee7ff; opacity: 0.5; margin-top: 20px; text-align: left; max-width: 300px; margin-left: auto; margin-right: auto; height: 50px; overflow: hidden; line-height: 1.4; }
+      
+      /* Viewport Brackets */
+      .viewport-bracket { position: absolute; width: 40px; height: 40px; border: 1px solid rgba(126, 231, 255, 0.3); z-index: 5; pointer-events: none; }
+      .viewport-bracket.tl { top: 40px; left: 40px; border-right: 0; border-bottom: 0; }
+      .viewport-bracket.tr { top: 40px; right: 40px; border-left: 0; border-bottom: 0; }
+      .viewport-bracket.bl { bottom: 40px; left: 40px; border-right: 0; border-top: 0; }
+      .viewport-bracket.br { bottom: 40px; right: 40px; border-left: 0; border-top: 0; }
+      @media (max-width: 900px) {
+        .viewport-bracket { width: 20px; height: 20px; }
+      }
+
       /* Telemetry Data Streams */
       .telemetry-stream { position: absolute; top: 0; bottom: 0; width: 60px; font-family: monospace; font-size: 8px; color: rgba(126, 231, 255, 0.2); overflow: hidden; line-height: 1.5; pointer-events: none; z-index: 2; padding: 20px 10px; }
       .left-stream { left: 10px; text-align: left; }
@@ -164,6 +184,22 @@ export function createHomePage(onStart) {
 
   overlay.innerHTML = content;
   document.body.appendChild(overlay);
+
+  // Terminal Boot Animation Logic
+  const log = overlay.querySelector('#boot-log');
+  const messages = [
+    "> AUTHENTICATING COMMANDER: HARSH OSWAL",
+    "> DECRYPTING SAT-UPLINK [AES-256]",
+    "> FETCHING TLE ORBITAL PARAMETERS...",
+    "> NASA NEO FEED: CONNECTED",
+    "> ATMOSPHERIC SCANNERS: CALIBRATING",
+    "> SYSTEM CORE: READY"
+  ];
+  messages.forEach((msg, i) => {
+    setTimeout(() => {
+      log.innerHTML += `<div>${msg}</div>`;
+    }, 400 * i);
+  });
 
   // Handle Story Transitions
   const step1 = overlay.querySelector('#story-step-1');
