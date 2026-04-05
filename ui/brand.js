@@ -11,7 +11,7 @@ export function createBrand() {
   const title = document.createElement('div');
   title.textContent = 'The Space';
   title.style.color = '#fff';
-  title.style.fontFamily = 'monospace';
+  title.style.fontFamily = "'Orbitron', sans-serif";
   title.style.fontWeight = '900';
   title.style.fontSize = isMobile ? '15px' : '34px';
   title.style.lineHeight = '0.92';
@@ -24,10 +24,10 @@ export function createBrand() {
   const subtitle = document.createElement('div');
   subtitle.textContent = 'Company';
   subtitle.style.color = '#b8caec';
-  subtitle.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Georgia, serif';
-  subtitle.style.fontStyle = 'italic';
+  subtitle.style.fontFamily = "'Rajdhani', sans-serif";
+  subtitle.style.fontWeight = '500';
   subtitle.style.fontSize = isMobile ? '8px' : '18px';
-  subtitle.style.letterSpacing = '0.18em';
+  subtitle.style.letterSpacing = '0.8em';
   subtitle.style.textTransform = 'uppercase';
   subtitle.style.textShadow = '0 8px 20px rgba(0,0,0,0.38)';
 
