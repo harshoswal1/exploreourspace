@@ -31,44 +31,10 @@ export function createHomePage(onStart) {
   overlay.style.overflow = 'hidden';
 
   const content = `
-    <div class="nebula"></div>
-    <div class="hud-grid"></div>
-    <div class="hud-hex-grid"></div>
     <div class="vignette"></div>
-    <div class="radar-sweep"></div>
-    <div class="glitch-overlay"></div>
-    <div class="targeting-reticle"></div>
-    <div class="targeting-brackets"></div>
-    <div class="rotating-hub"></div>
-    <div class="rotating-hex"></div>
-    <div class="pulse-ring"></div>
-    
-    <!-- Floating Space Elements -->
-    <div class="sat-anim sat-1"></div>
-    <div class="sat-anim sat-2"></div>
-    <div class="sat-anim sat-3"></div>
-
-    <!-- Side Telemetry Streams -->
-    <div class="telemetry-stream left-stream"></div>
-    <div class="telemetry-stream right-stream"></div>
-
-    <!-- Floating Data Nodes -->
-    <div class="data-node node-1">TRK_492 // 0.229</div>
-    <div class="data-node node-2">SIG_BUFF // 88%</div>
-
-    <!-- HUD Viewport Brackets -->
-    <div class="viewport-bracket tl"></div>
-    <div class="viewport-bracket tr"></div>
-    <div class="viewport-bracket bl"></div>
-    <div class="viewport-bracket br"></div>
-    
-    <div class="corner-data tl-data">LAT: 28.6139<br/>LON: 77.2090<br/>HDG: 042°</div>
-    <div class="corner-data tr-data">ALT: 408 KM<br/>VEL: 7.66 KM/S<br/>SIG: NOMINAL</div>
-    <div class="corner-data bl-data">UPLINK: ACTIVE<br/>FREQ: 14.2 GHz<br/>CH: DSN-7</div>
-    <div class="corner-data br-data">SENSORS: 100%<br/>NEO_SCAN: RUNNING<br/>AUTO_TRACK: ON</div>
 
     <!-- System Integrity Bar -->
-    <div class="integrity-bar-wrap">
+    <div class="integrity-bar-wrap" style="position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 240px; z-index: 10;">
       <div class="integrity-label">ESTABLISHING QUANTUM LINK</div>
       <div class="integrity-track"><div class="integrity-fill" id="integrity-fill"></div></div>
     </div>
@@ -153,72 +119,10 @@ export function createHomePage(onStart) {
       @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
       
       .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #7ee7ff; opacity: 0.7; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
-      
-      /* Viewport Brackets */
-      .viewport-bracket { position: absolute; width: 80px; height: 80px; border: 1px solid rgba(126, 231, 255, 0.1); z-index: 5; pointer-events: none; }
-      .viewport-bracket::after { content: ''; position: absolute; width: 15px; height: 15px; border: 2px solid #7ee7ff; }
-      .viewport-bracket.tl { top: 30px; left: 30px; border-right: 0; border-bottom: 0; } .viewport-bracket.tl::after { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
-      .viewport-bracket.tr { top: 30px; right: 30px; border-left: 0; border-bottom: 0; } .viewport-bracket.tr::after { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
-      .viewport-bracket.bl { bottom: 30px; left: 30px; border-right: 0; border-top: 0; } .viewport-bracket.bl::after { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
-      .viewport-bracket.br { bottom: 30px; right: 30px; border-left: 0; border-top: 0; } .viewport-bracket.br::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
 
-      /* Integrity Bar */
-      .integrity-bar-wrap { position: absolute; bottom: 40px; right: 40px; width: 240px; z-index: 10; font-family: 'Share Tech Mono'; }
-      .integrity-label { font-size: 10px; color: #7ee7ff; text-align: right; margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; }
+      .integrity-label { font-size: 10px; color: #7ee7ff; text-align: center; margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; font-family: 'Share Tech Mono'; }
       .integrity-track { width: 100%; height: 2px; background: rgba(126, 231, 255, 0.1); border-radius: 1px; overflow: hidden; }
       .integrity-fill { height: 100%; width: 0%; background: #7ee7ff; box-shadow: 0 0 10px #7ee7ff; transition: width 3s cubic-bezier(0.1, 0, 0.1, 1); }
-
-      /* Floating Data Nodes */
-      .data-node { position: absolute; font-family: 'Share Tech Mono'; font-size: 10px; color: #7ee7ff; opacity: 0; animation: floatData 8s infinite; pointer-events: none; font-weight: 700; letter-spacing: 1px; }
-      @keyframes floatData { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 0.6; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100px); } }
-      .node-1 { top: 30%; left: 20%; animation-delay: 0s; }
-      .node-2 { top: 40%; right: 25%; animation-delay: 4s; }
-
-      .rotating-hex { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; border: 1px solid rgba(255, 204, 51, 0.05); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); animation: rotateHub 40s linear infinite reverse; pointer-events: none; }
-      .hud-hex-grid { position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.02; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23ffcc33' fill-opacity='1' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9l11-6.35 11 6.35V31.1l-11 6.35-11-6.35V17.9z'%3E%3C/path%3E%3C/svg%3E"); }
-
-      .glitch-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 204, 51, 0.02); opacity: 0; pointer-events: none; z-index: 10; animation: glitchFlash 10s infinite; }
-      @keyframes glitchFlash { 0%, 95%, 100% { opacity: 0; } 96% { opacity: 0.1; transform: translateX(5px); } 98% { opacity: 0.1; transform: translateX(-5px); } }
-
-      @media (max-width: 900px) {
-        .viewport-bracket { width: 30px; height: 30px; top: 20px; bottom: 20px; left: 20px; right: 20px; }
-        .integrity-bar-wrap { width: 160px; bottom: 120px; }
-      }
-
-      .corner-data { position: absolute; font-family: 'Share Tech Mono'; font-size: 11px; font-weight: 700; color: rgba(255, 204, 51, 0.4); line-height: 1.5; pointer-events: none; z-index: 6; text-transform: uppercase; letter-spacing: 2px; }
-      .tl-data { top: 50px; left: 130px; }
-      .tr-data { top: 50px; right: 130px; text-align: right; }
-      .bl-data { bottom: 50px; left: 130px; }
-      .br-data { bottom: 50px; right: 130px; text-align: right; }
-      @media (max-width: 900px) { .corner-data { display: none; } }
-
-      /* Central Targeting Reticle */
-      .targeting-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; border: 1px solid rgba(126, 231, 255, 0.05); border-radius: 50%; pointer-events: none; z-index: 1; }
-      .targeting-reticle::before, .targeting-reticle::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(126, 231, 255, 0.1); border-radius: 50%; }
-      .targeting-reticle::before { width: 40px; height: 40px; border-style: dashed; animation: rotateHub 10s linear infinite; }
-      .targeting-reticle::after { width: 2px; height: 60px; background: rgba(255, 204, 51, 0.15); }
-
-      .rotating-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; border: 2px solid transparent; border-top: 2px solid rgba(255, 204, 51, 0.03); border-radius: 50%; animation: rotateHub 25s linear infinite; pointer-events: none; }
-      @keyframes rotateHub { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-      .pulse-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border: 1px solid #ffcc33; border-radius: 50%; animation: pulseRing 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; pointer-events: none; z-index: 1; }
-      @keyframes pulseRing { 0% { width: 0; height: 0; opacity: 0.5; } 100% { width: 800px; height: 800px; opacity: 0; } }
-
-      .telemetry-stream { position: absolute; top: 0; bottom: 0; width: 100px; font-family: 'Share Tech Mono'; font-size: 10px; color: rgba(255, 204, 51, 0.15); overflow: hidden; line-height: 2.2; pointer-events: none; z-index: 2; padding: 20px 15px; font-weight: 700; }
-      .left-stream { left: 10px; text-align: left; }
-      .right-stream { right: 10px; text-align: right; }
-      .telemetry-stream::after { content: "01011010 POS_X: 42.102 SYNCING... PING 24ms COORDINATES LOCKED 12.09N 77.01E ALTITUDE 400KM TARGET_SAT_ISS_01 DATA_PACKET_RECEIVED [OK]"; display: block; animation: streamScroll 15s linear infinite; }
-      @keyframes streamScroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-
-      /* Floating Satellites */
-      .sat-anim { position: absolute; width: 40px; height: 40px; opacity: 0.15; pointer-events: none; z-index: 1; filter: drop-shadow(0 0 5px #ffcc33); }
-      .sat-1 { top: 20%; left: -50px; animation: orbit1 25s infinite linear; background: url('data:image/svg+xml;utf8,${getSatSVG("#ffcc33")}') no-repeat; }
-      .sat-2 { top: 60%; right: -50px; animation: orbit2 35s infinite linear; background: url('data:image/svg+xml;utf8,${getSatSVG("#ffcc33")}') no-repeat; }
-      @keyframes orbit1 { from { transform: translateX(0vw) rotate(0deg); } to { transform: translateX(110vw) rotate(360deg); } }
-      @keyframes orbit2 { from { transform: translateX(0) rotate(0deg); } to { transform: translateX(-110vw) rotate(-360deg); } }
-
-      .radar-sweep { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent, rgba(255, 204, 51, 0.03) 50%, transparent 100%); background-size: 100% 200px; animation: sweep 8s linear infinite; pointer-events: none; z-index: 1; }
-      @keyframes sweep { from { background-position: 0 -200px; } to { background-position: 0 100vh; } }
 
       .glitch-text { font-family: 'Rajdhani'; font-size: 14px; font-weight: 700; color: #ffcc33; letter-spacing: 0.4em; margin-bottom: 15px; position: relative; }
       .typewriter { font-family: 'Share Tech Mono'; font-size: 14px; font-weight: 500; color: #ffcc33; letter-spacing: 0.3em; overflow: hidden; white-space: nowrap; border-right: 2px solid; animation: typing 2s steps(40, end), blink .75s step-end infinite; margin: 0 auto; width: fit-content; text-transform: uppercase; }
