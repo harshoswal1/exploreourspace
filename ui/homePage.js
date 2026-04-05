@@ -20,8 +20,8 @@ export function createHomePage(onStart) {
   overlay.style.backdropFilter = 'blur(15px)';
   overlay.style.webkitBackdropFilter = 'blur(15px)';
   overlay.style.display = 'flex';
-  overlay.style.alignItems = 'stretch';
-  overlay.style.justifyContent = 'stretch';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
   overlay.style.zIndex = '5000';
   overlay.style.color = 'white';
   overlay.style.fontFamily = "'Rajdhani', sans-serif";
@@ -149,9 +149,10 @@ export function createHomePage(onStart) {
         margin-right: auto;
         line-height: 1.6;
         letter-spacing: 1px;
-        border-left: 2px solid #ffcc33;
-        padding-left: 15px;
-        text-align: left;
+        border-top: 1px solid rgba(255, 204, 51, 0.3);
+        border-bottom: 1px solid rgba(255, 204, 51, 0.3);
+        padding: 15px 0;
+        text-align: center;
       }
       .brief-tag { color: #ffcc33; font-weight: 700; margin-right: 8px; font-family: 'Orbitron'; font-size: 11px; }
 
