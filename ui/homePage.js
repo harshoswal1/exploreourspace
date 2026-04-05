@@ -27,7 +27,7 @@ export function createHomePage(onStart) {
   overlay.style.fontFamily = "'Rajdhani', sans-serif";
   overlay.style.textAlign = 'center';
   overlay.style.transition = 'opacity 0.8s ease, visibility 0.8s ease';
-  overlay.style.padding = '20px';
+  overlay.style.padding = isMobile ? '10px' : '20px';
   overlay.style.overflowY = 'auto'; // Safety for very small screens
 
   const content = `
