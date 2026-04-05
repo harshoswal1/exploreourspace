@@ -300,6 +300,7 @@ function updateSceneVisibility() {
 }
 
 let lastPointerDownAt = 0;
+let ignoreNextClick = false;
 
 window.addEventListener('pointerdown', (event) => {
   if (isUIElementTarget(event.target)) return;
@@ -308,6 +309,7 @@ window.addEventListener('pointerdown', (event) => {
   if (now - lastPointerDownAt < 300) {
     handleSceneSelection(event.clientX, event.clientY);
     lastPointerDownAt = 0;
+    ignoreNextClick = true; // Block the subsequent click event from clearing the focus
   } else {
     lastPointerDownAt = now;
   }
@@ -333,6 +335,10 @@ window.addEventListener('keydown', (event) => {
 
 window.addEventListener('click', (event) => {
   if (isUIElementTarget(event.target)) return;
+  if (ignoreNextClick) {
+    ignoreNextClick = false;
+    return;
+  }
   handleEarthClick(event.clientX, event.clientY);
   updateSceneVisibility();
 });
