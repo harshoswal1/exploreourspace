@@ -43,7 +43,7 @@ export function createHomePage(onStart) {
       <div id="story-step-1" class="intro-sequence">
         <div class="glitch-text" style="font-family: 'Orbitron'; font-weight: 700; color: #ffcc33;">// SECURE UPLINK ACQUIRED</div>
         <h1 style="font-size: ${isMobile ? '36px' : '72px'}; font-weight: 900; letter-spacing: 0.2em; margin: 10px 0 0; color: #fff; text-shadow: 0 0 30px rgba(255, 204, 51, 0.4); font-family: 'Orbitron', sans-serif; text-transform: uppercase;">THE SPACE</h1>
-        <div style="font-size: ${isMobile ? '12px' : '18px'}; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.8em; text-transform: uppercase; color: rgba(255, 204, 51, 0.8); font-weight: 500; margin-bottom: 10px;">company</div>
+        <div style="font-size: ${isMobile ? '12px' : '18px'}; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.8em; text-transform: uppercase; color: #fff; font-weight: 500; margin-bottom: 10px;">company</div>
         <div style="height: 2px; width: 120px; background: linear-gradient(90deg, transparent, #ffcc33, transparent); margin: 20px auto;"></div>
         
         <div style="margin-top: 40px;">
