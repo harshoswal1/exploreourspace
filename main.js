@@ -20,7 +20,7 @@ import { createLiveBadge } from './ui/liveBadge.js';
 import { createNewsPanel } from './ui/newsPanel.js';
 import { createPoleCompass } from './ui/poleCompass.js';
 import { createSearch } from './ui/search.js';
-import { playSFX } from './utils/sfx.js';
+import { playSFX, stopSFX } from './utils/sfx.js';
 import { createInstructions } from './ui/instructions.js';
 import { createAudioControl } from './ui/audioControl.js';
 import { createHomePage } from './ui/homePage.js';
@@ -108,6 +108,7 @@ const { searchInput, clearBtn } = createSearch();
 
 let newsPanel, poleCompass, asteroidStatusBadge, satelliteStatusBadge, exitFollowBtn;
 let isStarted = false;
+let isZoomingSFX = false;
 
 createHomePage(() => {
   isStarted = true;
@@ -213,6 +214,7 @@ wireUI({
 });
 
 function clearFollowMode() {
+  if (isZoomingSFX) { stopSFX('zoom_loop'); isZoomingSFX = false; }
   focusController.clear();
   earthRuntime.setMoonDistanceVisible(false);
   satelliteSystem.clearSelection();
@@ -256,7 +258,8 @@ function getMoonHit(clientX, clientY) {
 function handleSceneSelection(clientX, clientY) {
   const asteroidEntry = asteroidSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (asteroidEntry) {
-    playSFX('zoom'); // Use the snappy mechanical snap for focus
+    playSFX('zoom_loop', true);
+    isZoomingSFX = true;
     satelliteSystem.clearSelection({ hidePanel: false });
     focusController.follow(asteroidEntry.mesh, new THREE.Vector3(0.65, 0.34, 0.65));
     asteroidSystem.updateVisibility(satelliteSystem.getQueryValue(searchInput));
@@ -265,14 +268,16 @@ function handleSceneSelection(clientX, clientY) {
 
   const satelliteEntry = satelliteSystem.handlePointer(clientX, clientY, raycaster, mouse);
   if (satelliteEntry) {
-    playSFX('zoom'); // Single snappy sound
+    playSFX('zoom_loop', true);
+    isZoomingSFX = true;
     focusController.follow(satelliteEntry.mesh, new THREE.Vector3(0.42, 0.26, 0.42));
     return;
   }
 
   const moonHit = getMoonHit(clientX, clientY);
   if (moonHit) {
-    playSFX('zoom'); // Consistent focus sound
+    playSFX('zoom_loop', true);
+    isZoomingSFX = true;
     clearFollowMode();
     earthRuntime.setMoonDistanceVisible(true);
     const moonPhase = earthRuntime.getMoonPhaseInfo();
@@ -376,6 +381,17 @@ function animate() {
   satelliteSystem.update();
   asteroidSystem.update();
   focusController.update();
+  
+  // Monitor zoom sound lifecycle
+  if (isZoomingSFX) {
+    const dist = camera.position.distanceTo(controls.target);
+    // If we are not following anymore, or we have arrived at the high-detail threshold
+    if (!focusController.isFollowing() || dist < 5) {
+      stopSFX('zoom_loop');
+      isZoomingSFX = false;
+      if (focusController.isFollowing()) playSFX('lock'); // Add a confirmation 'thud' on arrival
+    }
+  }
 
   controls.update();
   if (poleCompass) poleCompass.update(camera, earthRuntime.earthParts.earth);

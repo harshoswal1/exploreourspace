@@ -5,7 +5,8 @@ const SFX_URLS = {
   lock: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
   error: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
   zoom: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
-  loading: 'https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.mp3' // Computer data processing loop
+  loading: 'https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.mp3', // Computer data processing loop
+  zoom_loop: 'https://assets.mixkit.co/active_storage/sfx/2198/2198-preview.mp3' // Mechanical servo movement
 };
 
 const sounds = {};
