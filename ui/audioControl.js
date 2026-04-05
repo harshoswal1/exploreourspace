@@ -18,8 +18,10 @@ export function createAudioControl() {
   button.style.position = 'absolute';
   
   // Positioned in the top-right area, between the Live Badge and the Search Bar
-  button.style.top = isMobile ? '12px' : '20px';
-  button.style.right = isMobile ? '54px' : '520px';
+  // Adjusted for mobile alignment specifically
+  const topPos = isMobile ? '12px' : '20px';
+  button.style.top = topPos;
+  button.style.right = isMobile ? '54px' : '118px'; // On desktop, relative to search
   
   button.style.width = isMobile ? '32px' : '40px';
   button.style.height = isMobile ? '32px' : '40px';

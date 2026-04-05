@@ -7,9 +7,10 @@ export function createHomePage(onStart) {
   overlay.style.left = '0';
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
-  overlay.style.background = '#000814';
-  overlay.style.backdropFilter = 'blur(20px)';
-  overlay.style.webkitBackdropFilter = 'blur(20px)';
+  // Deep space base gradient
+  overlay.style.background = 'radial-gradient(circle at center, #001233 0%, #000814 100%)';
+  overlay.style.backdropFilter = 'blur(10px)';
+  overlay.style.webkitBackdropFilter = 'blur(10px)';
   overlay.style.display = 'flex';
   overlay.style.flexDirection = 'column';
   overlay.style.alignItems = 'center';
@@ -24,22 +25,25 @@ export function createHomePage(onStart) {
 
   const content = `
     <!-- Animated Starfield Background -->
+    <div class="nebula"></div>
     <div class="stars-container">
       <div class="stars"></div>
       <div class="stars2"></div>
-      <div class="stars3"></div>
     </div>
 
     <div class="story-wrapper" style="max-width: 600px; position: relative; z-index: 2;">
       <div id="story-step-1" class="fade-in-out">
-        <p style="font-size: 14px; letter-spacing: 0.5em; text-transform: uppercase; color: #7ee7ff; opacity: 0.8;">Initializing Cosmic Link...</p>
+        <h2 style="font-size: ${isMobile ? '18px' : '24px'}; letter-spacing: 0.8em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; font-weight: 300;">Harsh Oswal <br/> <span style="font-size: 0.5em; opacity: 0.5; letter-spacing: 0.3em;">Presents</span></h2>
+        <p style="font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; color: #7ee7ff; opacity: 0.8; margin-top: 40px;">Initializing Cosmic Link...</p>
       </div>
 
       <div id="story-step-2" style="display: none;">
-        <h1 style="font-size: ${isMobile ? '32px' : '56px'}; text-transform: uppercase; letter-spacing: 0.3em; margin-bottom: 10px; font-weight: 900; color: #ffffff; text-shadow: 0 0 30px rgba(124, 200, 255, 0.6);">WELCOME TO THE UNIVERSE</h1>
+        <div style="margin-bottom: 30px;">
+          <h1 style="font-size: ${isMobile ? '32px' : '58px'}; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 10px; font-weight: 900; color: #ffffff; text-shadow: 0 0 40px rgba(124, 200, 255, 0.8);">WELCOME TO THE UNIVERSE</h1>
+        </div>
         <p style="font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; color: #a0c8ff; margin-bottom: 40px;">Data Visualization Protocol v4.0</p>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; margin-bottom: 50px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+        <div style="display: grid; grid-template-columns: ${isMobile ? '1fr' : '1fr 1fr'}; gap: 20px; text-align: left; margin-bottom: 50px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); border-bottom: 2px solid rgba(124, 200, 255, 0.2);">
           <div>
             <h3 style="color: #ffe066; font-size: 13px; margin-bottom: 6px;">🛰️ TRACKING</h3>
             <p style="font-size: 11px; line-height: 1.5; color: rgba(255,255,255,0.7);"><span style="color:#ffe066">Yellow</span> nodes represent 800+ live satellites.</p>
@@ -59,7 +63,7 @@ export function createHomePage(onStart) {
         </div>
 
         <button id="explore-btn" style="
-          padding: 18px 54px;
+          padding: 20px 60px;
           font-size: 14px;
           font-weight: 800;
           text-transform: uppercase;
@@ -80,10 +84,19 @@ export function createHomePage(onStart) {
       .fade-in-out { animation: fadeInOut 3s forwards; }
       @keyframes fadeInOut {
         0% { opacity: 0; transform: scale(0.95); }
-        30% { opacity: 1; transform: scale(1); }
+        20% { opacity: 1; transform: scale(1); }
         80% { opacity: 1; transform: scale(1); }
         100% { opacity: 0; transform: scale(1.05); }
       }
+
+      .nebula {
+        position: absolute; width: 150%; height: 150%;
+        background: radial-gradient(circle at 30% 30%, rgba(100, 50, 255, 0.15), transparent 40%),
+                    radial-gradient(circle at 70% 60%, rgba(50, 150, 255, 0.15), transparent 40%);
+        filter: blur(80px);
+        animation: drift 40s infinite alternate linear;
+      }
+      @keyframes drift { from { transform: rotate(0deg) scale(1); } to { transform: rotate(10deg) scale(1.1); } }
       
       .stars-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
       .stars, .stars2, .stars3 { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; display: block; }
