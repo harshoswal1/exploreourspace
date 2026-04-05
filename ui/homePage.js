@@ -29,10 +29,10 @@ export function createHomePage(onStart) {
 
     <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
       <div id="story-step-1" class="intro-sequence">
-        <div class="glitch-text" data-text="COMMANDER">COMMANDER</div>
-        <h1 style="font-size: ${isMobile ? '40px' : '82px'}; font-weight: 900; letter-spacing: -0.02em; margin: 0; color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.3);">HARSH OSWAL</h1>
+        <div class="glitch-text" data-text="SYSTEM ACCESS">SYSTEM ACCESS</div>
+        <h1 style="font-size: ${isMobile ? '32px' : '64px'}; font-weight: 900; letter-spacing: 0.15em; margin: 0; color: #fff; text-shadow: 0 0 30px rgba(126, 231, 255, 0.4);">ORBITAL UPLINK</h1>
         <div style="height: 1px; width: 100px; background: #7ee7ff; margin: 20px auto; box-shadow: 0 0 10px #7ee7ff;"></div>
-        <p class="typewriter">CONNECTING TO GLOBAL SURVEILLANCE NETWORK...</p>
+        <p class="typewriter">ESTABLISHING SECURE CONNECTION TO DEEP SPACE NETWORK...</p>
       </div>
 
       <div id="story-step-2" style="display: none; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
@@ -69,6 +69,11 @@ export function createHomePage(onStart) {
           INITIALIZE EXPLORATION
         </button>
       </div>
+    </div>
+
+    <!-- Bottom Signature -->
+    <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10; font-family: monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(126, 231, 255, 0.5); text-transform: uppercase;">
+      @Harsh Oswal
     </div>
 
     <style>

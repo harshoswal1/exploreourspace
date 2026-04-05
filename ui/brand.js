@@ -52,16 +52,14 @@ export function createBrand() {
 
   // Prominent Name Tag
   const nameTag = document.createElement('div');
-  nameTag.innerHTML = `<span style="color:#7ee7ff; font-size: 10px; font-weight:300; display:block; letter-spacing: 4px;">COMMANDER</span>HARSH OSWAL`;
+  nameTag.textContent = '@Harsh Oswal';
   nameTag.style.color = '#fff';
   nameTag.style.fontFamily = 'monospace';
-  nameTag.style.fontSize = isMobile ? '16px' : '22px';
-  nameTag.style.fontWeight = '900';
-  nameTag.style.letterSpacing = '1px';
+  nameTag.style.fontSize = isMobile ? '12px' : '14px';
+  nameTag.style.fontWeight = '400';
+  nameTag.style.letterSpacing = '2px';
   nameTag.style.marginBottom = '10px';
-  nameTag.style.background = 'rgba(126, 231, 255, 0.1)';
-  nameTag.style.padding = '10px 15px';
-  nameTag.style.borderRight = '2px solid #7ee7ff';
+  nameTag.style.opacity = '0.7';
   socialStack.appendChild(nameTag);
 
   const createSocialIcon = (url, label, svgContent) => {
