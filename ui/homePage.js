@@ -23,122 +23,86 @@ export function createHomePage(onStart) {
   overlay.style.overflow = 'hidden';
 
   const content = `
-    <!-- Animated Starfield Background -->
     <div class="nebula"></div>
-    <div class="nebula2"></div>
     <div class="hud-grid"></div>
-    <div class="scanline"></div>
-    <div class="css-stars"></div>
+    <div class="vignette"></div>
 
-    <div class="story-wrapper" style="max-width: 600px; position: relative; z-index: 2;">
-      <div id="story-step-1" class="fade-in-out">
-        <h2 style="font-size: ${isMobile ? '18px' : '24px'}; letter-spacing: 0.8em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; font-weight: 200; font-family: 'Courier New', monospace;">COMMANDER <br/> <span style="font-weight: 800; color: #7ee7ff; text-shadow: 0 0 15px #7ee7ff;">HARSH OSWAL</span></h2>
-        <p style="font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #7ee7ff; opacity: 0.6; margin-top: 40px; font-family: monospace;">[ ESTABLISHING UPLINK... ]</p>
+    <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
+      <div id="story-step-1" class="intro-sequence">
+        <div class="glitch-text" data-text="COMMANDER">COMMANDER</div>
+        <h1 style="font-size: ${isMobile ? '40px' : '82px'}; font-weight: 900; letter-spacing: -0.02em; margin: 0; color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.3);">HARSH OSWAL</h1>
+        <div style="height: 1px; width: 100px; background: #7ee7ff; margin: 20px auto; box-shadow: 0 0 10px #7ee7ff;"></div>
+        <p class="typewriter">CONNECTING TO GLOBAL SURVEILLANCE NETWORK...</p>
       </div>
 
-      <div id="story-step-2" style="display: none;">
-        <div style="margin-bottom: 30px;">
-          <h1 style="font-size: ${isMobile ? '32px' : '58px'}; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 10px; font-weight: 900; color: #ffffff; text-shadow: 0 0 40px rgba(124, 200, 255, 0.8);">WELCOME TO THE UNIVERSE</h1>
+      <div id="story-step-2" style="display: none; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+        <div class="tech-header">
+          <span class="bracket">[</span> SYSTEM STATUS: OPTIMAL <span class="bracket">]</span>
         </div>
-        <p style="font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; color: #a0c8ff; margin-bottom: 40px;">Data Visualization Protocol v4.0</p>
+        <h2 style="font-size: ${isMobile ? '24px' : '42px'}; letter-spacing: 0.1em; color: #7ee7ff; text-transform: uppercase; margin: 10px 0 40px;">Orbital Intelligence Platform</h2>
         
-        <div style="display: grid; grid-template-columns: ${isMobile ? '1fr' : '1fr 1fr'}; gap: 20px; text-align: left; margin-bottom: 50px; background: rgba(0, 20, 40, 0.4); padding: 25px; border-left: 4px solid #7ee7ff; border-radius: 4px; border-top: 1px solid rgba(126, 231, 255, 0.2); backdrop-filter: blur(15px);">
-          <div>
-            <h3 style="color: #ffe066; font-size: 11px; margin-bottom: 6px; font-family: monospace;">> ORBITAL_SENSORS</h3>
-            <p style="font-size: 10px; line-height: 1.5; color: rgba(160, 200, 255, 0.8);">800+ Active satellites synced via TLE telemetry.</p>
+        <div class="hud-info-grid">
+          <div class="hud-card">
+            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+            <h4>ORBITAL_SENSORS</h4>
+            <p>Tracking 800+ Live Satellites</p>
           </div>
-          <div>
-            <h3 style="color: #f5712a; font-size: 11px; margin-bottom: 6px; font-family: monospace;">> NEO_DETECTION</h3>
-            <p style="font-size: 10px; line-height: 1.5; color: rgba(160, 200, 255, 0.8);">NASA live-feed asteroid trajectory mapping.</p>
+          <div class="hud-card">
+            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+            <h4>NEO_DETECTION</h4>
+            <p>NASA Asteroid Feed Active</p>
           </div>
-          <div>
-            <h3 style="color: #7ee7ff; font-size: 11px; margin-bottom: 6px; font-family: monospace;">> GEO_METRICS</h3>
-            <p style="font-size: 10px; line-height: 1.5; color: rgba(160, 200, 255, 0.8);">Surface climate analysis & regional data projection.</p>
+          <div class="hud-card">
+            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+            <h4>GEO_METRICS</h4>
+            <p>Climate & Regional Analytics</p>
           </div>
-          <div>
-            <h3 style="color: #ffffff; font-size: 11px; margin-bottom: 6px; font-family: monospace;">> NAV_SYSTEM</h3>
-            <p style="font-size: 10px; line-height: 1.5; color: rgba(160, 200, 255, 0.8);">Tactical rotation, zoom, and target locking controls.</p>
+          <div class="hud-card">
+            <div class="card-corner tl"></div><div class="card-corner tr"></div>
+            <h4>NAV_COMMAND</h4>
+            <p>Double-Tap to Lock Target</p>
           </div>
         </div>
 
-        <button id="explore-btn" style="
-          padding: 20px 60px;
-          font-size: 14px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.25em;
-          color: white;
-          background: linear-gradient(135deg, rgba(30, 75, 138, 0.8) 0%, rgba(10, 20, 40, 0.9) 100%);
-          border: 1px solid #7ee7ff;
-          border-radius: 4px;
-          cursor: pointer;
-          box-shadow: 0 0 30px rgba(30, 75, 138, 0.5);
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          font-family: monospace;
-        ">Explore Earth</button>
+        <button id="explore-btn" class="sci-fi-btn">
+          <span class="btn-glitch"></span>
+          INITIALIZE EXPLORATION
+        </button>
       </div>
     </div>
 
     <style>
-      .fade-in-out { animation: fadeInOut 3s forwards; }
-      @keyframes fadeInOut {
-        0% { opacity: 0; transform: scale(0.95); }
-        20% { opacity: 1; transform: scale(1); }
-        80% { opacity: 1; transform: scale(1); }
-        100% { opacity: 0; transform: scale(1.05); }
-      }
-
-      .hud-grid {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
-        background-image: linear-gradient(rgba(126, 231, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(126, 231, 255, 0.05) 1px, transparent 1px);
-        background-size: 60px 60px;
-      }
-      .scanline {
-        position: absolute; top: 0; left: 0; width: 100%; height: 2px; z-index: 2; pointer-events: none;
-        background: rgba(126, 231, 255, 0.2); box-shadow: 0 0 15px rgba(126, 231, 255, 0.4);
-        animation: scan 8s linear infinite;
-      }
-      @keyframes scan { 0% { top: -5%; } 100% { top: 105%; } }
-
-      .nebula {
-        position: absolute; width: 150%; height: 150%;
-        background: radial-gradient(circle at 30% 30%, rgba(100, 50, 255, 0.05), transparent 50%),
-                    radial-gradient(circle at 70% 60%, rgba(0, 120, 255, 0.05), transparent 50%);
-        filter: blur(80px);
-        animation: drift 40s infinite alternate linear;
-      }
-      .nebula2 {
-        position: absolute; width: 150%; height: 150%;
-        background: radial-gradient(circle at 80% 20%, rgba(255, 50, 150, 0.05), transparent 40%),
-                    radial-gradient(circle at 20% 80%, rgba(0, 255, 200, 0.05), transparent 40%);
-        filter: blur(60px);
-        animation: drift 60s infinite alternate-reverse linear;
-      }
-      @keyframes drift { 
-        from { transform: translate(-10%, -10%) rotate(0deg); } 
-        to { transform: translate(5%, 5%) rotate(5deg); } 
-      }
+      .vignette { position: absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle, transparent 40%, black 150%); z-index: 1; }
+      .intro-sequence { animation: introFade 3s forwards; }
+      @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 20% { opacity:1; } 80% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
       
-      /* Reliable CSS Stars */
-      .css-stars {
-        position: absolute; width: 100%; height: 100%;
-        background-image: 
-          radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-          radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-          radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
-        background-size: 550px 550px, 350px 350px, 250px 250px;
-        background-position: 0 0, 40px 60px, 130px 270px;
-        z-index: 1;
-        opacity: 0.4;
-      }
+      .glitch-text { font-family: monospace; color: #7ee7ff; letter-spacing: 1em; margin-bottom: 10px; position: relative; }
+      .typewriter { font-family: monospace; font-size: 10px; color: #7ee7ff; letter-spacing: 0.2em; overflow: hidden; white-space: nowrap; border-right: 2px solid; animation: typing 2s steps(40, end), blink .75s step-end infinite; margin: 0 auto; width: fit-content; }
+      @keyframes typing { from { width: 0 } to { width: 100% } }
+      @keyframes blink { from, to { border-color: transparent } 50% { border-color: #7ee7ff } }
 
-      #explore-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 60px rgba(124, 200, 255, 0.7);
-        background: linear-gradient(135deg, #2561b3 0%, #0a1428 100%);
-        border-color: rgba(124, 200, 255, 0.8);
+      .hud-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 40px; }
+      .hud-card { background: rgba(126, 231, 255, 0.05); border: 1px solid rgba(126, 231, 255, 0.1); padding: 20px; position: relative; text-align: left; transition: background 0.3s; }
+      .hud-card:hover { background: rgba(126, 231, 255, 0.1); }
+      .hud-card h4 { color: #7ee7ff; font-family: monospace; font-size: 12px; margin: 0 0 5px; letter-spacing: 1px; }
+      .hud-card p { color: rgba(255,255,255,0.6); font-size: 11px; margin: 0; }
+      .card-corner { position: absolute; width: 8px; height: 8px; border: 2px solid #7ee7ff; }
+      .tl { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+      .tr { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
+
+      .sci-fi-btn { 
+        background: transparent; border: 1px solid #7ee7ff; color: #7ee7ff; padding: 20px 40px; 
+        font-family: monospace; font-weight: bold; letter-spacing: 3px; cursor: pointer; position: relative;
+        overflow: hidden; transition: all 0.3s; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
       }
-      #explore-btn:active { transform: scale(0.98); }
+      .sci-fi-btn:hover { background: #7ee7ff; color: #000; box-shadow: 0 0 30px #7ee7ff; }
+      
+      .nebula { 
+        position: absolute; width: 100%; height: 100%; 
+        background: radial-gradient(circle at 50% 50%, rgba(0, 120, 255, 0.1), transparent 70%);
+        animation: pulseNebula 10s infinite alternate;
+      }
+      @keyframes pulseNebula { from { opacity: 0.5; } to { opacity: 1; } }
     </style>
   `;
 

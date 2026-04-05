@@ -10,14 +10,16 @@ export function createBrand() {
 
   const title = document.createElement('div');
   title.textContent = 'The Space';
-  title.style.color = '#7ee7ff';
+  title.style.color = '#fff';
   title.style.fontFamily = 'monospace';
   title.style.fontWeight = '900';
   title.style.fontSize = isMobile ? '15px' : '34px';
   title.style.lineHeight = '0.92';
-  title.style.letterSpacing = '0.2em';
+  title.style.letterSpacing = '0.4em';
   title.style.textTransform = 'uppercase';
-  title.style.textShadow = '0 0 20px rgba(126, 231, 255, 0.6)';
+  title.style.textShadow = '0 0 10px #7ee7ff';
+  title.style.borderLeft = '3px solid #7ee7ff';
+  title.style.paddingLeft = '15px';
 
   const subtitle = document.createElement('div');
   subtitle.textContent = 'Company';
@@ -50,14 +52,16 @@ export function createBrand() {
 
   // Prominent Name Tag
   const nameTag = document.createElement('div');
-  nameTag.textContent = 'Harsh Oswal';
-  nameTag.style.color = '#ffffff';
-  nameTag.style.fontFamily = 'Arial, sans-serif';
-  nameTag.style.fontSize = isMobile ? '14px' : '20px';
-  nameTag.style.fontWeight = '800';
-  nameTag.style.letterSpacing = '0.02em';
-  nameTag.style.textShadow = '0 4px 12px rgba(0,0,0,0.5)';
-  nameTag.style.marginBottom = '4px';
+  nameTag.innerHTML = `<span style="color:#7ee7ff; font-size: 10px; font-weight:300; display:block; letter-spacing: 4px;">COMMANDER</span>HARSH OSWAL`;
+  nameTag.style.color = '#fff';
+  nameTag.style.fontFamily = 'monospace';
+  nameTag.style.fontSize = isMobile ? '16px' : '22px';
+  nameTag.style.fontWeight = '900';
+  nameTag.style.letterSpacing = '1px';
+  nameTag.style.marginBottom = '10px';
+  nameTag.style.background = 'rgba(126, 231, 255, 0.1)';
+  nameTag.style.padding = '10px 15px';
+  nameTag.style.borderRight = '2px solid #7ee7ff';
   socialStack.appendChild(nameTag);
 
   const createSocialIcon = (url, label, svgContent) => {
