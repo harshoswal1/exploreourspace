@@ -29,39 +29,90 @@ export function createBrand() {
   subtitle.style.textTransform = 'uppercase';
   subtitle.style.textShadow = '0 8px 20px rgba(0,0,0,0.38)';
 
-  // Row container for Subtitle + Attribution
-  const subRow = document.createElement('div');
-  subRow.style.display = 'flex';
-  subRow.style.alignItems = 'baseline';
-  subRow.style.marginTop = '2px';
-  subRow.style.marginLeft = '2px';
-  subRow.style.pointerEvents = 'none';
+  wrap.appendChild(title);
+  wrap.appendChild(subtitle);
+  document.body.appendChild(wrap);
 
-  // Attribution & Social Links
-  const attribution = document.createElement('div');
-  attribution.style.marginLeft = isMobile ? '8px' : '12px';
-  attribution.style.color = 'rgba(255, 255, 255, 0.45)';
-  attribution.style.fontFamily = 'Arial, sans-serif';
-  attribution.style.fontSize = isMobile ? '8px' : '10px';
-  attribution.style.letterSpacing = '0.05em';
-  attribution.style.pointerEvents = 'auto'; // Make links clickable
-  attribution.style.display = 'flex';
-  attribution.style.gap = '6px';
-  attribution.style.alignItems = 'center';
-  attribution.style.textTransform = 'none';
+  // Vertical Social Stack positioned below the Toggle Button
+  const socialStack = document.createElement('div');
+  socialStack.dataset.uiElement = 'true';
+  socialStack.style.position = 'absolute';
+  // Aligned with the toggle button (left 24px/20px)
+  socialStack.style.left = isMobile ? '20px' : '24px';
+  // Positioned below the toggle button (top 104px + height 64px + margin)
+  socialStack.style.top = isMobile ? '165px' : '190px';
+  socialStack.style.display = 'flex';
+  socialStack.style.flexDirection = 'column';
+  socialStack.style.alignItems = 'flex-start';
+  socialStack.style.gap = isMobile ? '12px' : '16px';
+  socialStack.style.zIndex = '16';
+  socialStack.style.pointerEvents = 'auto';
 
-  attribution.innerHTML = `
-    <span style="font-weight: 400;">- by Harsh Oswal</span>
-    <a href="https://instagram.com/" target="_blank" title="Instagram" style="text-decoration: none; color: inherit; opacity: 0.6; font-size: 11px;">IG</a>
-    <a href="https://linkedin.com/in/" target="_blank" title="LinkedIn" style="text-decoration: none; color: inherit; opacity: 0.6; font-size: 11px;">LI</a>
+  // Prominent Name Tag
+  const nameTag = document.createElement('div');
+  nameTag.textContent = 'Harsh Oswal';
+  nameTag.style.color = '#ffffff';
+  nameTag.style.fontFamily = 'Arial, sans-serif';
+  nameTag.style.fontSize = isMobile ? '14px' : '20px';
+  nameTag.style.fontWeight = '800';
+  nameTag.style.letterSpacing = '0.02em';
+  nameTag.style.textShadow = '0 4px 12px rgba(0,0,0,0.5)';
+  nameTag.style.marginBottom = '4px';
+  socialStack.appendChild(nameTag);
+
+  const createSocialIcon = (url, label, svgContent) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.title = label;
+    link.style.width = isMobile ? '36px' : '48px';
+    link.style.height = isMobile ? '36px' : '48px';
+    link.style.borderRadius = '50%';
+    link.style.display = 'flex';
+    link.style.alignItems = 'center';
+    link.style.justifyContent = 'center';
+    link.style.background = 'rgba(8,12,20,0.58)';
+    link.style.border = '1px solid rgba(255,255,255,0.18)';
+    link.style.backdropFilter = 'blur(18px)';
+    link.style.webkitBackdropFilter = 'blur(18px)';
+    link.style.color = 'white';
+    link.style.textDecoration = 'none';
+    link.style.transition = 'transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease';
+    link.style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
+
+    link.innerHTML = svgContent;
+
+    link.addEventListener('mouseenter', () => {
+      link.style.transform = 'scale(1.1) translateX(4px)';
+      link.style.background = 'rgba(255,255,255,0.1)';
+      link.style.boxShadow = '0 0 20px rgba(124, 200, 255, 0.4)';
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.transform = 'scale(1) translateX(0)';
+      link.style.background = 'rgba(8,12,20,0.58)';
+      link.style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
+    });
+
+    return link;
+  };
+
+  // Instagram Link
+  const instaIcon = createSocialIcon(
+    'https://www.instagram.com/harshoswal2/',
+    'Instagram',
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:50%; height:50%"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>`
+  );
+
+  // LinkedIn Link
+  const linkedinIcon = createSocialIcon(
+    'https://www.linkedin.com/in/harsh-oswal-706b14349?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    'LinkedIn',
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="width:50%; height:50%"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>`
   `;
 
-  subRow.appendChild(subtitle);
-  subRow.appendChild(attribution);
-
-  wrap.appendChild(title);
-  wrap.appendChild(subRow);
-  document.body.appendChild(wrap);
+  socialStack.appendChild(instaIcon);
+  socialStack.appendChild(linkedinIcon);
+  document.body.appendChild(socialStack);
 
   return wrap;
 }
