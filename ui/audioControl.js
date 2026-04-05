@@ -5,7 +5,7 @@ export function createAudioControl() {
   // Set crossOrigin to anonymous to handle CORS restrictions from Archive.org
   audio.crossOrigin = 'anonymous';
   // Using the more stable redirector link to avoid 404s from specific nodes
-  audio.src = 'https://ia801404.us.archive.org/24/items/interstellar-main-theme-hans-zimmer/Interstellar%20Main%20Theme%20-%20Hans%20Zimmer.mp3';
+  audio.src = 'https://archive.org/download/interstellar-main-theme-hans-zimmer/Interstellar%20Main%20Theme%20-%20Hans%20Zimmer.mp3';
   audio.loop = true;
   audio.volume = 0.7;
   audio.preload = 'auto';
