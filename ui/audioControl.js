@@ -1,3 +1,5 @@
+import { playSFX } from '../utils/sfx.js';
+
 export function createAudioControl() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   
@@ -60,6 +62,8 @@ export function createAudioControl() {
   });
 
   button.addEventListener('click', () => {
+    playSFX('click');
+    
     if (isPlaying) {
       audio.pause();
       button.innerHTML = '🔇';

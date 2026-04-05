@@ -1,3 +1,5 @@
+import { playSFX } from '../utils/sfx.js';
+
 export function createInstructions() {
   const isMobile = window.matchMedia('(max-width: 900px)').matches;
   const container = document.createElement('div');
@@ -52,6 +54,7 @@ export function createInstructions() {
   document.body.appendChild(container);
 
   const dismiss = () => {
+    playSFX('transition');
     panel.style.opacity = '0';
     panel.style.transform = 'translateY(15px)';
     setTimeout(() => container.remove(), 600);

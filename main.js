@@ -120,11 +120,13 @@ createHomePage(() => {
   satelliteStatusBadge = createSatelliteStatusBadge();
   exitFollowBtn = createFollowExitButton();
 
-    // ✅ ADD IT HERE
   if (exitFollowBtn) {
-    exitFollowBtn.addEventListener('click', clearFollowMode);
+    exitFollowBtn.addEventListener('click', () => {
+      playSFX('transition');
+      clearFollowMode();
+    });
   }
-  
+
   // Initialize badge states now that they exist
   if (satelliteStatusBadge) {
     satelliteStatusBadge.setStatus(satelliteSystem.getStatus(), '');
@@ -269,6 +271,7 @@ function handleSceneSelection(clientX, clientY) {
 
   const moonHit = getMoonHit(clientX, clientY);
   if (moonHit) {
+    playSFX('lock');
     clearFollowMode();
     earthRuntime.setMoonDistanceVisible(true);
     const moonPhase = earthRuntime.getMoonPhaseInfo();
@@ -286,6 +289,7 @@ function handleSceneSelection(clientX, clientY) {
 
   const climateInfo = getEarthClimateAtPointer(clientX, clientY);
   if (climateInfo) {
+    playSFX('lock');
     clearFollowMode();
     showEarthClimateInfo(infoDiv, climateInfo, clientX, clientY);
     return;
@@ -303,6 +307,7 @@ function updateSceneVisibility() {
 function handleEarthClick(clientX, clientY) {
   const climateInfo = getEarthClimateAtPointer(clientX, clientY);
   if (climateInfo) {
+    playSFX('click');
     clearFollowMode();
     showEarthClimateInfo(infoDiv, climateInfo, clientX, clientY);
   } else {
@@ -314,6 +319,7 @@ function handleEarthClick(clientX, clientY) {
 
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
+    playSFX('transition');
     clearFollowMode();
   }
 });

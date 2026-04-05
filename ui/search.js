@@ -1,3 +1,5 @@
+import { playSFX } from '../utils/sfx.js';
+
 export function createSearch() {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   const container = document.createElement('div');
@@ -68,6 +70,11 @@ export function createSearch() {
   clearBtn.style.opacity = '0.6';
   clearBtn.style.display = 'none';
   fieldWrap.appendChild(clearBtn);
+
+  clearBtn.addEventListener('click', () => {
+    playSFX('click');
+    searchInput.value = '';
+  });
 
   clearBtn.addEventListener('mouseenter', () => {
     clearBtn.style.color = 'white';
