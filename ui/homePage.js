@@ -6,7 +6,7 @@ export function createHomePage(onStart) {
     const link = document.createElement('link');
     link.id = 'sci-fi-fonts';
     link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Share+Tech+Mono&display=swap';
     document.head.appendChild(link);
   }
 
@@ -16,9 +16,9 @@ export function createHomePage(onStart) {
   overlay.style.left = '0';
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
-  overlay.style.background = 'radial-gradient(circle at center, rgba(10, 20, 40, 0.4) 0%, rgba(0, 0, 0, 0.9) 100%)';
-  overlay.style.backdropFilter = 'blur(12px)';
-  overlay.style.webkitBackdropFilter = 'blur(12px)';
+  overlay.style.background = 'radial-gradient(circle at center, rgba(20, 15, 10, 0.3) 0%, rgba(5, 5, 5, 0.95) 100%)';
+  overlay.style.backdropFilter = 'blur(15px)';
+  overlay.style.webkitBackdropFilter = 'blur(15px)';
   overlay.style.display = 'flex';
   overlay.style.flexDirection = 'column';
   overlay.style.alignItems = 'center';
@@ -76,9 +76,9 @@ export function createHomePage(onStart) {
 
     <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
       <div id="story-step-1" class="intro-sequence">
-        <div class="glitch-text" style="font-family: 'Orbitron'; font-weight: 700;">// SECURE UPLINK ACQUIRED</div>
-        <h1 style="font-size: ${isMobile ? '36px' : '72px'}; font-weight: 900; letter-spacing: 0.2em; margin: 10px 0; color: #fff; text-shadow: 0 0 30px rgba(126, 231, 255, 0.5); font-family: 'Orbitron', sans-serif; text-transform: uppercase;">The Space</h1>
-        <div style="height: 2px; width: 120px; background: linear-gradient(90deg, transparent, #7ee7ff, transparent); margin: 20px auto;"></div>
+        <div class="glitch-text" style="font-family: 'Orbitron'; font-weight: 700; color: #ffcc33;">// SECURE UPLINK ACQUIRED</div>
+        <h1 style="font-size: ${isMobile ? '36px' : '72px'}; font-weight: 900; letter-spacing: 0.2em; margin: 10px 0; color: #fff; text-shadow: 0 0 30px rgba(255, 204, 51, 0.4); font-family: 'Orbitron', sans-serif; text-transform: uppercase;">The Space</h1>
+        <div style="height: 2px; width: 120px; background: linear-gradient(90deg, transparent, #ffcc33, transparent); margin: 20px auto;"></div>
         <p class="typewriter">SYNCHRONIZING WITH DEEP SPACE NETWORK [DSN-7]...</p>
         <div class="boot-log" id="boot-log"></div>
       </div>
@@ -98,7 +98,7 @@ export function createHomePage(onStart) {
         <div class="hud-info-grid">
           <div class="hud-card">
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
-            <div class="card-icon">${getSatSVG()}</div>
+            <div class="card-icon">${getSatSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>TRACK</h4>
               <p>Real-time telemetry for 800+ active satellites in LEO/MEO orbits.</p>
@@ -107,7 +107,7 @@ export function createHomePage(onStart) {
           </div>
           <div class="hud-card">
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
-            <div class="card-icon">${getAsteroidSVG()}</div>
+            <div class="card-icon">${getAsteroidSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>DETECT</h4>
               <p>Continuous monitoring of Near-Earth Objects via NASA JPL data feeds.</p>
@@ -116,7 +116,7 @@ export function createHomePage(onStart) {
           </div>
           <div class="hud-card">
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
-            <div class="card-icon">${getEarthSVG()}</div>
+            <div class="card-icon">${getEarthSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>ANALYZE</h4>
               <p>Live planetary diagnostics including climate bands and local weather.</p>
@@ -125,7 +125,7 @@ export function createHomePage(onStart) {
           </div>
           <div class="hud-card">
             <div class="card-corner tl"></div><div class="card-corner tr"></div>
-            <div class="card-icon">${getNavSVG()}</div>
+            <div class="card-icon">${getNavSVG("#ffcc33")}</div>
             <div class="card-content">
               <h4>NAVIGATE</h4>
               <p>Advanced target-lock systems for individual object observation.</p>
@@ -153,32 +153,32 @@ export function createHomePage(onStart) {
       .intro-sequence { animation: introFade 5s forwards; }
       @keyframes introFade { 0% { opacity:0; transform:scale(1.1); } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; transform:scale(1); } }
       
-      .boot-log { font-family: 'Rajdhani'; font-size: 11px; color: #7ee7ff; opacity: 0.6; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; font-weight: 500; text-transform: uppercase; }
+      .boot-log { font-family: 'Share Tech Mono'; font-size: 11px; color: #ffcc33; opacity: 0.7; margin-top: 30px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; height: 60px; overflow: hidden; line-height: 1.6; text-transform: uppercase; }
       
       /* Viewport Brackets */
-      .viewport-bracket { position: absolute; width: 80px; height: 80px; border: 1px solid rgba(126, 231, 255, 0.2); z-index: 5; pointer-events: none; }
-      .viewport-bracket::after { content: ''; position: absolute; width: 15px; height: 15px; border: 2px solid #7ee7ff; }
+      .viewport-bracket { position: absolute; width: 80px; height: 80px; border: 1px solid rgba(255, 204, 51, 0.1); z-index: 5; pointer-events: none; }
+      .viewport-bracket::after { content: ''; position: absolute; width: 15px; height: 15px; border: 2px solid #ffcc33; }
       .viewport-bracket.tl { top: 30px; left: 30px; border-right: 0; border-bottom: 0; } .viewport-bracket.tl::after { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
       .viewport-bracket.tr { top: 30px; right: 30px; border-left: 0; border-bottom: 0; } .viewport-bracket.tr::after { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
       .viewport-bracket.bl { bottom: 30px; left: 30px; border-right: 0; border-top: 0; } .viewport-bracket.bl::after { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
       .viewport-bracket.br { bottom: 30px; right: 30px; border-left: 0; border-top: 0; } .viewport-bracket.br::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
 
       /* Integrity Bar */
-      .integrity-bar-wrap { position: absolute; bottom: 80px; width: 240px; left: 50%; transform: translateX(-50%); z-index: 10; font-family: monospace; }
-      .integrity-label { font-size: 10px; color: #7ee7ff; text-align: center; margin-bottom: 10px; letter-spacing: 4px; font-family: 'Rajdhani'; font-weight: 700; }
-      .integrity-track { width: 100%; height: 2px; background: rgba(126, 231, 255, 0.1); border-radius: 1px; overflow: hidden; }
-      .integrity-fill { height: 100%; width: 0%; background: #7ee7ff; box-shadow: 0 0 10px #7ee7ff; transition: width 3s cubic-bezier(0.1, 0, 0.1, 1); }
+      .integrity-bar-wrap { position: absolute; bottom: 80px; width: 240px; left: 50%; transform: translateX(-50%); z-index: 10; font-family: 'Share Tech Mono'; }
+      .integrity-label { font-size: 10px; color: #ffcc33; text-align: center; margin-bottom: 10px; letter-spacing: 4px; font-weight: 700; }
+      .integrity-track { width: 100%; height: 2px; background: rgba(255, 204, 51, 0.1); border-radius: 1px; overflow: hidden; }
+      .integrity-fill { height: 100%; width: 0%; background: #ffcc33; box-shadow: 0 0 10px #ffcc33; transition: width 3s cubic-bezier(0.1, 0, 0.1, 1); }
 
       /* Floating Data Nodes */
-      .data-node { position: absolute; font-family: 'Rajdhani'; font-size: 10px; color: #7ee7ff; opacity: 0; animation: floatData 8s infinite; pointer-events: none; font-weight: 700; letter-spacing: 1px; }
+      .data-node { position: absolute; font-family: 'Share Tech Mono'; font-size: 10px; color: #ffcc33; opacity: 0; animation: floatData 8s infinite; pointer-events: none; font-weight: 700; letter-spacing: 1px; }
       @keyframes floatData { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 0.6; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100px); } }
       .node-1 { top: 30%; left: 20%; animation-delay: 0s; }
       .node-2 { top: 40%; right: 25%; animation-delay: 4s; }
 
-      .rotating-hex { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; border: 1px solid rgba(126, 231, 255, 0.1); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); animation: rotateHub 40s linear infinite reverse; pointer-events: none; }
-      .hud-hex-grid { position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%237ee7ff' fill-opacity='1' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9l11-6.35 11 6.35V31.1l-11 6.35-11-6.35V17.9z'%3E%3C/path%3E%3C/svg%3E"); }
+      .rotating-hex { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; border: 1px solid rgba(255, 204, 51, 0.05); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); animation: rotateHub 40s linear infinite reverse; pointer-events: none; }
+      .hud-hex-grid { position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.02; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23ffcc33' fill-opacity='1' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9l11-6.35 11 6.35V31.1l-11 6.35-11-6.35V17.9z'%3E%3C/path%3E%3C/svg%3E"); }
 
-      .glitch-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(126, 231, 255, 0.02); opacity: 0; pointer-events: none; z-index: 10; animation: glitchFlash 10s infinite; }
+      .glitch-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 204, 51, 0.02); opacity: 0; pointer-events: none; z-index: 10; animation: glitchFlash 10s infinite; }
       @keyframes glitchFlash { 0%, 95%, 100% { opacity: 0; } 96% { opacity: 0.1; transform: translateX(5px); } 98% { opacity: 0.1; transform: translateX(-5px); } }
 
       @media (max-width: 900px) {
@@ -186,7 +186,7 @@ export function createHomePage(onStart) {
         .integrity-bar-wrap { width: 160px; bottom: 120px; }
       }
 
-      .corner-data { position: absolute; font-family: 'Rajdhani'; font-size: 11px; font-weight: 700; color: rgba(126, 231, 255, 0.5); line-height: 1.5; pointer-events: none; z-index: 6; text-transform: uppercase; letter-spacing: 2px; }
+      .corner-data { position: absolute; font-family: 'Share Tech Mono'; font-size: 11px; font-weight: 700; color: rgba(255, 204, 51, 0.4); line-height: 1.5; pointer-events: none; z-index: 6; text-transform: uppercase; letter-spacing: 2px; }
       .tl-data { top: 50px; left: 130px; }
       .tr-data { top: 50px; right: 130px; text-align: right; }
       .bl-data { bottom: 50px; left: 130px; }
@@ -194,87 +194,81 @@ export function createHomePage(onStart) {
       @media (max-width: 900px) { .corner-data { display: none; } }
 
       /* Central Targeting Reticle */
-      .targeting-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; border: 1px solid rgba(126, 231, 255, 0.05); border-radius: 50%; pointer-events: none; z-index: 1; }
-      .targeting-reticle::before, .targeting-reticle::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(126, 231, 255, 0.15); border-radius: 50%; }
+      .targeting-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; border: 1px solid rgba(255, 204, 51, 0.05); border-radius: 50%; pointer-events: none; z-index: 1; }
+      .targeting-reticle::before, .targeting-reticle::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid rgba(255, 204, 51, 0.1); border-radius: 50%; }
       .targeting-reticle::before { width: 40px; height: 40px; border-style: dashed; animation: rotateHub 10s linear infinite; }
-      .targeting-reticle::after { width: 2px; height: 60px; background: rgba(126, 231, 255, 0.2); }
+      .targeting-reticle::after { width: 2px; height: 60px; background: rgba(255, 204, 51, 0.15); }
 
-      .rotating-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; border: 2px solid transparent; border-top: 2px solid rgba(126, 231, 255, 0.05); border-radius: 50%; animation: rotateHub 25s linear infinite; pointer-events: none; }
+      .rotating-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; border: 2px solid transparent; border-top: 2px solid rgba(255, 204, 51, 0.03); border-radius: 50%; animation: rotateHub 25s linear infinite; pointer-events: none; }
       @keyframes rotateHub { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-      .pulse-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border: 1px solid #7ee7ff; border-radius: 50%; animation: pulseRing 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; pointer-events: none; z-index: 1; }
+      .pulse-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border: 1px solid #ffcc33; border-radius: 50%; animation: pulseRing 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; pointer-events: none; z-index: 1; }
       @keyframes pulseRing { 0% { width: 0; height: 0; opacity: 0.5; } 100% { width: 800px; height: 800px; opacity: 0; } }
 
-      .telemetry-stream { position: absolute; top: 0; bottom: 0; width: 100px; font-family: 'Rajdhani'; font-size: 10px; color: rgba(126, 231, 255, 0.2); overflow: hidden; line-height: 2; pointer-events: none; z-index: 2; padding: 20px 15px; font-weight: 700; }
+      .telemetry-stream { position: absolute; top: 0; bottom: 0; width: 100px; font-family: 'Share Tech Mono'; font-size: 10px; color: rgba(255, 204, 51, 0.15); overflow: hidden; line-height: 2.2; pointer-events: none; z-index: 2; padding: 20px 15px; font-weight: 700; }
       .left-stream { left: 10px; text-align: left; }
       .right-stream { right: 10px; text-align: right; }
       .telemetry-stream::after { content: "01011010 POS_X: 42.102 SYNCING... PING 24ms COORDINATES LOCKED 12.09N 77.01E ALTITUDE 400KM TARGET_SAT_ISS_01 DATA_PACKET_RECEIVED [OK]"; display: block; animation: streamScroll 15s linear infinite; }
       @keyframes streamScroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
       /* Floating Satellites */
-      .sat-anim { position: absolute; width: 40px; height: 40px; opacity: 0.15; pointer-events: none; z-index: 1; filter: drop-shadow(0 0 5px #7ee7ff); }
-      .sat-1 { top: 20%; left: -50px; animation: orbit1 25s infinite linear; background: url('data:image/svg+xml;utf8,${getSatSVG("#7ee7ff")}') no-repeat; }
-      .sat-2 { top: 60%; right: -50px; animation: orbit2 35s infinite linear; background: url('data:image/svg+xml;utf8,${getSatSVG("#7ee7ff")}') no-repeat; }
+      .sat-anim { position: absolute; width: 40px; height: 40px; opacity: 0.15; pointer-events: none; z-index: 1; filter: drop-shadow(0 0 5px #ffcc33); }
+      .sat-1 { top: 20%; left: -50px; animation: orbit1 25s infinite linear; background: url('data:image/svg+xml;utf8,${getSatSVG("#ffcc33")}') no-repeat; }
+      .sat-2 { top: 60%; right: -50px; animation: orbit2 35s infinite linear; background: url('data:image/svg+xml;utf8,${getSatSVG("#ffcc33")}') no-repeat; }
       @keyframes orbit1 { from { transform: translateX(0vw) rotate(0deg); } to { transform: translateX(110vw) rotate(360deg); } }
       @keyframes orbit2 { from { transform: translateX(0) rotate(0deg); } to { transform: translateX(-110vw) rotate(-360deg); } }
 
-      .radar-sweep { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent, rgba(126, 231, 255, 0.05) 50%, transparent 100%); background-size: 100% 200px; animation: sweep 8s linear infinite; pointer-events: none; z-index: 1; }
+      .radar-sweep { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent, rgba(255, 204, 51, 0.03) 50%, transparent 100%); background-size: 100% 200px; animation: sweep 8s linear infinite; pointer-events: none; z-index: 1; }
       @keyframes sweep { from { background-position: 0 -200px; } to { background-position: 0 100vh; } }
 
-      .glitch-text { font-family: 'Rajdhani'; font-size: 14px; font-weight: 700; color: #7ee7ff; letter-spacing: 0.4em; margin-bottom: 15px; position: relative; }
-      .typewriter { font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; color: #7ee7ff; letter-spacing: 0.3em; overflow: hidden; white-space: nowrap; border-right: 2px solid; animation: typing 2s steps(40, end), blink .75s step-end infinite; margin: 0 auto; width: fit-content; text-transform: uppercase; }
+      .glitch-text { font-family: 'Rajdhani'; font-size: 14px; font-weight: 700; color: #ffcc33; letter-spacing: 0.4em; margin-bottom: 15px; position: relative; }
+      .typewriter { font-family: 'Share Tech Mono'; font-size: 14px; font-weight: 500; color: #ffcc33; letter-spacing: 0.3em; overflow: hidden; white-space: nowrap; border-right: 2px solid; animation: typing 2s steps(40, end), blink .75s step-end infinite; margin: 0 auto; width: fit-content; text-transform: uppercase; }
       @keyframes typing { from { width: 0 } to { width: 100% } }
-      @keyframes blink { from, to { border-color: transparent } 50% { border-color: #7ee7ff } }
+      @keyframes blink { from, to { border-color: transparent } 50% { border-color: #ffcc33 } }
 
       .hud-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 40px; }
-      .hud-card { background: rgba(126, 231, 255, 0.05); border: 1px solid rgba(126, 231, 255, 0.15); padding: 20px; position: relative; text-align: left; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; align-items: center; gap: 15px; backdrop-filter: blur(5px); }
-      .hud-card:hover { background: rgba(126, 231, 255, 0.1); border-color: #7ee7ff; transform: scale(1.02); }
-      .card-icon { width: 24px; color: #7ee7ff; opacity: 0.8; }
+      .hud-card { background: rgba(255, 204, 51, 0.03); border: 1px solid rgba(255, 204, 51, 0.15); padding: 20px; position: relative; text-align: left; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; align-items: center; gap: 15px; backdrop-filter: blur(5px); }
+      .hud-card:hover { background: rgba(255, 204, 51, 0.08); border-color: #ffcc33; transform: scale(1.02); }
+      .card-icon { width: 24px; color: #ffcc33; opacity: 0.8; }
       .hud-card h4 { color: #fff; font-family: 'Orbitron'; font-size: 12px; margin: 0 0 5px; letter-spacing: 2px; }
-      .hud-card p { color: rgba(126, 231, 255, 0.7); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; }
-      .signal-bar { width: 100%; height: 2px; background: rgba(126, 231, 255, 0.1); margin-top: 8px; position: relative; overflow: hidden; }
-      .signal-bar .fill { height: 100%; background: #7ee7ff; box-shadow: 0 0 5px #7ee7ff; animation: signalPulse 2s infinite ease-in-out; }
+      .hud-card p { color: rgba(255, 204, 51, 0.6); font-family: 'Rajdhani'; font-size: 14px; font-weight: 500; margin: 0; }
+      .signal-bar { width: 100%; height: 2px; background: rgba(255, 204, 51, 0.05); margin-top: 8px; position: relative; overflow: hidden; }
+      .signal-bar .fill { height: 100%; background: #ffcc33; box-shadow: 0 0 5px #ffcc33; animation: signalPulse 2s infinite ease-in-out; }
       @keyframes signalPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
       
       .mission-brief {
         font-family: 'Rajdhani';
         font-size: 14px;
-        color: rgba(126, 231, 255, 0.8);
+        color: rgba(255, 204, 51, 0.8);
         margin-bottom: 30px;
         max-width: 500px;
         margin-left: auto;
         margin-right: auto;
         line-height: 1.6;
         letter-spacing: 1px;
-        border-left: 2px solid #7ee7ff;
+        border-left: 2px solid #ffcc33;
         padding-left: 15px;
         text-align: left;
       }
-      .brief-tag { color: #fff; font-weight: 700; margin-right: 8px; font-family: 'Orbitron'; font-size: 11px; }
+      .brief-tag { color: #ffcc33; font-weight: 700; margin-right: 8px; font-family: 'Orbitron'; font-size: 11px; }
 
       .status-dot { width: 6px; height: 6px; background: #00ff88; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 8px #00ff88; animation: blinkStatus 1.5s infinite; }
       @keyframes blinkStatus { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-      .tech-header { font-family: 'Orbitron'; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #7ee7ff; margin-bottom: 10px; }
+      .tech-header { font-family: 'Orbitron'; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #ffcc33; margin-bottom: 10px; }
 
-      .card-corner { position: absolute; width: 10px; height: 10px; border: 2px solid rgba(126, 231, 255, 0.4); }
+      .card-corner { position: absolute; width: 10px; height: 10px; border: 2px solid rgba(255, 204, 51, 0.3); }
       .tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
       .tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
 
       .sci-fi-btn {
-        background: rgba(126, 231, 255, 0.05); border: 1px solid #7ee7ff; color: #7ee7ff; padding: 22px 50px; 
+        background: rgba(255, 204, 51, 0.05); border: 1px solid #ffcc33; color: #ffcc33; padding: 22px 50px; 
         font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px; cursor: pointer; position: relative;
         overflow: hidden; transition: all 0.3s; clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
       }
-      .sci-fi-btn:hover { background: #7ee7ff; color: #000; box-shadow: 0 0 40px rgba(126, 231, 255, 0.6); transform: translateY(-3px); }
+      .sci-fi-btn:hover { background: #ffcc33; color: #000; box-shadow: 0 0 40px rgba(255, 204, 51, 0.5); transform: translateY(-3px); }
       .btn-text { position: relative; z-index: 2; }
       
       .nebula { 
-        position: absolute; width: 100%; height: 100%; z-index: 0;
-        background: radial-gradient(circle at 30% 20%, rgba(0, 120, 255, 0.08), transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(100, 0, 255, 0.05), transparent 50%);
-        animation: pulseNebula 10s infinite alternate;
-      }
-      @keyframes pulseNebula { from { opacity: 0.5; } to { opacity: 1; } }
     </style>
   `;
 

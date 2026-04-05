@@ -22,11 +22,11 @@ function styleButton(button) {
   button.dataset.active = 'false';
 
   button.addEventListener('mouseenter', () => {
-    button.style.background = 'rgba(126, 231, 255, 0.15)';
-    button.style.borderColor = 'rgba(126, 231, 255, 0.8)';
+    button.style.background = 'rgba(255, 204, 51, 0.15)';
+    button.style.borderColor = 'rgba(255, 204, 51, 0.8)';
     button.style.color = '#ffffff';
     button.style.boxShadow =
-      '0 0 15px rgba(126, 231, 255, 0.3)';
+      '0 0 15px rgba(255, 204, 51, 0.3)';
   });
 
   button.addEventListener('mouseleave', () => {

@@ -17,8 +17,8 @@ export function createBrand() {
   title.style.lineHeight = '0.92';
   title.style.letterSpacing = '0.4em';
   title.style.textTransform = 'uppercase';
-  title.style.textShadow = '0 0 10px #7ee7ff';
-  title.style.borderLeft = '3px solid #7ee7ff';
+  title.style.textShadow = '0 0 10px #ffcc33';
+  title.style.borderLeft = '3px solid #ffcc33';
   title.style.paddingLeft = '15px';
 
   const subtitle = document.createElement('div');
