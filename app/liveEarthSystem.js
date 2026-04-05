@@ -646,10 +646,10 @@ function createAlertsPanel() {
       toggle.textContent = '✕';
       toggle.style.marginLeft = '8px';
     } else {
-      panel.style.top = '115px';
+      panel.style.top = '165px';
       panel.style.width = '40px';
       panel.style.height = '40px';
-      panel.style.left = '120px';
+      panel.style.left = '20px';
       panel.style.borderRadius = '50%';
       panel.style.padding = '0';
       header.style.justifyContent = 'center';
