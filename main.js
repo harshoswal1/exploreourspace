@@ -93,13 +93,27 @@ const {
 } =
   createButtons();
 const { searchInput, clearBtn } = createSearch();
-createLiveBadge();
-createAudioControl();
-const newsPanel = createNewsPanel();
-const poleCompass = createPoleCompass();
-const asteroidStatusBadge = createAsteroidStatusBadge();
-const satelliteStatusBadge = createSatelliteStatusBadge();
-const exitFollowBtn = createFollowExitButton();
+
+let newsPanel, poleCompass, asteroidStatusBadge, satelliteStatusBadge, exitFollowBtn;
+
+createHomePage(() => {
+  // This code runs when "Explore Earth" is clicked
+  createInstructions();
+  createLiveBadge();
+  createAudioControl();
+  newsPanel = createNewsPanel();
+  poleCompass = createPoleCompass();
+  asteroidStatusBadge = createAsteroidStatusBadge();
+  satelliteStatusBadge = createSatelliteStatusBadge();
+  exitFollowBtn = createFollowExitButton();
+  
+  // Initialize badge states now that they exist
+  if (satelliteStatusBadge) {
+    satelliteStatusBadge.setStatus(satelliteSystem.getStatus(), '');
+  }
+});
+
+createBrand();
 
 const isMobile = window.matchMedia('(max-width: 900px)').matches;
 const controls = new OrbitControls(camera, renderer.domElement);
