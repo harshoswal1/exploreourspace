@@ -93,6 +93,20 @@ export function createHomePage(onStart) {
               <p>Multi-spectral Earth diagnostics, providing atmospheric data and climate metadata across global coordinates.</p>
             </div>
           </div>
+          <div class="module-item">
+            <div class="card-icon">${getNewsSVG("#ffcc33")}</div>
+            <div class="card-content">
+              <div class="module-header"><h4>Breaking Space News</h4> <span class="module-status">LIVE</span></div>
+              <p>Integrated feed of the latest astronomical discoveries and global spaceflight mission updates.</p>
+            </div>
+          </div>
+          <div class="module-item">
+            <div class="card-icon">${getAlertSVG("#ffcc33")}</div>
+            <div class="card-content">
+              <div class="module-header"><h4>Emergency Live Alerts</h4> <span class="module-status">ACTIVE</span></div>
+              <p>Immediate tracking of significant geological hazards, including earthquakes and severe global events.</p>
+            </div>
+          </div>
         </div>
         
         <!-- Boot Log inside step 2, but hidden until Explore is clicked -->
@@ -122,7 +136,7 @@ export function createHomePage(onStart) {
       @keyframes typing { from { width: 0 } to { width: 100% } }
       @keyframes blink { from, to { border-color: transparent } 50% { border-color: #ffcc33 } }
 
-      .hud-info-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
+      .hud-info-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
       .module-item { padding: 15px 20px; position: relative; text-align: left; display: flex; align-items: center; gap: 25px; transition: all 0.3s ease; background: rgba(255, 204, 51, 0.02); border-left: 2px solid rgba(255, 204, 51, 0.1); }
       .module-item:hover { transform: translateX(10px); background: rgba(255, 204, 51, 0.05); border-left-color: #ffcc33; }
       .card-icon { width: 24px; color: #ffcc33; opacity: 0.8; }
@@ -245,12 +259,20 @@ function getSatSVG(color = "currentColor") {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5"><rect x="2" y="9" width="4" height="6"/><rect x="18" y="9" width="4" height="6"/><path d="M6 12h12M12 8v8M12 12l3 3M12 12l-3-3"/><circle cx="12" cy="12" r="2" fill="${color}"/></svg>`;
 }
 
-function getAsteroidSVG() {
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/><path d="M12 22V12M12 12L4 7M12 12l8-5"/></svg>`;
+function getAsteroidSVG(color = "currentColor") {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/><path d="M12 22V12M12 12L4 7M12 12l8-5"/></svg>`;
 }
 
-function getEarthSVG() {
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+function getEarthSVG(color = "currentColor") {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+}
+
+function getNewsSVG(color = "currentColor") {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 8h10M7 12h10M7 16h10"/></svg>`;
+}
+
+function getAlertSVG(color = "currentColor") {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg>`;
 }
 
 function getNavSVG() {
