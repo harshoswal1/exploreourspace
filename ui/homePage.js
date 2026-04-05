@@ -7,9 +7,8 @@ export function createHomePage(onStart) {
   overlay.style.left = '0';
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
-  // Added solid background fallback to prevent white screen flashes
-  overlay.style.backgroundColor = '#000000';
-  overlay.style.backgroundImage = 'radial-gradient(circle at center, #000b1a 0%, #000000 100%)';
+  overlay.style.backgroundColor = '#000000'; // Hard black fallback
+  overlay.style.backgroundImage = 'radial-gradient(circle at center, #000814 0%, #000000 100%)';
   overlay.style.backdropFilter = 'blur(10px)';
   overlay.style.webkitBackdropFilter = 'blur(10px)';
   overlay.style.display = 'flex';
@@ -30,15 +29,12 @@ export function createHomePage(onStart) {
     <div class="nebula2"></div>
     <div class="hud-grid"></div>
     <div class="scanline"></div>
-    <div class="stars-container">
-      <div class="stars"></div>
-      <div class="stars2"></div>
-    </div>
+    <div class="css-stars"></div>
 
     <div class="story-wrapper" style="max-width: 600px; position: relative; z-index: 2;">
       <div id="story-step-1" class="fade-in-out">
-        <h2 style="font-size: ${isMobile ? '18px' : '24px'}; letter-spacing: 0.8em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; font-weight: 200; font-family: 'Courier New', monospace;">By<br/> <span style="font-weight: 800; color: #7ee7ff; text-shadow: 0 0 15px #7ee7ff;">HARSH OSWAL</span></h2>
-        <p style="font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #7ee7ff; opacity: 0.6; margin-top: 40px; font-family: monospace;">[ INITIALIZING COSMIC LINK... ]</p>
+        <h2 style="font-size: ${isMobile ? '18px' : '24px'}; letter-spacing: 0.8em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; font-weight: 200; font-family: 'Courier New', monospace;">COMMANDER <br/> <span style="font-weight: 800; color: #7ee7ff; text-shadow: 0 0 15px #7ee7ff;">HARSH OSWAL</span></h2>
+        <p style="font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #7ee7ff; opacity: 0.6; margin-top: 40px; font-family: monospace;">[ ESTABLISHING UPLINK... ]</p>
       </div>
 
       <div id="story-step-2" style="display: none;">
@@ -124,13 +120,18 @@ export function createHomePage(onStart) {
         to { transform: translate(5%, 5%) rotate(5deg); } 
       }
       
-      .stars-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
-      .stars, .stars2, .stars3 { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; display: block; }
-      .stars { background: #000 url(https://www.script-tutorials.com/demos/360/images/stars.png) repeat top center; z-index: 0; animation: move-stars 200s linear infinite; }
-      .stars2 { background: transparent url(https://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center; z-index: 1; animation: move-twink 200s linear infinite; }
-      
-      @keyframes move-stars { from { background-position: 0 0; } to { background-position: -10000px 5000px; } }
-      @keyframes move-twink { from { background-position: 0 0; } to { background-position: -10000px 5000px; } }
+      /* Reliable CSS Stars */
+      .css-stars {
+        position: absolute; width: 100%; height: 100%;
+        background-image: 
+          radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+          radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+          radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+        background-size: 550px 550px, 350px 350px, 250px 250px;
+        background-position: 0 0, 40px 60px, 130px 270px;
+        z-index: 1;
+        opacity: 0.4;
+      }
 
       #explore-btn:hover {
         transform: scale(1.05);

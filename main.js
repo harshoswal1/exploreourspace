@@ -29,8 +29,16 @@ const state = createAppState();
 const MOON_AVERAGE_DISTANCE_KM = 384400;
 
 // Global Mobile UI Cleanup
-const style = document.createElement('style');
-style.textContent = `
+const globalStyle = document.createElement('style');
+globalStyle.textContent = `
+  html, body {
+    background-color: #000000 !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
   @media (max-width: 900px) {
     /* Make status badges tiny pills stacked vertically */
     .status-badge, [class*="StatusBadge"], [id*="status-badge"] {
@@ -49,7 +57,7 @@ style.textContent = `
     }
   }
 `;
-document.head.appendChild(style);
+document.head.appendChild(globalStyle);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000000);
@@ -67,6 +75,12 @@ const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.75);
 renderer.setPixelRatio(pixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.setClearColor(0x000000);
+
+// Ensure canvas is always a fixed background
+renderer.domElement.style.position = 'fixed';
+renderer.domElement.style.top = '0';
+renderer.domElement.style.left = '0';
+renderer.domElement.style.zIndex = '0';
 document.body.appendChild(renderer.domElement);
 
 document.body.style.touchAction = 'none';
