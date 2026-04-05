@@ -28,7 +28,7 @@ export function createHomePage(onStart) {
   overlay.style.textAlign = 'center';
   overlay.style.transition = 'opacity 0.8s ease, visibility 0.8s ease';
   overlay.style.padding = '20px';
-  overlay.style.overflow = 'hidden';
+  overlay.style.overflowY = 'auto'; // Safety for very small screens
 
   const content = `
     <div class="vignette"></div>
@@ -39,7 +39,7 @@ export function createHomePage(onStart) {
       <div class="integrity-track"><div class="integrity-fill" id="integrity-fill"></div></div>
     </div>
 
-    <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10;">
+    <div class="story-wrapper" style="max-width: 800px; position: relative; z-index: 10; width: 100%;">
       <div id="story-step-1" class="intro-sequence">
         <div class="glitch-text" style="font-family: 'Orbitron'; font-weight: 700; color: #ffcc33;">INTRODUCING</div>
         <h1 style="font-size: ${isMobile ? '36px' : '72px'}; font-weight: 900; letter-spacing: 0.2em; margin: 10px 0 0; color: #fff; text-shadow: 0 0 30px rgba(255, 204, 51, 0.4); font-family: 'Orbitron', sans-serif; text-transform: uppercase;">THE SPACE</h1>
@@ -57,7 +57,7 @@ export function createHomePage(onStart) {
         <div class="tech-header">
           <span class="status-dot"></span> <span class="bracket">[</span> SYSTEM STATUS: ACTIVE <span class="bracket">]</span>
         </div>
-        <h2 style="font-size: ${isMobile ? '24px' : '36px'}; letter-spacing: 0.4em; color: #fff; text-transform: uppercase; margin: 10px 0 30px; font-weight: 700; font-family: 'Orbitron';">Core Modules</h2>
+        <h2 style="font-size: ${isMobile ? '20px' : '36px'}; letter-spacing: 0.4em; color: #fff; text-transform: uppercase; margin: 10px 0 15px; font-weight: 700; font-family: 'Orbitron';">Core Modules</h2>
         
         <!-- Unique Summary Brief -->
         <div class="mission-brief">
