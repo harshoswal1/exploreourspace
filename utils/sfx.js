@@ -1,10 +1,10 @@
 const SFX_URLS = {
-  boot: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
-  click: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
-  transition: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
-  lock: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
-  error: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
-  zoom: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'
+  boot: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
+  click: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
+  transition: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
+  lock: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
+  error: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3',
+  zoom: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3'
 };
 
 const sounds = {};
@@ -12,7 +12,7 @@ const sounds = {};
 // Preload sounds
 Object.entries(SFX_URLS).forEach(([key, url]) => {
   const audio = new Audio(url);
-  audio.volume = 0.15;
+  audio.volume = 0.1;
   audio.preload = 'auto';
   sounds[key] = audio;
 });
@@ -24,9 +24,8 @@ Object.entries(SFX_URLS).forEach(([key, url]) => {
 export function playSFX(key) {
   const sfx = sounds[key];
   if (sfx) {
-    // Clone the node so we can play the same sound overlappingly
-    const track = sfx.cloneNode();
-    track.volume = sfx.volume;
-    track.play().catch(() => { /* Ignore autoplay blocks */ });
+    // Stop any current playback and reset to ensure "one beat" response
+    sfx.currentTime = 0;
+    sfx.play().catch(() => { /* Ignore autoplay blocks */ });
   }
 }
