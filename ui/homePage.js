@@ -65,6 +65,12 @@ export function createHomePage(onStart) {
           Initialize a unified strategic uplink to monitor Earth's orbital congestion, celestial hazards, and planetary health through multi-spectral data streams.
         </div>
         
+        <button id="explore-btn" class="sci-fi-btn" style="margin-bottom: 40px;">
+          <div class="btn-content">
+            <span class="btn-text">EXPLORE EARTH</span>
+          </div>
+        </button>
+
         <div class="hud-info-grid">
           <div class="module-item">
             <div class="card-icon">${getSatSVG("#ffcc33")}</div>
@@ -91,12 +97,6 @@ export function createHomePage(onStart) {
         
         <!-- Boot Log inside step 2, but hidden until Explore is clicked -->
         <div class="boot-log" id="boot-log" style="opacity: 0; transition: opacity 0.5s ease;"></div>
-
-        <button id="explore-btn" class="sci-fi-btn">
-          <div class="btn-content">
-            <span class="btn-text">EXPLORE EARTH</span>
-          </div>
-        </button>
       </div>
     </div>
 
@@ -122,7 +122,7 @@ export function createHomePage(onStart) {
       @keyframes typing { from { width: 0 } to { width: 100% } }
       @keyframes blink { from, to { border-color: transparent } 50% { border-color: #ffcc33 } }
 
-      .hud-info-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; }
+      .hud-info-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
       .module-item { padding: 15px 20px; position: relative; text-align: left; display: flex; align-items: center; gap: 25px; transition: all 0.3s ease; background: rgba(255, 204, 51, 0.02); border-left: 2px solid rgba(255, 204, 51, 0.1); }
       .module-item:hover { transform: translateX(10px); background: rgba(255, 204, 51, 0.05); border-left-color: #ffcc33; }
       .card-icon { width: 24px; color: #ffcc33; opacity: 0.8; }
