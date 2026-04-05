@@ -119,10 +119,7 @@ createHomePage(() => {
   satelliteStatusBadge = createSatelliteStatusBadge();
   exitFollowBtn = createFollowExitButton();
 
-  // Move the listener here so it only attaches after the button is created
-  exitFollowBtn.addEventListener('click', () => {
-    clearFollowMode();
-  });
+  
   
   // Initialize badge states now that they exist
   if (satelliteStatusBadge) {
