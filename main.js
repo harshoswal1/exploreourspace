@@ -354,15 +354,15 @@ function animate() {
     sunDirection: earthRuntime.getSunDirection(),
     now: now,
   });
-  newsPanel.update();
-  asteroidStatusBadge.setStatus(asteroidSystem.getStatus(), '');
-  exitFollowBtn.style.display = focusController.isFollowing() ? 'block' : 'none';
+  if (newsPanel) newsPanel.update();
+  if (asteroidStatusBadge) asteroidStatusBadge.setStatus(asteroidSystem.getStatus(), '');
+  if (exitFollowBtn) exitFollowBtn.style.display = focusController.isFollowing() ? 'block' : 'none';
   satelliteSystem.update();
   asteroidSystem.update();
   focusController.update();
 
   controls.update();
-  poleCompass.update(camera, earthRuntime.earthParts.earth);
+  if (poleCompass) poleCompass.update(camera, earthRuntime.earthParts.earth);
   renderer.render(scene, camera);
 }
 
