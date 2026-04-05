@@ -2,7 +2,7 @@ function styleButton(button) {
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   button.style.width = '100%';
   button.style.padding = mobile ? '8px 6px' : '10px 12px';
-  button.style.borderRadius = '2px';
+  button.style.borderRadius = 'gon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)';
   button.style.fontSize = '10px';
   button.style.fontWeight = '700';
   button.style.letterSpacing = '0.1em';
