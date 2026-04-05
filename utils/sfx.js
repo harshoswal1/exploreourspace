@@ -1,10 +1,10 @@
 const SFX_URLS = {
-  boot: 'https://assets.mixkit.co/active_storage/sfx/2569/2569-preview.mp3', // Instant mechanical lock
-  click: 'https://assets.mixkit.co/active_storage/sfx/441/441-preview.mp3', // Tiny metallic click
-  transition: 'https://assets.mixkit.co/active_storage/sfx/592/592-preview.mp3', // Fast metallic slide
-  lock: 'https://assets.mixkit.co/active_storage/sfx/875/875-preview.mp3', // Quick metallic latch
-  error: 'https://assets.mixkit.co/active_storage/sfx/122/122-preview.mp3', // Quick mechanical grind
-  zoom: 'https://assets.mixkit.co/active_storage/sfx/601/601-preview.mp3' // Instant mechanical snap (bearing hit)
+  boot: 'https://assets.mixkit.co/active_storage/sfx/1110/1110-preview.mp3', // Heavy cinematic thud (Match Start vibe)
+  click: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3', // Sharp tactical UI click
+  transition: 'https://assets.mixkit.co/active_storage/sfx/2567/2567-preview.mp3', // Mechanical menu slide
+  lock: 'https://assets.mixkit.co/active_storage/sfx/588/588-preview.mp3', // Metallic chambering (Weapon Lock)
+  error: 'https://assets.mixkit.co/active_storage/sfx/2570/2570-preview.mp3', // Tactical error buzz
+  zoom: 'https://assets.mixkit.co/active_storage/sfx/594/594-preview.mp3' // Mechanical scope adjustment snap
 };
 
 const sounds = {};
