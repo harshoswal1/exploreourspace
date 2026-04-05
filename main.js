@@ -125,11 +125,7 @@ createHomePage(() => {
   }
 });
 
-// Brand is visible immediately but the rest of UI initializes on start
 createBrand();
-scene.background = new THREE.Color(0x000000);
-renderer.setClearColor(0x000000);
-
 const isMobile = window.matchMedia('(max-width: 900px)').matches;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -157,6 +153,10 @@ function isUIElementTarget(target) {
 }
 
 const starsGroup = createStars(scene);
+// Force stars to be in the scene and visible
+if (starsGroup && !starsGroup.parent) {
+  scene.add(starsGroup);
+}
 
 const earthRuntime = createEarthRuntime(scene, renderer);
 const liveEarthSystem = createLiveEarthSystem({

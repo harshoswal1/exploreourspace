@@ -7,10 +7,9 @@ export function createHomePage(onStart) {
   overlay.style.left = '0';
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
-  overlay.style.backgroundColor = '#000000'; // Hard black fallback
-  overlay.style.backgroundImage = 'radial-gradient(circle at center, #000814 0%, #000000 100%)';
-  overlay.style.backdropFilter = 'blur(10px)';
-  overlay.style.webkitBackdropFilter = 'blur(10px)';
+  overlay.style.background = 'transparent'; // Show the 3D scene behind!
+  overlay.style.backdropFilter = 'blur(8px)';
+  overlay.style.webkitBackdropFilter = 'blur(8px)';
   overlay.style.display = 'flex';
   overlay.style.flexDirection = 'column';
   overlay.style.alignItems = 'center';
@@ -103,8 +102,8 @@ export function createHomePage(onStart) {
 
       .nebula {
         position: absolute; width: 150%; height: 150%;
-        background: radial-gradient(circle at 30% 30%, rgba(100, 50, 255, 0.1), transparent 50%),
-                    radial-gradient(circle at 70% 60%, rgba(0, 120, 255, 0.1), transparent 50%);
+        background: radial-gradient(circle at 30% 30%, rgba(100, 50, 255, 0.05), transparent 50%),
+                    radial-gradient(circle at 70% 60%, rgba(0, 120, 255, 0.05), transparent 50%);
         filter: blur(80px);
         animation: drift 40s infinite alternate linear;
       }
