@@ -298,24 +298,31 @@ export async function loadSatellites() {
   }
 
   let satelliteText = null;
+  let parsedData = [];
   const candidateSources = ['/api/satellites', ...SATELLITE_SOURCES];
+  
   for (const source of candidateSources) {
-    satelliteText = await fetchFromSource(source);
-    if (satelliteText) break;
+    const text = await fetchFromSource(source);
+    if (text) {
+      const parsed = parseTLEText(text, satelliteInstance);
+      // If we got a real dataset (more than the minimal fallback), use it
+      if (parsed.length > 10) {
+        satelliteText = text;
+        parsedData = parsed;
+        break;
+      }
+      console.warn(`Source ${source} returned insufficient data (${parsed.length} sats), skipping...`);
+    }
   }
 
-  if (satelliteText) {
-    const parsed = parseTLEText(satelliteText, satelliteInstance);
-    if (parsed.length > 0) {
-      storeSatelliteCache(satelliteText);
-      return {
-        satellites: parsed,
-        lib: satelliteInstance,
-        status: 'LIVE',
-        updatedAt: new Date().toISOString(),
-      };
-    }
-    console.warn('Live satellite text parsed 0 entries');
+  if (parsedData.length > 0) {
+    storeSatelliteCache(satelliteText);
+    return {
+      satellites: parsedData,
+      lib: satelliteInstance,
+      status: 'LIVE',
+      updatedAt: new Date().toISOString(),
+    };
   }
 
   const cached = loadSatelliteCache();
