@@ -19,31 +19,6 @@ const SATELLITE_MODULES = [
   'https://cdn.jsdelivr.net/npm/satellite.js@4.0.0/dist/satellite.min.js',
 ];
 
-let FALLBACK_TLE = `ISS (ZARYA)
-1 25544U 98067A   24093.49198941  .00006481  00000+0  12652-3 0  9998
-2 25544  51.6427 210.7470 0004318  92.4975  24.0587 15.50350066358655
-HUBBLE SPACE TELESCOPE
-1 20580U 90037B   24093.54780934  .00001142  00000+0  63548-4 0  9994
-2 20580  28.4707  57.4868 0003271  21.3862  40.4839 15.09242447778696
-TIANGONG
-1 48274U 21035A   24093.52838507  .00015563  00000+0  19194-3 0  9996
-2 48274  41.4745 166.3881 0003052 227.1432 249.2319 15.59754707166885
-STARLINK-31034
-1 58214U 23170A   24093.54167824  .00064531  00000+0  54821-3 0  9991
-2 58214  53.0543 142.1245 0001423  88.1245 272.1458 15.06124581 2145
-STARLINK-31035
-1 58215U 23170B   24093.54211458  .00059821  00000+0  48214-3 0  9992
-2 58215  53.0541 142.1852 0001452  89.5214 270.5124 15.06214582 2146
-STARLINK-31036
-1 58216U 23170C   24093.54312458  .00061245  00000+0  51245-3 0  9993
-2 58216  53.0545 142.2458 0001412  87.1452 271.8452 15.06184521 2147
-NOAA 19
-1 33591U 09005A   24093.54576352  .00000085  00000+0  86196-4 0  9990
-2 33591  99.1983 133.4357 0013898 107.4101 252.8550 14.12502621783457
-GOES 16
-1 41866U 16071A   24093.40134563  .00000000  00000+0  00000+0 0  9999
-2 41866   0.0215 104.9542 0001103 273.1534  82.1643  1.00273542 27018`;
-
 function createStaticOrbitPoints(radius, inclinationDeg, longitudeOffsetDeg = 0, count = 90) {
   const inclination = (inclinationDeg * Math.PI) / 180;
   const longitudeOffset = (longitudeOffsetDeg * Math.PI) / 180;
@@ -63,37 +38,6 @@ function createStaticOrbitPoints(radius, inclinationDeg, longitudeOffsetDeg = 0,
 
   return points;
 }
-
-const STATIC_SATELLITES = [
-  {
-    name: 'ISS (Fallback)',
-    satrec: {
-      staticPosition: [2.8, 2.1, 0.6],
-      staticOrbit: createStaticOrbitPoints(0.22, 51.64, 0),
-    },
-  },
-  {
-    name: 'Hubble (Fallback)',
-    satrec: {
-      staticPosition: [-2.5, 2.6, 1.2],
-      staticOrbit: createStaticOrbitPoints(0.24, 28.5, 45),
-    },
-  },
-  {
-    name: 'NOAA (Fallback)',
-    satrec: {
-      staticPosition: [1.2, -3.2, 1.8],
-      staticOrbit: createStaticOrbitPoints(0.23, 99.2, 90),
-    },
-  },
-  {
-    name: 'Starlink (Fallback)',
-    satrec: {
-      staticPosition: [-2.0, -2.5, 2.5],
-      staticOrbit: createStaticOrbitPoints(0.2, 53.0, 120),
-    },
-  },
-];
 
 let satelliteLib = null;
 
@@ -337,18 +281,12 @@ export async function loadSatellites() {
     return { satellites: cachedParsed, lib: satelliteInstance, status: 'CACHED', updatedAt: cached.updatedAt };
   }
 
-  const fallback = parseTLEText(FALLBACK_TLE, satelliteInstance);
-  if (fallback.length > 0) {
-    return { satellites: fallback, lib: satelliteInstance, status: 'FALLBACK' };
-  }
-
-  console.warn('Fallback TLE data parsing failed; using built-in static satellite placeholders.');
+  // If no live data and no cache, return empty system
+  console.warn('No live or cached satellite data available. Displaying empty orbital field.');
   return {
-    satellites: STATIC_SATELLITES.map((sat) => ({
-      name: sat.name,
-      satrec: sat.satrec,
-    })),
+    satellites: [],
     lib: satelliteInstance,
-    status: 'FALLBACK',
+    status: 'OFFLINE',
+    updatedAt: new Date().toISOString(),
   };
 }
