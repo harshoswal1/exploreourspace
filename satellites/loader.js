@@ -107,7 +107,7 @@ async function fetchWithTimeout(url, timeoutMs = 25000) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    // NO CUSTOM HEADERS! Custom headers (like User-Agent) trigger Preflight OPTIONS which proxies block.
+    // No custom headers allowed here; they trigger Preflight OPTIONS which causes CORS failures.
     const response = await fetch(url, {
       signal,
       cache: 'no-cache'

@@ -764,11 +764,11 @@ function updateSunBadge(badge, camera, sunDirection) {
 
 async function fetchJsonWithRetry(url, options = {}) {
   const MAX_ATTEMPTS = 3;
-  const BASE_DELAY_MS = 5000; // Aggressive delay to clear 429s
+  const BASE_DELAY_MS = 5000; 
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const response = await fetch(url, { ...options, cache: 'default' });
+      const response = await fetch(url, { ...options, cache: 'no-cache' });
       if (response.ok) return response;
 
       if (response.status === 429) {
@@ -918,8 +918,8 @@ export function createLiveEarthSystem({ scene, earth, camera }) {
   let weatherRetryCount = 0;
   let alertsRetryCount = 0;
 
-  alertItems = FALLBACK_ALERT_ITEMS.slice();
-  alertsPanel.status.textContent = 'Fallback';
+  alertItems = [];
+  alertsPanel.status.textContent = 'Updating...';
   alertsPanel.render(
     alertItems.map((item) => ({
       title: item.title,
@@ -1053,8 +1053,8 @@ export function createLiveEarthSystem({ scene, earth, camera }) {
       } else {
         console.error('Live alert refresh failed:', error);
       }
-      alertItems = FALLBACK_ALERT_ITEMS.slice();
-      alertsPanel.status.textContent = 'Fallback';
+      alertItems = [];
+      alertsPanel.status.textContent = 'Live Feed Delayed';
       alertsPanel.render(
         alertItems.map((item) => ({
           title: item.title,
