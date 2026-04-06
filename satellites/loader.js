@@ -101,8 +101,11 @@ function loadSatelliteCache() {
     const text = localStorage.getItem(SATELLITE_CACHE_KEY);
     const updatedAt = localStorage.getItem(SATELLITE_CACHE_UPDATED_KEY);
     if (!text) return null;
-    console.log('Loaded satellite data from local cache, last updated:', updatedAt);
-    return { text, updatedAt };
+    
+    const ageMs = Date.now() - new Date(updatedAt).getTime();
+    const isFresh = ageMs < 60 * 60 * 1000; // 1 hour
+
+    return { text, updatedAt, isFresh };
   } catch (error) {
     console.warn('Unable to read satellite cache:', error);
     return null;
