@@ -175,10 +175,10 @@ async function fetchWithTimeout(url, timeoutMs = 25000) {
 
   try {
     const response = await fetch(url, { 
-      cache: 'no-cache', 
+      mode: 'cors',
+      cache: 'no-store', 
       signal, 
-      redirect: 'follow',
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) SpaceVisualizer/1.0' }
+      redirect: 'follow'
     });
     return response;
   } finally {

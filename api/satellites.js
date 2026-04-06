@@ -83,6 +83,6 @@ GOES 16
 
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
-  // Return 500 if live fetch failed so frontend continues searching other sources
-  return res.status(sourceUsed ? 200 : 500).send(text);
+  // Always return 200 so browser doesn't log error; loader.js handles data quality
+  return res.status(200).send(text);
 }
