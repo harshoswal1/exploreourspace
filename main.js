@@ -1,7 +1,6 @@
 import * as THREE from 'https://esm.sh/three@0.152.2';
 import { OrbitControls } from 'https://esm.sh/three@0.152.2/examples/jsm/controls/OrbitControls.js';
 
-import { Analytics } from "@vercel/analytics/next"
 import { createEarthRuntime } from './app/earthRuntime.js';
 import { createAsteroidSystem } from './app/asteroids.js';
 import { createFocusController } from './app/focus.js';
