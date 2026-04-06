@@ -6,11 +6,11 @@ const SATELLITE_SOURCES = [
 ];
 
 const SATELLITE_PROXY_PREFIXES = [
-  'https://api.allorigins.win/raw?url=',
+  'https://proxy.cors.sh/', // Often more stable
   'https://corsproxy.io/?',
   'https://api.codetabs.com/v1/proxy?quest=',
+  'https://api.allorigins.win/raw?url=', // Less reliable, but still an option
   'https://thingproxy.freeboard.io/fetch/',
-  'https://proxy.cors.sh/'
 ];
 
 const SATELLITE_MODULES = [
@@ -105,6 +105,7 @@ function loadSatelliteCache() {
     const text = localStorage.getItem(SATELLITE_CACHE_KEY);
     const updatedAt = localStorage.getItem(SATELLITE_CACHE_UPDATED_KEY);
     if (!text) return null;
+    console.log('Loaded satellite data from local cache, last updated:', updatedAt);
     return { text, updatedAt };
   } catch (error) {
     console.warn('Unable to read satellite cache:', error);
@@ -277,6 +278,7 @@ export async function loadSatellites() {
   const cached = loadSatelliteCache();
   if (cached && cached.text) {
     console.warn('Using last cached satellite data');
+    // The parseTLEText function will log "Parsed X satellites from TLE data"
     const cachedParsed = parseTLEText(cached.text, satelliteInstance);
     return { satellites: cachedParsed, lib: satelliteInstance, status: 'CACHED', updatedAt: cached.updatedAt };
   }
