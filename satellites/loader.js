@@ -6,8 +6,8 @@ const SATELLITE_SOURCES = [
 ];
 
 const SATELLITE_PROXY_PREFIXES = [
-  'https://corsproxy.io/?',
   'https://api.allorigins.win/raw?url=',
+  'https://corsproxy.io/?',
   'https://api.codetabs.com/v1/proxy?quest=',
   'https://thingproxy.freeboard.io/fetch/',
   'https://proxy.cors.sh/'
@@ -174,7 +174,12 @@ async function fetchWithTimeout(url, timeoutMs = 25000) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(url, { cache: 'no-cache', signal, redirect: 'follow' });
+    const response = await fetch(url, { 
+      cache: 'no-cache', 
+      signal, 
+      redirect: 'follow',
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) SpaceVisualizer/1.0' }
+    });
     return response;
   } finally {
     clearTimeout(timeout);
