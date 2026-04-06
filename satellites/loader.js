@@ -1,14 +1,3 @@
-const SATELLITE_SOURCES = [
-  'https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
-  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
-];
-
-const SATELLITE_PROXY_PREFIXES = [
-  'https://api.allorigins.win/raw?url=',
-  'https://api.codetabs.com/v1/proxy?quest=',
-  'https://corsproxy.io/?'
-];
-
 const SATELLITE_MODULES = [
   'https://esm.sh/satellite.js@4.0.0',
   'https://cdn.skypack.dev/satellite.js',
@@ -233,21 +222,12 @@ export async function loadSatellites() {
     if (source.startsWith('/')) {
       return await tryFetchText(source);
     }
-
-    const direct = await tryFetchText(source);
-    if (direct) return direct;
-
-    for (const proxyPrefix of SATELLITE_PROXY_PREFIXES) {
-      const proxiedUrl = proxyPrefix + encodeURIComponent(source);
-      const text = await tryFetchText(proxiedUrl);
-      if (text) return text;
-    }
     return null;
   }
 
   let satelliteText = null;
   let parsedData = [];
-  const candidateSources = ['/api/satellites', ...SATELLITE_SOURCES];
+  const candidateSources = ['/api/satellites'];
   
   for (const source of candidateSources) {
     const text = await fetchFromSource(source);
