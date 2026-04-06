@@ -981,6 +981,19 @@ export function createLiveEarthSystem({ scene, earth, camera }) {
 
   async function refreshWeather() {
     const now = Date.now();
+
+    // Check Cache first to avoid 429 on refresh
+    const cachedWeather = localStorage.getItem('earth-weather-cache');
+    const cachedTime = localStorage.getItem('earth-weather-updated');
+    if (cachedWeather && cachedTime) {
+      const age = now - new Date(cachedTime).getTime();
+      if (age < 15 * 60 * 1000) { // If less than 15 mins old
+        weatherSamples = JSON.parse(cachedWeather);
+        renderWeather();
+        return;
+      }
+    }
+
     if (now < nextWeatherRefreshAt) {
       return;
     }
@@ -989,6 +1002,8 @@ export function createLiveEarthSystem({ scene, earth, camera }) {
 
     try {
       weatherSamples = await fetchLiveWeatherSamples(weatherPoints);
+      localStorage.setItem('earth-weather-cache', JSON.stringify(weatherSamples));
+      localStorage.setItem('earth-weather-updated', new Date().toISOString());
       lastWeatherFetchAt = Date.now();
       weatherRetryCount = 0;
       nextWeatherRefreshAt = Date.now() + WEATHER_REFRESH_MS;
