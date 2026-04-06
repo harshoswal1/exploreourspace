@@ -6,10 +6,10 @@ const SATELLITE_SOURCES = [
 ];
 
 const SATELLITE_PROXY_PREFIXES = [
+  'https://corsproxy.io/?',
   'https://api.allorigins.win/raw?url=',
   'https://api.codetabs.com/v1/proxy?quest=',
   'https://thingproxy.freeboard.io/fetch/',
-  'https://corsproxy.io/?',
   'https://proxy.cors.sh/'
 ];
 
@@ -28,6 +28,15 @@ HUBBLE SPACE TELESCOPE
 TIANGONG
 1 48274U 21035A   24093.52838507  .00015563  00000+0  19194-3 0  9996
 2 48274  41.4745 166.3881 0003052 227.1432 249.2319 15.59754707166885
+STARLINK-31034
+1 58214U 23170A   24093.54167824  .00064531  00000+0  54821-3 0  9991
+2 58214  53.0543 142.1245 0001423  88.1245 272.1458 15.06124581 2145
+STARLINK-31035
+1 58215U 23170B   24093.54211458  .00059821  00000+0  48214-3 0  9992
+2 58215  53.0541 142.1852 0001452  89.5214 270.5124 15.06214582 2146
+STARLINK-31036
+1 58216U 23170C   24093.54312458  .00061245  00000+0  51245-3 0  9993
+2 58216  53.0545 142.2458 0001412  87.1452 271.8452 15.06184521 2147
 NOAA 19
 1 33591U 09005A   24093.54576352  .00000085  00000+0  86196-4 0  9990
 2 33591  99.1983 133.4357 0013898 107.4101 252.8550 14.12502621783457
@@ -190,14 +199,15 @@ function normalizeProxyMetadata(text) {
 function parseTLEText(text, satelliteInstance) {
   if (!text) return [];
 
-  const normalizedText = normalizeProxyMetadata(text)
+  // Advanced normalization for mobile browser line-endings
+  const normalizedText = normalizeProxyMetadata(text || "")
+    .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n')
-    .replace(/\t/g, ' ')
-    .trim();
+    .replace(/\t/g, ' ');
 
   const lines = normalizedText
     .split('\n')
-    .map((line) => line.replace(/\uFEFF/g, '').trimEnd())
+    .map((line) => line.replace(/\uFEFF/g, '').trim())
     .filter((line) => {
       const trimmed = line.trim();
       if (!trimmed) return false;
