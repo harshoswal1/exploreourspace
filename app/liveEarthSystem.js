@@ -816,18 +816,29 @@ async function fetchEarthAlerts() {
   }
 
   try {
-    let eonetResponse;
-    try {
-      eonetResponse = await fetchJsonWithRetry('https://eonet.gsfc.nasa.gov/api/v3/events?status=open', {
-        mode: 'cors',
-        cache: 'no-store',
-      });
-    } catch (error) {
-      console.warn('EONET direct request failed, trying proxy fallback', error);
-      eonetResponse = await fetchJsonWithRetry(
-        'https://api.allorigins.win/raw?url=https://eonet.gsfc.nasa.gov/api/v3/events?status=open',
-        { mode: 'cors', cache: 'no-store' }
-      );
+    const EONET_URL = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=open';
+    const PROXIES = [
+      '', // Direct first
+      'https://corsproxy.io/?',
+      'https://api.allorigins.win/raw?url=',
+      'https://api.codetabs.com/v1/proxy?quest='
+    ];
+
+    let eonetResponse = null;
+    for (const proxy of PROXIES) {
+      try {
+        const targetUrl = proxy ? proxy + encodeURIComponent(EONET_URL) : EONET_URL;
+        const r = await fetchJsonWithRetry(targetUrl, {
+          mode: 'cors',
+          cache: 'no-store',
+        });
+        if (r && r.ok) {
+          eonetResponse = r;
+          break;
+        }
+      } catch (err) {
+        console.warn(`EONET fetch attempt failed via ${proxy || 'direct'}:`, err.message);
+      }
     }
 
     if (eonetResponse && eonetResponse.ok) {
