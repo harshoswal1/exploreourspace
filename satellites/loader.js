@@ -1,16 +1,12 @@
 const SATELLITE_SOURCES = [
   'https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
-  'https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle',
-  'https://celestrak.org/NORAD/elements/visual.txt',
-  'https://celestrak.org/NORAD/elements/stations.txt',
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
 ];
 
 const SATELLITE_PROXY_PREFIXES = [
-  'https://proxy.cors.sh/', // Often more stable
-  'https://corsproxy.io/?',
+  'https://api.allorigins.win/raw?url=',
   'https://api.codetabs.com/v1/proxy?quest=',
-  'https://api.allorigins.win/raw?url=', // Less reliable, but still an option
-  'https://thingproxy.freeboard.io/fetch/',
+  'https://corsproxy.io/?'
 ];
 
 const SATELLITE_MODULES = [
@@ -119,11 +115,10 @@ async function fetchWithTimeout(url, timeoutMs = 25000) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(url, { 
-      mode: 'cors',
-      cache: 'no-store', 
-      signal, 
-      redirect: 'follow'
+    // NO CUSTOM HEADERS! Custom headers (like User-Agent) trigger Preflight OPTIONS which proxies block.
+    const response = await fetch(url, {
+      signal,
+      cache: 'no-cache'
     });
     return response;
   } finally {

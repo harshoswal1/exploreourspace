@@ -764,15 +764,15 @@ function updateSunBadge(badge, camera, sunDirection) {
 
 async function fetchJsonWithRetry(url, options = {}) {
   const MAX_ATTEMPTS = 3;
-  const BASE_DELAY_MS = 3000; 
+  const BASE_DELAY_MS = 5000; // Aggressive delay to clear 429s
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const response = await fetch(url, { ...options, cache: 'no-cache' });
+      const response = await fetch(url, { ...options, cache: 'default' });
       if (response.ok) return response;
 
       if (response.status === 429) {
-        const delay = Math.min(60000, BASE_DELAY_MS * Math.pow(2, attempt));
+        const delay = Math.min(90000, (BASE_DELAY_MS * Math.pow(3, attempt)) + (Math.random() * 2000));
         await new Promise((resolve) => setTimeout(resolve, delay));
         if (attempt === MAX_ATTEMPTS) {
           throw new Error(`Rate limited (429) after ${MAX_ATTEMPTS} attempts`);

@@ -2,16 +2,16 @@ export const config = { runtime: 'nodejs' };
 
 const SOURCES = [
   'https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle',
-  'https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle',
-  'https://celestrak.org/NORAD/elements/visual.txt',
-  'https://celestrak.org/NORAD/elements/stations.txt',
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle',
+  'https://www.amsat.org/tle/current/nasabare.txt',
+  'https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle'
 ];
 
 function isPlainTextTLE(text) {
   if (!text) return false;
-  const sample = text.slice(0, 640);
+  const sample = text.slice(0, 1000);
   if (/<\/html>|<!doctype|<title>/i.test(sample)) return false;
-  return /1\s+\d{5}.*\n2\s+\d{5}/s.test(sample);
+  return /1\s+\d{5}/.test(sample) && /2\s+\d{5}/.test(sample);
 }
 
 export default async function handler(req, res) {
