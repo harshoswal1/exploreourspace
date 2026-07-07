@@ -67,7 +67,7 @@ export function createHomePage(onStart) {
         
         <button id="explore-btn" class="sci-fi-btn" style="margin-bottom: 40px;">
           <div class="btn-content">
-            <span class="btn-text">EXPLORE EARTH</span>
+            <span class="btn-text">Click here to EXPLORE EARTH</span>
           </div>
         </button>
 
