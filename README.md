@@ -68,7 +68,7 @@ An interactive 3D platform that visualizes real-time data from Earth and space �
 - ☀️ Advanced lighting (day/night realism)
 - 📡 More data layers (space weather, signals, etc.)
 - 🛰️ Enhanced satellite models
-- 📱 Further mobile optimization
+
 
 ---
 
